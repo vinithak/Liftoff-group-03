@@ -33,15 +33,18 @@ public class AbstractEntity {
     @NotNull
     String pwHash;
 
+    private String timeZone;
+
     //empty constructor pass down to the form for structure of object
     public AbstractEntity() {}
     // actual constructor used to instantiate an object
 
-    public AbstractEntity(String firstName, String lastName, String email, String password) {
+    public AbstractEntity(String firstName, String lastName, String email, String password, String timeZone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.pwHash = encoder.encode(password);
+        this.timeZone = timeZone;
     }
 
     public int getId() {
@@ -58,6 +61,10 @@ public class AbstractEntity {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
     }
 
     static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

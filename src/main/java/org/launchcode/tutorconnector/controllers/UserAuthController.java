@@ -73,11 +73,11 @@ public class UserAuthController {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "register";
         }
-        //If no errors, save new email and password, start new session, redirect to home page
+        //If no errors, save new email and password, start new session, redirect to userprofile
         User newUser = new User(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
-        return "redirect:/home";
+        return "redirect:/user-profile";
     }
 
     //Login route
@@ -106,7 +106,7 @@ public class UserAuthController {
             return "login";
         }
         setUserInSession(request.getSession(), theUser);
-        return "redirect:/home";
+        return "redirect:/user-profile";
     }
 
     //Logout

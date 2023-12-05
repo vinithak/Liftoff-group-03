@@ -71,11 +71,11 @@ public class TutorAuthController {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "register";
         }
-        //If no errors, save new email and password, start new session, redirect to home page
+        //If no errors, save new email and password, start new session, redirect to tutor profile
         Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
         tutorRepository.save(newTutor);
         setTutorInSession(request.getSession(), newTutor);
-        return "redirect:/index";
+        return "redirect:/tutor-profile";
     }
 // Login forms
     @GetMapping("/tutor/login")
@@ -103,7 +103,7 @@ public class TutorAuthController {
             return "login";
         }
         setTutorInSession(request.getSession(), theTutor);
-        return "redirect:/home";
+        return "redirect:/tutor-profile";
     }
 
     //Logout
