@@ -1,4 +1,4 @@
 package org.launchcode.tutorconnector.models;
 
-public class Student {
+public class Student extends AbstractEntity{
 }
