@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="../static/css/styles.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Responsive Navbar</title>
+</head>
+<body>
+<!--if user is student type-->
+<nav class="student-navbar">
+    <div class="app-name">TutorConnect</div>
+    <div class="navbar-links">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">List of Tutors</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!--if user is tutor type-->
+<nav class="tutor-navbar">
+    <div class="app-name">TutorConnect</div>
+    <div class="navbar-links">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Main Tutor Page</a></li>
+<!--            list of current students? for that tutor??-->
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!--if no logged-in user-->
+<nav class="tutor-navbar">
+    <div class="app-name">TutorConnect</div>
+    <div class="navbar-links">
+        <ul>
+            <li><a href="#">Student Sign up</a></li>
+            <li><a href="#">Become a Tutor</a></li>
+            <li><a href="#">Learning Resources</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!--if user is admin type-->
+<nav class="tutor-navbar">
+    <div class="app-name">TutorConnect</div>
+    <div class="navbar-links">
+        <ul>
+            <li><a href="#">Manage schedule</a></li>
+            <li><a href="#">Payment data</a></li>
+            <li><a href="#">User information</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+</body>
+</html>
