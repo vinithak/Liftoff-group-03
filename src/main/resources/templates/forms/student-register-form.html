@@ -2,42 +2,43 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
-    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
-    <title>register-form</title>
+    <link href="../../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Student Register</title>
 </head>
 <body>
 <div>
     <h1>Student Registration</h1>
-    <form action="#" th:action="@{/register}" method="post">
+<!--    TODO: add action for form-->
+    <form method="post">
         <label>First name:
-        <input type="text" th:field="*{firstName}" />
+        <input type="text" th:field="${firstName}" />
         </label><br/>
 
         <label>Last name:
-        <input type="text" th:field="*{lastName}" />
+        <input type="text" th:field="${lastName}" />
         </label><br/>
 
         <label>Email:
-        <input type="text" th:field="*{email}" />
+        <input type="text" th:field="${email}" />
         </label><br/>
 
         <label>Password:
-        <input type="password" th:field="*{password}" />
+        <input type="password" th:field="${password}" />
         </label><br/>
 
         <label>Re-enter Password:
-        <input type="password" th:field="*{reenterPassword}" />
+        <input type="password" th:field="${reenterPassword}" />
         </label><br/>
 
 <!--        TODO: Create time zone list to choose from-->
         <label>Time Zone:
-            <select th:field="*{timeZone}">
+            <select th:field="${timeZone}">
                 <option th:each="z : ${listTimeZone}" th:value="${z}" th:text="${z}" />
             </select>
         </label><br/>
 
         <label>Grade Level:
-            <select th:field="*{gradeLevel}">
+            <select th:field="${gradeLevel}">
                 <option th:each="l : ${listGradeLevel}" th:value="${l}" th:text="${l}" />
             </select></label>
 
