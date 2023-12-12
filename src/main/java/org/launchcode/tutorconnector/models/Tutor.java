@@ -2,12 +2,13 @@ package org.launchcode.tutorconnector.models;
 
 import jakarta.persistence.Entity;
 
+import java.util.ArrayList;
+
 @Entity
 public class Tutor extends AbstractEntity {
 
-    private String qualifications;
-
-    private String subjects;
+    private ArrayList<String> qualifications;
+    private ArrayList<String> subjects;
 
     private String availability;
 
@@ -17,13 +18,14 @@ public class Tutor extends AbstractEntity {
         this.pwHash = encoder.encode(password);
     }
 
-    public String getQualifications() {
+    public ArrayList<String> getQualifications() {
         return qualifications;
     }
 
-    public String getSubjects() {
+    public ArrayList<String> getSubjects() {
         return subjects;
     }
+
 
     public String getAvailability() {
         return availability;
