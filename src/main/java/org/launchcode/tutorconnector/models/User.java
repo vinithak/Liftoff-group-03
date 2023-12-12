@@ -17,4 +17,8 @@ public class User extends AbstractEntity {
     public String getGradeLevel() {
         return gradeLevel;
     }
+
+    public void setGradeLevel(String gradeLevel) {
+        this.gradeLevel = gradeLevel;
+    }
 }
