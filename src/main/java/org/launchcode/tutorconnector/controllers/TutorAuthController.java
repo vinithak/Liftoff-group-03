@@ -22,11 +22,15 @@ public class TutorAuthController {
     @Autowired
     private TutorRepository tutorRepository;
 
+    //the key to store user IDs
     private static final String tutorSessionKey = "tutor";
 
+    //Stores key/value pair with session key and user ID
     private static void setTutorInSession(HttpSession session, Tutor tutor) {
         session.setAttribute(tutorSessionKey, tutor.getId());
     }
+
+    //look up user with key
 
     public Tutor getTutorFromSession(HttpSession session) {
 
@@ -46,7 +50,8 @@ public class TutorAuthController {
     @GetMapping("/tutor/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
-        // TODO: Send value of logged in boolean
+        // Send value of logged in boolean
+        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
         return "register";
     }
 
@@ -81,7 +86,8 @@ public class TutorAuthController {
     @GetMapping("/tutor/login")
     public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
-        //TODO: SEND VALUE OF LOGGEDIN BOOLEAN
+        //SEND VALUE OF LOGGEDIN BOOLEAN
+        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
         return "login";
     }
 

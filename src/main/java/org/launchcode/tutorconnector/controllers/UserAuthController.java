@@ -48,7 +48,8 @@ public class UserAuthController {
     @GetMapping("/user/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
-        // TODO: Send value of logged in boolean
+        //Send value of logged in boolean
+        model.addAttribute("loggedIn", session.getAttribute("user") !=null);
         return "register";
     }
 
@@ -84,7 +85,8 @@ public class UserAuthController {
     @GetMapping("/user/login")
     public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
-        //TODO: SEND VALUE OF LOGGEDIN BOOLEAN
+        //SEND VALUE OF LOGGEDIN BOOLEAN
+        model.addAttribute("loggedIn", session.getAttribute("user") !=null);
         return "login";
     }
 
