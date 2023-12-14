@@ -1,5 +1,13 @@
 
 <style type="text/css">
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 60px;
+    padding: 10px 30px;
+    }
 
 #head {
   font-family: 'Lato', sans-serif;
@@ -12,6 +20,8 @@
 
 .nav {
   display: flex;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
   flex-direction: row;
   align-items: flex-end;
   gap: 15px;
@@ -58,6 +68,10 @@ article {
     flex: 30%;
 }
 
+.head-column {
+    flex: 30%;
+}
+
 .column {
     flex: 70%;
 }
@@ -72,7 +86,7 @@ h1 {
 h3 {
     font: Lato;
     font-size: large;
-    font-style: italic;
+    font-style: regular;
     text-indent: 4rem;
     color: #1F3540;
 }
@@ -92,5 +106,14 @@ img {
     background-color: #efefef;
 }
 
+footer {
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 60px;
+    padding: 10px 30px;
+    }
 
 </style>
