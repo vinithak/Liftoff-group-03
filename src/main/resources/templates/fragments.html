@@ -1,14 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Site Home Page</title>
+    <link href="../../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Fragments</title>
 </head>
 <body>
 
-<!--TODO: Header fragment-->
+<header th:fragment="header">
+    <div id="head">TutorConnect</div>
 
-<!--TODO: Navbar fragment-->
+
+<div class="nav">
+
+    <!--if no logged-in user-->
+    <th:block th:unless="${loggedIn}">
+
+        <ul>
+            <li><a th:href="@{/student-register}">Student Sign up</a></li>
+            <li><a th:href="@{/tutor-register}">Become a Tutor</a></li>
+            <li><a th:href="@{/resources}">Learning Resources</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+        </ul>
+    </th:block>
+
+    <!--if student user-->
+    <th:block th:if="${studentLoggedIn}">
+
+        <ul>
+            <li><a th:href="@{/index}">Home</a></li>
+            <li><a th:href="@{/tutor/list}">List of Tutors</a></li>
+            <li><a th:href="@{/student/student-profile}">My Profile</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </th:block>
+
+    <!--if tutor user-->
+    <th:block th:if="${tutorLoggedIn}">
+
+        <ul>
+            <li><a th:href="@{/index}">Home</a></li>
+            <li><a th:href="@{/student/student-profile}">My Profile</a></li>
+            <li><a th:href="@{/tutor/tutor-clients}">List of Students</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </th:block>
+
+    <!--if user is admin type-->
+    <th:block th:if="${adminLoggedIn}">
+
+        <ul>
+            <li><a th:href="@{/admin/accounts}">Manage Accounts</a></li>
+            <li><a th:href="@{/admin/reports}">Reports</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </th:block>
+
+</div>
+</header>
+
 
 <!--TODO: Footer fragment-->
 
