@@ -13,10 +13,6 @@ public class Tutor extends AbstractEntity {
     private String availability;
 
     public Tutor (){}
-    public Tutor(String email, String password) {
-        this.email = email;
-        this.pwHash = encoder.encode(password);
-    }
 
     public Tutor(String firstName, String lastName, String email, String password, TimeZone timeZone, ArrayList<String> qualifications, ArrayList<String> subjects, String availability) {
         super(firstName, lastName, email, password, timeZone);

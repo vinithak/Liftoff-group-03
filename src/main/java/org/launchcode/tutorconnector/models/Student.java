@@ -9,12 +9,6 @@ public class Student extends AbstractEntity{
 
     public Student() {}
 
-    public Student(String email, String password) {
-        this.email = email;
-        this.pwHash = encoder.encode(password);
-    }
-
-
     public Student(String firstName, String lastName, String email, String password, TimeZone timeZone, String gradeLevel) {
         super(firstName, lastName, email, password, timeZone);
        this.gradeLevel = gradeLevel;
