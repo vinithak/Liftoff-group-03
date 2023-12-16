@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.Objects;
 
 @MappedSuperclass
-public class AbstractEntity {
+public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,13 +33,15 @@ public class AbstractEntity {
     @NotNull
     String pwHash;
 
-    private String timeZone;
+    @NotNull
+    @NotBlank
+    private TimeZone timeZone;
 
     //empty constructor pass down to the form for structure of object
     public AbstractEntity() {}
     // actual constructor used to instantiate an object
 
-    public AbstractEntity(String firstName, String lastName, String email, String password, String timeZone) {
+    public AbstractEntity(String firstName, String lastName, String email, String password, TimeZone timeZone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -63,8 +65,12 @@ public class AbstractEntity {
         return email;
     }
 
-    public String getTimeZone() {
+    public TimeZone getTimeZone() {
         return timeZone;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
     }
 
     static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

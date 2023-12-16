@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.data.TutorRepository;
 import org.launchcode.tutorconnector.models.Tutor;
-import org.launchcode.tutorconnector.models.User;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;

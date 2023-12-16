@@ -18,6 +18,14 @@ public class Tutor extends AbstractEntity {
         this.pwHash = encoder.encode(password);
     }
 
+    public Tutor(String firstName, String lastName, String email, String password, TimeZone timeZone, ArrayList<String> qualifications, ArrayList<String> subjects, String availability) {
+        super(firstName, lastName, email, password, timeZone);
+        this.qualifications = qualifications;
+        this.subjects = subjects;
+        this.availability = availability;
+    }
+
+
     public ArrayList<String> getQualifications() {
         return qualifications;
     }
