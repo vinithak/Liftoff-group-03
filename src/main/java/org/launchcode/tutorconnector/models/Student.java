@@ -14,6 +14,9 @@ public class Student extends AbstractEntity{
        this.gradeLevel = gradeLevel;
     }
 
+    public Student(String email, String password) {
+    }
+
 
     public String getGradeLevel() {
         return gradeLevel;

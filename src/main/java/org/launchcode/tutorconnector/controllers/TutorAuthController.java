@@ -62,21 +62,21 @@ public class TutorAuthController {
             return "register";
         }
         // Send tutor back if email already exists
-        Tutor existingTutor = tutorRepository.findByEmail(registrationFormDTO.getEmail());
+        Tutor existingTutor = tutorRepository.findByEmail(RegistrationFormDTO.getEmail());
 
         if(existingTutor != null) {
             errors.rejectValue("email", "email.alreadyExists", "An account with that email already exists.");
             return "register";
         }
         // Send tutor back if passwords don't match
-        String password = registrationFormDTO.getPassword();
+        String password = RegistrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "register";
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
-        Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+        Tutor newTutor = new Tutor(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());
         tutorRepository.save(newTutor);
         setTutorInSession(request.getSession(), newTutor);
         return "redirect:/tutor-profile";
@@ -96,9 +96,9 @@ public class TutorAuthController {
         if (errors.hasErrors()) {
             return "login";
         }
-        Tutor theTutor = tutorRepository.findByEmail(loginFormDTO.getEmail());
+        Tutor theTutor = tutorRepository.findByEmail(LoginFormDTO.getEmail());
 
-        String password = loginFormDTO.getPassword();
+        String password = LoginFormDTO.getPassword();
         //check both. security through obscurity
         if(theTutor == null || !theTutor.isMatchingPassword(password)) {
             errors.rejectValue("password",

@@ -61,21 +61,21 @@ public class StudentAuthController {
             return "register";
         }
         // Send user back if email already exists
-        Student existingStudent = studentRepository.findByEmail(registrationFormDTO.getEmail());
+        Student existingStudent = studentRepository.findByEmail(RegistrationFormDTO.getEmail());
 
         if (existingStudent != null) {
             errors.rejectValue("email", "email.alreadyExists", "An account with that email already exists.");
             return "register";
         }
         // Send user back if passwords don't match
-        String password = registrationFormDTO.getPassword();
+        String password = RegistrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "register";
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
-        Student newStudent = new Student(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+        Student newStudent = new Student(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());
         studentRepository.save(newStudent);
         setStudentInSession(request.getSession(), newStudent);
         return "redirect:/student-profile";
@@ -96,9 +96,9 @@ public class StudentAuthController {
         if (errors.hasErrors()) {
             return "login";
         }
-        Student theStudent = studentRepository.findByEmail(loginFormDTO.getEmail());
+        Student theStudent = studentRepository.findByEmail(LoginFormDTO.getEmail());
 
-        String password = loginFormDTO.getPassword();
+        String password = LoginFormDTO.getPassword();
         //check both. security through obscurity
         if(theStudent == null || !theStudent.isMatchingPassword(password)) {
             errors.rejectValue("password",

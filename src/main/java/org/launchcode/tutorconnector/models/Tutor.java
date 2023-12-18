@@ -21,6 +21,8 @@ public class Tutor extends AbstractEntity {
         this.availability = availability;
     }
 
+    public Tutor(String email, String password) {
+    }
 
     public ArrayList<String> getQualifications() {
         return qualifications;

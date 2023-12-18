@@ -16,7 +16,7 @@ public class LoginFormDTO {
     @Pattern(regexp = "^(?=.*[A-Z]).*$", message = "Password must contain at least one uppercase letter")
     private String password;
 
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 
@@ -24,7 +24,7 @@ public class LoginFormDTO {
         this.email = email;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
