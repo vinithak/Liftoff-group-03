@@ -17,6 +17,14 @@ public abstract class AbstractEntity {
         @GeneratedValue
         private int id;
 
+        @NotNull(message = "first name is required")
+        @Size(min = 3, max = 100, message = "first name must be between 3 and 100 characters long")
+        private String fname;
+
+        @NotNull(message = "last name is required")
+        @Size(min = 3, max = 100, message = "last name must be between 3 and 100 characters long")
+        private String lname;
+
         @NotNull(message = "name is required")
         @Size(min = 3, max = 100, message = "name must be between 3 and 100 characters long")
         private String name;
@@ -40,6 +48,22 @@ public abstract class AbstractEntity {
 
         public void setName(String name) {
                 this.name = name;
+        }
+
+        public String getFname() {
+                return fname;
+        }
+
+        public void setFname(String fname) {
+                this.fname = fname;
+        }
+
+        public String getLname() {
+                return lname;
+        }
+
+        public void setLname(String lname) {
+                this.lname = lname;
         }
 
         @Override
