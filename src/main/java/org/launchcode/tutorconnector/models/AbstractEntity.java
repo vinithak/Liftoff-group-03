@@ -1,16 +1,16 @@
 package org.launchcode.tutorconnector.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.Objects;
+import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
@@ -27,7 +27,13 @@ public abstract class AbstractEntity {
     @NotBlank
     private String lastName;
 
-    @Email String email;
+    @Email(message = "Invalid email. Try again.")
+    private String email;
+
+
+    @NotNull(message = "image is required")
+    @Size(min = 30, max = 150, message = "image path must be between 3 and 100 characters long")
+    private String imagePath;
 
     @NotBlank
     @NotNull
@@ -78,6 +84,12 @@ public abstract class AbstractEntity {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+  
+     @Override
+    public String toString() {
+            return name;
+    }
+
 
     @Override
     public boolean equals(Object o) {
