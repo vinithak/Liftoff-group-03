@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="../../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Fragments</title>
+</head>
+<body>
+
+<header th:fragment="header">
+    <div class="row">
+        <div class="head-column">
+    <h1 id="head">TutorConnect</h1>
+        </div>
+<div class="nav">
+<div class="column">
+    <!--if no logged-in user-->
+    <th:block th:unless="${loggedIn}">
+
+
+        <a th:href="@{/}">Home</a> |
+        <a th:href="@{/student-register}">Student Sign up</a> |
+        <a th:href="@{/tutor-register}">Become a Tutor</a> |
+        <a th:href="@{/resources}">Learning Resources</a> |
+        <a th:href="@{/login}">Login</a>
+
+    </th:block>
+
+    <!--if student user-->
+    <th:block th:if="${studentLoggedIn}">
+
+        <a th:href="@{/}">Home</a> |
+        <a th:href="@{/tutor/list}">List of Tutors</a> |
+        <a th:href="@{/student/student-profile}">My Profile</a> |
+        <a href="#">Chat</a> |
+        <a href="#">Logout</a>
+
+    </th:block>
+
+    <!--if tutor user-->
+    <th:block th:if="${tutorLoggedIn}">
+
+        <a th:href="@{/}">Home</a> |
+        <a th:href="@{/student/student-profile}">My Profile</a> |
+        <a th:href="@{/tutor/tutor-clients}">List of Students</a> |
+        <a href="#">Chat</a> |
+        <a href="#">Logout</a>
+
+    </th:block>
+
+    <!--if user is admin type-->
+    <th:block th:if="${adminLoggedIn}">
+
+        <a th:href="@{/}">Home</a> |
+        <a th:href="@{/admin/accounts}">Manage Accounts</a>  |
+        <a th:href="@{/admin/reports}">Reports</a> |
+        <a href="#">Chat</a> |
+        <a href="#">Logout</a>
+
+    </th:block>
+
+    </div>
+    </div>
+    </div>
+</header>
+
+<footer th:fragment="footer">
+    <p></p>
+    <hr/>
+    <div><p>Contact us at <a href = "mailto: TutorConnect@gmail.com">TutorConnect@gmail.com</a> | &copy; Copyright 2023</p></div>
+</footer>
+
+</body>
+</html>

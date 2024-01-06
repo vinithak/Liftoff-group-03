@@ -1,6 +1,5 @@
 package org.launchcode.tutorconnector.models;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -21,6 +20,10 @@ public class Tutor extends AbstractEntity {
     private List<Subject> subjects = new ArrayList<>();
 
     private String zoomLink;
+  
+    private ArrayList<String> qualifications;
+
+    private String availability;
 
     @ManyToMany
     private List<Student> students = new ArrayList<>();
@@ -28,9 +31,15 @@ public class Tutor extends AbstractEntity {
 
     public Tutor() {}
 
-    public Tutor(List<Subject> subjects, String zoomLink) {
+
+    public Tutor(String firstName, String lastName, String email, String password, TimeZone timeZone, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
+        super(firstName, lastName, email, password, timeZone);
+        this.qualifications = qualifications;
         this.subjects = subjects;
-        this.zoomLink = zoomLink;
+        this.availability = availability;
+    }
+
+    public Tutor(String email, String password) {
     }
 
     public List<Subject> getSubjects() {
@@ -63,5 +72,23 @@ public class Tutor extends AbstractEntity {
 
     public void setZoomLink(String zoomLink) {
         this.zoomLink = zoomLink;
+
+
+    public ArrayList<String> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(ArrayList<String> qualifications) {
+        this.qualifications = qualifications;
+    }
+
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+
     }
 }

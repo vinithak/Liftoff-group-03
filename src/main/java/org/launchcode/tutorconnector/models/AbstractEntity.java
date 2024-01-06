@@ -6,82 +6,103 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import java.util.Objects;
+import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @MappedSuperclass
 public abstract class AbstractEntity {
 
-        @Id
-        @GeneratedValue
-        private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-        @NotNull(message = "first name is required")
-        @Size(min = 3, max = 100, message = "first name must be between 3 and 100 characters long")
-        private String fname;
+    @NotNull
+    @NotBlank
+    private String firstName;
 
-        @NotNull(message = "last name is required")
-        @Size(min = 3, max = 100, message = "last name must be between 3 and 100 characters long")
-        private String lname;
+    @NotNull
+    @NotBlank
+    private String lastName;
 
-        @NotNull(message = "name is required")
-        @Size(min = 3, max = 100, message = "name must be between 3 and 100 characters long")
-        private String name;
+    @Email(message = "Invalid email. Try again.")
+    private String email;
 
-        @Email(message = "Invalid email. Try again.")
-        private String email;
 
-        private Timezone timezone;
+    @NotNull(message = "image is required")
+    @Size(min = 30, max = 150, message = "image path must be between 3 and 100 characters long")
+    private String imagePath;
 
-        @NotNull(message = "image is required")
-        @Size(min = 30, max = 150, message = "image path must be between 3 and 100 characters long")
-        private String imagePath;
+    @NotBlank
+    @NotNull
+    String pwHash;
 
-        public int getId() {
-                return id;
-        }
+    @NotNull
+    @NotBlank
+    private TimeZone timeZone;
 
-        public String getName() {
-                return name;
-        }
+    //empty constructor pass down to the form for structure of object
+    public AbstractEntity() {}
+    // actual constructor used to instantiate an object
 
-        public void setName(String name) {
-                this.name = name;
-        }
+    public AbstractEntity(String firstName, String lastName, String email, String password, TimeZone timeZone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.pwHash = encoder.encode(password);
+        this.timeZone = timeZone;
+    }
 
-        public String getFname() {
-                return fname;
-        }
+    public int getId() {
+        return id;
+    }
 
-        public void setFname(String fname) {
-                this.fname = fname;
-        }
+    public String getFirstName() {
+        return firstName;
+    }
 
-        public String getLname() {
-                return lname;
-        }
+    public String getLastName() {
+        return lastName;
+    }
 
-        public void setLname(String lname) {
-                this.lname = lname;
-        }
+    public String getEmail() {
+        return email;
+    }
 
-        @Override
-        public String toString() {
-                return name;
-        }
+    public TimeZone getTimeZone() {
+        return timeZone;
+    }
 
-        @Override
-        public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                AbstractEntity that = (AbstractEntity) o;
-                return id == that.id;
-        }
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
+    }
 
-        @Override
-        public int hashCode() {
-                return Objects.hash(id);
-        }
+    static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
+    }
+  
+     @Override
+    public String toString() {
+            return name;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractEntity that = (AbstractEntity) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 
 }
