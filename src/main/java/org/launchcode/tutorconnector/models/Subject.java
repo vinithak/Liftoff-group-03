@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Subject {
+public class Subject extends AbstractEntity{
 
     @ManyToMany(mappedBy = "subjects")
     private List<Tutor> tutors = new ArrayList<>();

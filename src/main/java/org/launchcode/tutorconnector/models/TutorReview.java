@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class TutorReview {
+public class TutorReview extends AbstractEntity{
 
     @ManyToOne
     private Tutor tutor;
