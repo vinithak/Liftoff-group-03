@@ -14,8 +14,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+
 
 @Controller
 public class StudentAuthController {
@@ -45,20 +47,20 @@ public class StudentAuthController {
         return studentOpt.get();
     }
 
-    @GetMapping("/student/register")
+    @GetMapping("/student")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
         //Send value of logged in boolean
         model.addAttribute("loggedIn", session.getAttribute("student") !=null);
-        return "register";
+        return "student/register";
     }
 
-    @PostMapping("/student/register")
+    @PostMapping("/student")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
         // Send user back to form if errors are found
 
         if (errors.hasErrors()) {
-            return "register";
+            return "student/register";
         }
         // Send user back if email already exists
         Student existingStudent = studentRepository.findByEmail(RegistrationFormDTO.getEmail());
