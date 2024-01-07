@@ -29,11 +29,11 @@ public class Search {
     public static String getTutorFieldValue(Tutor tutor, String fieldName){
         String theValue;
         if (fieldName.equals("name")){
-            theValue = tutor.getName();
+            theValue = tutor.getFirstName();
         } else if (fieldName.equals("subject")){
             theValue = tutor.getSubjects().toString();
         } else {
-            theValue = tutor.getName();
+            theValue = tutor.getFirstName();
         }
 
         return theValue;
@@ -63,9 +63,9 @@ public class Search {
     public static String getStudentFieldValue(Student student, String fieldName){
         String theValue;
         if (fieldName.equals("name")){
-            theValue = student.getName();
+            theValue = student.getFirstName();
         } else {
-            theValue = student.getName();
+            theValue = student.getFirstName();
         }
 
         return theValue;

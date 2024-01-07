@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @Entity
 public class Tutor extends AbstractEntity {
@@ -20,7 +21,7 @@ public class Tutor extends AbstractEntity {
     private List<Subject> subjects = new ArrayList<>();
 
     private String zoomLink;
-  
+
     private ArrayList<String> qualifications;
 
     private String availability;
@@ -29,7 +30,8 @@ public class Tutor extends AbstractEntity {
     private List<Student> students = new ArrayList<>();
 
 
-    public Tutor() {}
+    public Tutor() {
+    }
 
 
     public Tutor(String firstName, String lastName, String email, String password, TimeZone timeZone, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
@@ -72,7 +74,7 @@ public class Tutor extends AbstractEntity {
 
     public void setZoomLink(String zoomLink) {
         this.zoomLink = zoomLink;
-
+    }
 
     public ArrayList<String> getQualifications() {
         return qualifications;
@@ -82,13 +84,12 @@ public class Tutor extends AbstractEntity {
         this.qualifications = qualifications;
     }
 
-
     public String getAvailability() {
         return availability;
     }
 
     public void setAvailability(String availability) {
         this.availability = availability;
-
     }
+
 }

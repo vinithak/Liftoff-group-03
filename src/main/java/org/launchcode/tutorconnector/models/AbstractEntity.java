@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
+import java.util.TimeZone;
+
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -83,11 +85,6 @@ public abstract class AbstractEntity {
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
-    }
-  
-     @Override
-    public String toString() {
-            return name;
     }
 
 
