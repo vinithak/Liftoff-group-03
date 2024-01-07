@@ -3,7 +3,7 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.launchcode.tutorconnector.data.StudentRepository;
+import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
@@ -111,7 +111,7 @@ public class StudentAuthController {
         return "redirect:/student-profile";
     }
 
-    //Logout
+//    Logout
     @GetMapping("/student/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
