@@ -47,7 +47,8 @@
         });
         datePicker.init();
 
-        const calendar = new DayPilot.Month("dp", {
+        const calendar = new DayPilot.Calendar("dp", {
+          viewType: "Week",
           eventEndSpec: "Date",
           eventHeight: 30,
           eventBarVisible: false,
