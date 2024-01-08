@@ -14,7 +14,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
@@ -47,34 +46,35 @@ public class StudentAuthController {
         return studentOpt.get();
     }
 
-    @GetMapping("/student")
+    @GetMapping("/student-register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
+        model.addAttribute("student", new Student());
         //Send value of logged in boolean
         model.addAttribute("loggedIn", session.getAttribute("student") !=null);
-        return "student/register";
+        return "student/student-register";
     }
 
-    @PostMapping("/student")
+    @PostMapping("/student-register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
         // Send user back to form if errors are found
 
         if (errors.hasErrors()) {
-            return "student/register";
+            return "student/student-register";
         }
         // Send user back if email already exists
         Student existingStudent = studentRepository.findByEmail(RegistrationFormDTO.getEmail());
 
         if (existingStudent != null) {
             errors.rejectValue("email", "email.alreadyExists", "An account with that email already exists.");
-            return "register";
+            return "student/student-register";
         }
         // Send user back if passwords don't match
         String password = RegistrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return "register";
+            return "student/student-register";
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
         Student newStudent = new Student(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());
@@ -84,7 +84,7 @@ public class StudentAuthController {
     }
 
     //Login route
-    @GetMapping("/student/login")
+    @GetMapping("login")
     public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
         //SEND VALUE OF LOGGEDIN BOOLEAN
@@ -92,7 +92,7 @@ public class StudentAuthController {
         return "login";
     }
 
-    @PostMapping("/student/login")
+    @PostMapping("login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
@@ -114,7 +114,7 @@ public class StudentAuthController {
     }
 
 //    Logout
-    @GetMapping("/student/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/login";

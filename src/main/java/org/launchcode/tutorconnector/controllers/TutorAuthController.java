@@ -8,6 +8,7 @@ import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
+@Controller
 public class TutorAuthController {
 
     @Autowired
@@ -46,34 +48,35 @@ public class TutorAuthController {
         return tutorOpt.get();
     }
 
-    @GetMapping("/tutor/register")
+    @GetMapping("/tutor-register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
+        model.addAttribute("tutor", new Tutor());
         // Send value of logged in boolean
         model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
-        return "register";
+        return "tutor/tutor-register";
     }
 
-    @PostMapping("/tutor/register")
+    @PostMapping("/tutor-register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
         // Send tutor back to form if errors are found
 
         if(errors.hasErrors()) {
-            return "register";
+            return "tutor/tutor-register";
         }
         // Send tutor back if email already exists
         Tutor existingTutor = tutorRepository.findByEmail(RegistrationFormDTO.getEmail());
 
         if(existingTutor != null) {
             errors.rejectValue("email", "email.alreadyExists", "An account with that email already exists.");
-            return "register";
+            return "tutor/tutor-register";
         }
         // Send tutor back if passwords don't match
         String password = RegistrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return "register";
+            return "tutor/tutor-register";
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
         Tutor newTutor = new Tutor(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());

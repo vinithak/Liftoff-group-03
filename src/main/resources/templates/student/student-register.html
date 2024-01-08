@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="../../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Student Register</title>
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<div>
+    <h1>Student Registration</h1>
+
+    <form th:action="@{/student-register}" method='POST' th:object="${student}">
+
+
+        <div class="form-item">
+            <label th:for="firstName">First Name</label>
+            <input type="text" th:field="*{firstName}" />
+            <p class="error" th:errors="*{firstName}"></p>
+        </div>
+
+        <div class="form-item">
+            <label th:for="lastName">Last Name</label>
+            <input type="text" th:field="*{lastName}" />
+            <p class="error" th:errors="*{lastName}"></p>
+        </div>
+
+        <div class="form-item">
+            <label th:for="email">Email</label>
+            <input type="text" th:field="*{email}" />
+            <p class="error" th:errors="*{email}"></p>
+        </div>
+
+        <div class="form-item">
+            <label th:for="password">Enter password</label>
+            <input type="password" th:field="*{password}" />
+            <p class="error" th:errors="*{password}"></p>
+        </div>
+
+        <div class="form-item">
+            <label th:for="pwHash">Re-enter password</label>
+            <input type="password" th:field="*{pwHash}" />
+            <p class="error" th:errors="*{pwHash}"></p>
+        </div>
+
+        <div class="form-item">
+            <label>Time Zone:  </label>
+            <select th:field="*{timeZone}">
+                <option value = 'ET'>ET- Eastern</option>
+                <option value = 'CT'>CT- Central</option>
+                <option value = 'MT'>MT- Mountain</option>
+                <option value = 'PT'>PT- Pacific</option>
+            </select>
+        </div>
+
+        <div class="form-item">
+        <label>Grade Level: </label>
+            <select th:field="*{gradeLevel}">
+                <option value = 'Grad'>Graduate</option>
+                <option value = 'UG'>Undergraduate</option>
+                <option value = 'HS'>High School</option>
+            </select>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

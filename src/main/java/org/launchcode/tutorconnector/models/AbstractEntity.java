@@ -39,6 +39,10 @@ public abstract class AbstractEntity {
 
     @NotBlank
     @NotNull
+    String password;
+
+    @NotBlank
+    @NotNull
     String pwHash;
 
     @NotNull
@@ -87,6 +91,21 @@ public abstract class AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPwHash() {
+        return pwHash;
+    }
+
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
+    }
 
     @Override
     public boolean equals(Object o) {
