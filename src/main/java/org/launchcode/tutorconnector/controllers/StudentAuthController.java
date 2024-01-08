@@ -80,7 +80,7 @@ public class StudentAuthController {
         Student newStudent = new Student(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());
         studentRepository.save(newStudent);
         setStudentInSession(request.getSession(), newStudent);
-        return "redirect:/student-profile";
+        return "redirect:student/student-profile";
     }
 
     //Login route
