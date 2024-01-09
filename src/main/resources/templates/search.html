@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Search Tutors</title>
+</head>
+<body>
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+
+    <form th:action="@{/search/results}" method = "post">
+        <h2>Search by:</h2>
+
+        <p>
+                <span th:each="column : ${columns}">
+                    <input
+                            type="radio"
+                            name="searchType"
+                            th:id="${column.key}"
+                            th:value="${column.key}"
+                            th:checked="${column.key == 'all'}"/>
+                    <label th:for="${column.key}" th:text="${column.value}"></label>
+                </span>
+
+        </p>
+
+        <p>
+            <label for="searchTerm">Keyword:</label>
+            <input type="text" name="searchTerm" id="searchTerm" />
+        </p>
+
+        <input type="submit" value="Search" />
+    </form>
+
+    <hr />
+
+    <table class="centeredTable">
+        <tr>
+            <th>Tutors</th>
+        </tr>
+
+        <tr>
+            <td>
+                <li th:each="tutor : ${tutors}">
+                    <label th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></label>
+                    <!--                <a th:href="@{/tutor/profile(id=${tutor.getId()})}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>-->
+
+                </li>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
