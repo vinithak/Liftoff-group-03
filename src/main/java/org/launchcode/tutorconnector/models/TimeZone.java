@@ -1,19 +1,19 @@
 package org.launchcode.tutorconnector.models;
 
 public enum TimeZone {
-//fixed set of timezones
-    EASTERN_TIMEZONE("EST"),
-    CENTRAL_TIMEZONE("CST"),
-    MOUNTAIN_TIMEZONE("MST"),
-    PACIFIC_TIMEZONE("PST");
 
-    private final String displayName;
+    CENTRAL("Central"),
+    EASTERN("Eastern"),
+    MOUNTAIN("Mountain"),
+    PACIFIC("Pacific");
 
-    TimeZone(String displayName) {
-        this.displayName = displayName;
+    private final String displayTimeZone;
+
+    TimeZone(String displayTimeZone) {
+        this.displayTimeZone = displayTimeZone;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getDisplayTimeZone() {
+        return displayTimeZone;
     }
 }

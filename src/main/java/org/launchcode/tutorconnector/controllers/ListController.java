@@ -1,5 +1,7 @@
 package org.launchcode.tutorconnector.controllers;
+//import org.launchcode.tutorconnector.models.Search;
 import org.launchcode.tutorconnector.models.Search;
+import org.launchcode.tutorconnector.models.Subjects;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
@@ -10,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("list")
@@ -32,9 +36,12 @@ public class ListController {
     public ListController () {
 
         filterChoices.put("all", "All");
-        filterChoices.put("tutor", "Tutor");
-
+        filterChoices.put("tutors", "Tutors");
+        filterChoices.put("subjects", "Subjects");
     }
+
+    public List<Tutor> tutors = new ArrayList<>();
+
 
     @RequestMapping("")
     public String list(Model model) {
@@ -43,7 +50,7 @@ public class ListController {
     }
 
     @RequestMapping(value = "tutors")
-    public String listTutorsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
+    public String listTutorsBySubject(Model model, @RequestParam String column, @RequestParam String value) {
         Iterable<Tutor> tutors;
         if (column.toLowerCase().equals("all")){
             tutors = tutorRepository.findAll();
@@ -54,7 +61,7 @@ public class ListController {
         }
         model.addAttribute("tutors", tutors);
 
-        return "list-tutors";
+        return "list";
     }
 
 }
