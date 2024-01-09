@@ -21,6 +21,10 @@ public class Subject {
 
     public Subject() {}
 
+    public int getId() {
+        return id;
+    }
+
     public List<Tutor> getTutors() {
         return tutors;
     }
