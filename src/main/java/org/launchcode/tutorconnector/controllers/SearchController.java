@@ -14,29 +14,29 @@ import static org.launchcode.tutorconnector.controllers.ListController.filterCho
 @RequestMapping("search")
 public class SearchController {
 
-
-    private TutorRepository tutorRepository;
-
-    @RequestMapping("")
-    public String search(Model model) {
-        model.addAttribute("filters", filterChoices);
-        return "search";
-    }
-
-
-    @PostMapping("results")
-    public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
-        Iterable<Tutor> tutors;
-        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")){
-            tutors = tutorRepository.findAll();
-        } else {
-            tutors = Search.findTutorsByColumnAndValue(searchType, searchTerm, tutorRepository.findAll());
-        }
-        model.addAttribute("filters", filterChoices);
-        model.addAttribute("title", "Jobs with " + filterChoices.get(searchType) + ": " + searchTerm);
-        model.addAttribute("tutors", tutors);
-
-        return "search";
-    }
+//
+//    private TutorRepository tutorRepository;
+//
+//    @RequestMapping("")
+//    public String search(Model model) {
+//        model.addAttribute("filters", filterChoices);
+//        return "search";
+//    }
+//
+//
+//    @PostMapping("results")
+//    public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
+//        Iterable<Tutor> tutors;
+//        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")){
+//            tutors = tutorRepository.findAll();
+//        } else {
+//            tutors = Search.findTutorsByColumnAndValue(searchType, searchTerm, tutorRepository.findAll());
+//        }
+//        model.addAttribute("filters", filterChoices);
+//        model.addAttribute("title", "Jobs with " + filterChoices.get(searchType) + ": " + searchTerm);
+//        model.addAttribute("tutors", tutors);
+//
+//        return "search";
+//    }
 
 }

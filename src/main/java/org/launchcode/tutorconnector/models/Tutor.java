@@ -1,13 +1,10 @@
 package org.launchcode.tutorconnector.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 @Entity
 public class Tutor extends AbstractEntity {

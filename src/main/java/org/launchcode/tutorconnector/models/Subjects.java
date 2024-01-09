@@ -8,13 +8,13 @@ public enum Subjects {
     ARTS("Arts"),
     MUSIC("Music");
 
-    private final String displaySubjects;
+    private final String displaySubject;
 
-    Subjects(String displaySubjects) {
-        this.displaySubjects = displaySubjects;
+    Subjects(String displaySubject) {
+        this.displaySubject = displaySubject;
     }
 
-    public String getDisplaySubjects() {
-        return displaySubjects;
+    public String getDisplaySubject() {
+        return displaySubject;
     }
 }
