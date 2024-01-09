@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
-import java.util.TimeZone;
+
 
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
@@ -37,9 +37,7 @@ public abstract class AbstractEntity {
     @Size(min = 30, max = 150, message = "image path must be between 3 and 100 characters long")
     private String imagePath;
 
-    @NotBlank
-    @NotNull
-    String password;
+
 
     @NotBlank
     @NotNull
@@ -81,6 +79,14 @@ public abstract class AbstractEntity {
         return timeZone;
     }
 
+    public String getPwHash() {
+        return pwHash;
+    }
+
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
+    }
+
     public void setTimeZone(TimeZone timeZone) {
         this.timeZone = timeZone;
     }
@@ -91,20 +97,16 @@ public abstract class AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPwHash() {
-        return pwHash;
-    }
-
-    public void setPwHash(String pwHash) {
-        this.pwHash = pwHash;
+    @Override
+    public String toString() {
+        return "AbstractEntity{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", pwHash='" + pwHash + '\'' +
+                ", timeZone=" + timeZone +
+                '}';
     }
 
     @Override

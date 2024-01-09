@@ -4,6 +4,8 @@ import jakarta.validation.constraints.*;
 
 public class LoginFormDTO {
 
+
+
     @NotNull(message = "Email is required")
     @NotBlank(message = "Email is required")
     @Email
@@ -15,6 +17,8 @@ public class LoginFormDTO {
     @Pattern(regexp = "^(?=.*[!@#$%^&*()-+=]).+$", message = "Password must contain at least one special character")
     @Pattern(regexp = "^(?=.*[A-Z]).*$", message = "Password must contain at least one uppercase letter")
     private static String password;
+
+
 
     public static String getEmail() {
         return email;

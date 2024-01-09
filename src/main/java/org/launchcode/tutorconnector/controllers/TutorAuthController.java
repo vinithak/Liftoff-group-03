@@ -58,11 +58,13 @@ public class TutorAuthController {
     }
 
     @PostMapping("/tutor-register")
-    public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
+    public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request, Model model) {
+        model.addAttribute("tutor", new Tutor());
         // Send tutor back to form if errors are found
 
+        //added return /resources for testing purposes- change after issue resolved
         if(errors.hasErrors()) {
-            return "tutor/tutor-register";
+            return "/resources";
         }
         // Send tutor back if email already exists
         Tutor existingTutor = tutorRepository.findByEmail(RegistrationFormDTO.getEmail());
@@ -82,7 +84,7 @@ public class TutorAuthController {
         Tutor newTutor = new Tutor(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());
         tutorRepository.save(newTutor);
         setTutorInSession(request.getSession(), newTutor);
-        return "redirect:/tutor-profile";
+        return "redirect:/index";
     }
 // Login forms
     @GetMapping("/tutor/login")

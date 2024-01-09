@@ -8,6 +8,8 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <div>
+
+<div class="form-group">
     <h1>Tutor Registration</h1>
 
     <form th:action="@{/tutor-register}" method="POST" th:object="${tutor}">
@@ -15,56 +17,56 @@
 
     <div class="form-item">
             <label th:for="firstName">First Name</label>
-            <input type="text" th:field="*{firstName}" />
+            <input type="text" th:field="*{firstName}" class="form-control"/>
             <p class="error" th:errors="*{firstName}"></p>
         </div>
 
         <div class="form-item">
             <label th:for="lastName">Last Name</label>
-            <input type="text" th:field="*{lastName}" />
+            <input type="text" th:field="*{lastName}" class="form-control"/>
             <p class="error" th:errors="*{lastName}"></p>
         </div>
 
         <div class="form-item">
             <label th:for="email">Email</label>
-            <input type="text" th:field="*{email}" />
+            <input type="text" th:field="*{email}" class="form-control"/>
             <p class="error" th:errors="*{email}"></p>
         </div>
 
         <div class="form-item">
             <label th:for="password">Enter password</label>
-            <input type="password" th:field="*{password}" />
+            <input type="password" th:field="*{password}" class="form-control"/>
             <p class="error" th:errors="*{password}"></p>
         </div>
 
         <div class="form-item">
             <label th:for="pwHash">Re-enter password</label>
-            <input type="password" th:field="*{pwHash}" />
+            <input type="password" th:field="*{pwHash}" class="form-control"/>
             <p class="error" th:errors="*{pwHash}"></p>
         </div>
 
-        <div class="form-item">
-            <label>Time Zone:  </label>
-                <select th:field="*{timeZone}">
-                    <option value = 'ET'>ET- Eastern</option>
-                    <option value = 'CT'>CT- Central</option>
-                    <option value = 'MT'>MT- Mountain</option>
-                    <option value = 'PT'>PT- Pacific</option>
-                </select>
-        </div>
+<!--        <div class="form-item">-->
+<!--            <label>Time Zone:  </label>-->
+<!--                <select th:field="*{timeZone}">-->
+<!--                    <option value = 'ET'>ET- Eastern</option>-->
+<!--                    <option value = 'CT'>CT- Central</option>-->
+<!--                    <option value = 'MT'>MT- Mountain</option>-->
+<!--                    <option value = 'PT'>PT- Pacific</option>-->
+<!--                </select>-->
+<!--        </div>-->
 
-        <div class="form-item">
-        <label>Qualifications: </label>
-            <textarea rows="5" cols="25" th:field="*{qualifications}"></textarea>
-        </div>
+<!--        <div class="form-item">-->
+<!--        <label>Qualifications: </label>-->
+<!--            <textarea rows="5" cols="25" th:field="*{qualifications}"></textarea>-->
+<!--        </div>-->
 
-        <div class="form-item">
-        <label>Subjects: </label>
-            <textarea rows="5" cols="25" th:field="*{subjects}"></textarea>
-        </div>
+<!--        <div class="form-item">-->
+<!--        <label>Subjects: </label>-->
+<!--            <textarea rows="5" cols="25" th:field="*{subjects}"></textarea>-->
+<!--        </div>-->
 
         <button type="submit">Register</button>
-    </form>
+    </form></div>
 </div>
 
 <footer th:replace="~{fragments :: footer}"></footer>
