@@ -7,13 +7,13 @@ public enum TimeZone {
     MOUNTAIN_TIMEZONE("MST"),
     PACIFIC_TIMEZONE("PST");
 
-    private final String displayName;
+    private final String displayZone;
 
-    TimeZone(String displayName) {
-        this.displayName = displayName;
+    TimeZone(String displayZone) {
+        this.displayZone = displayZone;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getDisplayZone() {
+        return displayZone;
     }
 }

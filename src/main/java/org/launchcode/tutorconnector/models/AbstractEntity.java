@@ -35,7 +35,6 @@ public abstract class AbstractEntity {
     private String imagePath;
 
     @NotNull
-    @NotBlank
     private TimeZone timeZone;
 
     //empty constructor pass down to the form for structure of object

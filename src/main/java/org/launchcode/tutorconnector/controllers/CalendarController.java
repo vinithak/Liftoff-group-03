@@ -34,7 +34,8 @@ public class CalendarController {
 
     @GetMapping("/api/events")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    Iterable<Event> events(@RequestParam("start") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime start, @RequestParam("end") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime end) {
+    Iterable<Event> events(@RequestParam("start") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime start,
+                           @RequestParam("end") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime end) {
         return er.findBetween(start, end);
     }
 
