@@ -49,35 +49,34 @@ public class StudentAuthController {
     @GetMapping("/student-register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
-        model.addAttribute("student", new Student());
         //Send value of logged in boolean
         model.addAttribute("loggedIn", session.getAttribute("student") !=null);
         return "student/student-register";
     }
 
-    @PostMapping("/student-register")
+    @PostMapping("student/student-register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
         // Send user back to form if errors are found
 
         if (errors.hasErrors()) {
-            return "student/student-register";
+            return "student-register";
         }
         // Send user back if email already exists
-        Student existingStudent = studentRepository.findByEmail(RegistrationFormDTO.getEmail());
+        Student existingStudent = studentRepository.findByEmail(registrationFormDTO.getEmail());
 
         if (existingStudent != null) {
             errors.rejectValue("email", "email.alreadyExists", "An account with that email already exists.");
             return "student/student-register";
         }
         // Send user back if passwords don't match
-        String password = RegistrationFormDTO.getPassword();
+        String password = registrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "student/student-register";
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
-        Student newStudent = new Student(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());
+        Student newStudent = new Student(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
         studentRepository.save(newStudent);
         setStudentInSession(request.getSession(), newStudent);
         return "redirect:student/student-profile";
@@ -98,9 +97,9 @@ public class StudentAuthController {
         if (errors.hasErrors()) {
             return "login";
         }
-        Student theStudent = studentRepository.findByEmail(LoginFormDTO.getEmail());
+        Student theStudent = studentRepository.findByEmail(loginFormDTO.getEmail());
 
-        String password = LoginFormDTO.getPassword();
+        String password = loginFormDTO.getPassword();
         //check both. security through obscurity
         if(theStudent == null || !theStudent.isMatchingPassword(password)) {
             errors.rejectValue("password",
@@ -117,7 +116,7 @@ public class StudentAuthController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:/index";
     }
 
 

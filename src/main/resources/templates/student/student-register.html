@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
     <link href="../../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
@@ -10,57 +10,57 @@
 <div>
     <h1>Student Registration</h1>
 
-    <form th:action="@{/student-register}" method='POST' th:object="${student}">
+    <form th:action="@{/student-register}" method='POST' th:object="${registrationFormDTO}">
 
 
         <div class="form-item">
             <label th:for="firstName">First Name</label>
-            <input type="text" th:field="*{firstName}" />
-            <p class="error" th:errors="*{firstName}"></p>
+            <input th:field="${registrationFormDTO.firstName}" />
+            <p class="error" th:errors="${registrationFormDTO.firstName}"></p>
         </div>
 
         <div class="form-item">
             <label th:for="lastName">Last Name</label>
-            <input type="text" th:field="*{lastName}" />
-            <p class="error" th:errors="*{lastName}"></p>
+            <input th:field="${registrationFormDTO.lastName}" />
+            <p class="error" th:errors="${registrationFormDTO.lastName}"></p>
         </div>
 
         <div class="form-item">
             <label th:for="email">Email</label>
-            <input type="text" th:field="*{email}" />
-            <p class="error" th:errors="*{email}"></p>
+            <input th:field="${registrationFormDTO.email}" />
+            <p class="error" th:errors="${registrationFormDTO.email}"></p>
         </div>
 
         <div class="form-item">
             <label th:for="password">Enter password</label>
-            <input type="password" th:field="*{password}" />
-            <p class="error" th:errors="*{password}"></p>
+            <input type="password" th:field="${registrationFormDTO.password}" />
+            <p class="error" th:errors="${registrationFormDTO.password}"></p>
         </div>
 
         <div class="form-item">
-            <label th:for="pwHash">Re-enter password</label>
-            <input type="password" th:field="*{pwHash}" />
-            <p class="error" th:errors="*{pwHash}"></p>
+            <label th:for="verifyPassword">Re-enter password</label>
+            <input type="password" th:field="${registrationFormDTO.verifyPassword}" />
+            <p class="error" th:errors="${registrationFormDTO.verifyPassword}"></p>
         </div>
 
-        <div class="form-item">
-            <label>Time Zone:  </label>
-            <select th:field="*{timeZone}">
-                <option value = 'ET'>ET- Eastern</option>
-                <option value = 'CT'>CT- Central</option>
-                <option value = 'MT'>MT- Mountain</option>
-                <option value = 'PT'>PT- Pacific</option>
-            </select>
-        </div>
+<!--        <div class="form-item">-->
+<!--            <label>Time Zone:  </label>-->
+<!--            <select th:field="*{timeZone}">-->
+<!--                <option value = 'ET'>ET- Eastern</option>-->
+<!--                <option value = 'CT'>CT- Central</option>-->
+<!--                <option value = 'MT'>MT- Mountain</option>-->
+<!--                <option value = 'PT'>PT- Pacific</option>-->
+<!--            </select>-->
+<!--        </div>-->
 
-        <div class="form-item">
-        <label>Grade Level: </label>
-            <select th:field="*{gradeLevel}">
-                <option value = 'Grad'>Graduate</option>
-                <option value = 'UG'>Undergraduate</option>
-                <option value = 'HS'>High School</option>
-            </select>
-        </div>
+<!--        <div class="form-item">-->
+<!--        <label>Grade Level: </label>-->
+<!--            <select th:field="*{gradeLevel}">-->
+<!--                <option value = 'Grad'>Graduate</option>-->
+<!--                <option value = 'UG'>Undergraduate</option>-->
+<!--                <option value = 'HS'>High School</option>-->
+<!--            </select>-->
+<!--        </div>-->
 
         <button type="submit">Register</button>
     </form>

@@ -8,10 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
-
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @MappedSuperclass
@@ -32,16 +30,9 @@ public abstract class AbstractEntity {
     @Email(message = "Invalid email. Try again.")
     private String email;
 
-
     @NotNull(message = "image is required")
     @Size(min = 30, max = 150, message = "image path must be between 3 and 100 characters long")
     private String imagePath;
-
-
-
-    @NotBlank
-    @NotNull
-    String pwHash;
 
     @NotNull
     @NotBlank
@@ -49,13 +40,12 @@ public abstract class AbstractEntity {
 
     //empty constructor pass down to the form for structure of object
     public AbstractEntity() {}
-    // actual constructor used to instantiate an object
 
+    // actual constructor used to instantiate an object
     public AbstractEntity(String firstName, String lastName, String email, String password, TimeZone timeZone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.pwHash = encoder.encode(password);
         this.timeZone = timeZone;
     }
 
@@ -79,23 +69,10 @@ public abstract class AbstractEntity {
         return timeZone;
     }
 
-    public String getPwHash() {
-        return pwHash;
-    }
-
-    public void setPwHash(String pwHash) {
-        this.pwHash = pwHash;
-    }
-
     public void setTimeZone(TimeZone timeZone) {
         this.timeZone = timeZone;
     }
 
-    static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, pwHash);
-    }
 
     @Override
     public String toString() {
@@ -104,7 +81,6 @@ public abstract class AbstractEntity {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", imagePath='" + imagePath + '\'' +
-                ", pwHash='" + pwHash + '\'' +
                 ", timeZone=" + timeZone +
                 '}';
     }
