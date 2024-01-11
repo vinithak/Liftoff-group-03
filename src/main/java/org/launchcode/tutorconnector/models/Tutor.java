@@ -38,8 +38,8 @@ public class Tutor extends AbstractEntity {
     }
 
 
-    public Tutor(String firstName, String lastName, String email, String password, String pwHash, TimeZone timeZone, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
-        super(firstName, lastName, email, password, timeZone);
+    public Tutor(String firstName, String lastName, String email, String password, String pwHash, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
+        super(firstName, lastName, email, password);
         this.qualifications = qualifications;
         this.subjects = subjects;
         this.availability = availability;

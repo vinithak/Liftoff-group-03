@@ -31,8 +31,6 @@ public class TutorAuthController {
     //Stores key/value pair with session key and user ID
     private static void setTutorInSession(HttpSession session, Tutor tutor) {
         session.setAttribute(tutorSessionKey, tutor.getId());
-        //test print line- delete later
-        System.out.println("session: " + session.getAttribute("tutor"));
     }
 
     //look up user with key
@@ -83,9 +81,13 @@ public class TutorAuthController {
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
         Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+            newTutor.setFirstName(registrationFormDTO.getFirstName()); // Set the first name from the DTO
+            newTutor.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
+            newTutor.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
+            newTutor.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
         tutorRepository.save(newTutor);
         setTutorInSession(request.getSession(), newTutor);
-        return "redirect:/index";
+        return "redirect:/tutor/profile";
     }
 // Login forms
     @GetMapping("/login")
@@ -93,14 +95,14 @@ public class TutorAuthController {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
         //SEND VALUE OF LOGGEDIN BOOLEAN
         model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
-        return "tutor/login";
+        return "login";
     }
 
     @PostMapping("/login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            return "tutor/login";
+            return "login";
         }
         Tutor theTutor = tutorRepository.findByEmail(loginFormDTO.getEmail());
 
@@ -111,10 +113,10 @@ public class TutorAuthController {
                     "login.invalid",
                     "Incorrect email/password. Please try again."
             );
-            return "tutor/login";
+            return "login";
         }
         setTutorInSession(request.getSession(), theTutor);
-        return "redirect:/tutor/profile";
+        return "redirect:/profile";
     }
 
     //Logout

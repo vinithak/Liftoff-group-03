@@ -7,10 +7,10 @@
 </head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
-<div>
+<div class="form-group">
     <h1>Student Registration</h1>
 
-    <form th:action="@{/student-register}" method='POST' th:object="${registrationFormDTO}">
+    <form th:action="@{/student/register}" method='POST' th:object="${registrationFormDTO}">
 
 
         <div class="form-item">
@@ -43,15 +43,6 @@
             <p class="error" th:errors="${registrationFormDTO.verifyPassword}"></p>
         </div>
 
-<!--        <div class="form-item">-->
-<!--            <label>Time Zone:  </label>-->
-<!--            <select th:field="*{timeZone}">-->
-<!--                <option value = 'ET'>ET- Eastern</option>-->
-<!--                <option value = 'CT'>CT- Central</option>-->
-<!--                <option value = 'MT'>MT- Mountain</option>-->
-<!--                <option value = 'PT'>PT- Pacific</option>-->
-<!--            </select>-->
-<!--        </div>-->
 
 <!--        <div class="form-item">-->
 <!--        <label>Grade Level: </label>-->

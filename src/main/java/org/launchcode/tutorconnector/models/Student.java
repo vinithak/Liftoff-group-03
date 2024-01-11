@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Entity
 public class Student extends AbstractEntity{
 
@@ -27,8 +26,8 @@ public class Student extends AbstractEntity{
 
     public Student() {}
 
-    public Student(String firstName, String lastName, String email, String password, String pwHash, TimeZone timeZone, GradeLevel gradeLevel) {
-        super(firstName, lastName, email, password, timeZone);
+    public Student(String firstName, String lastName, String email, String password, String pwHash, GradeLevel gradeLevel) {
+        super(firstName, lastName, email, password);
         this.gradeLevel = gradeLevel;
         this.pwHash = encoder.encode(password);
     }

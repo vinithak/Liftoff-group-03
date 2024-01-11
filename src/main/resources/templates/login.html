@@ -14,13 +14,13 @@
 
         <div class="form-item">
             <label>Email: </label>
-            <input th:value="${email}" />
+            <input th:field="${email}" />
         </div>
 
         <div class="form-item">
 
             <label>Enter password: </label>
-            <input type="password" th:value="${password}" />
+            <input type="password" th:field="${password}" />
         </div>
 
 
@@ -30,7 +30,7 @@
         <h3>Need to register?</h3>
         <ul>
             <li><a th:href="@{/student-register}">Student Registration</a></li>
-            <li><a th:href="@{/tutor-register}">Tutor Registration</a></li>
+            <li><a th:href="@{/tutor/register}">Tutor Registration</a></li>
         </ul>
     </form>
 </div>

@@ -1,5 +1,6 @@
 package org.launchcode.tutorconnector.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
@@ -36,6 +37,13 @@ public class TutorController {
         model.addAttribute("title", "All Tutors");
         model.addAttribute("tutors", tutorRepository.findAll());
         return "index";
+    }
+
+    @GetMapping("/profile")
+    public String displayProfile(Model model, HttpSession session) {
+//        model.addAttribute(new Tutor);
+//        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
+        return "tutor/profile";
     }
 
     @GetMapping("add")
