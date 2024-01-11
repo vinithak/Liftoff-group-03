@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Review Tutor</title>
+</head>
+<body>
+    <div class="container body-content">
+        <h1 th:text="'Tutor Review for ' + ${tutor.firstName} + ' ' + ${tutor.lastName}"></h1>
+    </div>
+    <form th:action = "@{/tutorreviews/add}" method = "post">
+        <p>
+            <label for="subject">Subject: </label>
+            <select class="form-control" id="subject" name="subject">
+                <option th:each="subject : ${tutor.getSubjects()}" th:value="${subject.courseName}" th:text="${subject.courseName}"></option>
+            </select>
+        </p>
+
+        <p>
+            <textarea rows="5" name="review" id="review" ></textarea>
+        </p>
+        <input type="hidden" th:value = "${tutor.getId()}" name="tutorId" id="tutorId" />
+        <input type="submit" value="Add Review" />
+
+    </form>
+
+</body>
+</html>

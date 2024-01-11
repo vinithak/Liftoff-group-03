@@ -89,4 +89,10 @@ public class Tutor extends AbstractEntity {
         this.availability = availability;
     }
 
+    @Override
+    public String toString() {
+        return "Tutor{" +
+                "subjects=" + subjects +
+                '}';
+    }
 }
