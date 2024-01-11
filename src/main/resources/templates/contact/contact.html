@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Contact</title>
+</head>
+<body>
+<form th:action = "@{/contact}" method = "post">
+<table>
+    <tr class="form-group">
+        <td>
+            <label th:for="name">Name: </label>
+            <input class="form-control" th:field="${contact.name}" />
+            <span th:errors="${contact.name}" class="error"></span>
+        </td>
+    </tr>
+    <tr class="form-group">
+        <td>
+            <label th:for="email">Email: </label>
+            <input class="form-control" th:field="${contact.email}" />
+            <span th:errors="${contact.email}" class="error"></span>
+        </td>
+    </tr>
+    <tr class="form-group">
+        <td>
+            <label th:for="message">Message: </label>
+            <textarea rows="5" th:field="${contact.message}" ></textarea>
+            <span th:errors="${contact.message}" class="error"></span>
+        </td>
+    </tr>
+    <tr class="form-group">
+        <td>
+            <input type="submit" value="Send Message" />
+        </td>
+    </tr>
+
+</table>
+</form>
+</body>
+</html>
