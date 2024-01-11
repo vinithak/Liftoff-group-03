@@ -1,4 +1,5 @@
 package org.launchcode.tutorconnector.controllers;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Student;
@@ -26,29 +27,20 @@ public class StudentController {
     }
 
     @GetMapping("/profile")
-    public String displayProfile(Model model, HttpSession session) {
+    public String displayStudentProfile(Model model, HttpSession session) {
 //        model.addAttribute(new Student);
 //        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
         return "student/profile";
     }
 
 
-    @GetMapping("add")
-    public String displayAddSkillForm(Model model) {
-        model.addAttribute(new Student());
-        return "student/add";
-    }
+//    @GetMapping("add")
+//    public String displayAddSkillForm(Model model) {
+//        model.addAttribute(new Student());
+//        return "student/add";
+//    }
 
-    @PostMapping("add")
-    public String processAddStudentForm(@ModelAttribute @Valid Student newStudent,
-                                        Errors errors, Model model) {
 
-        if (errors.hasErrors()) {
-            return "student/add";
-        }
-        studentRepository.save(newStudent);
-        return "redirect:";
-    }
 
     @GetMapping("view/{studentId}")
     public String displayViewSkill(Model model, @PathVariable int studentId) {

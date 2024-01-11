@@ -116,7 +116,7 @@ public class StudentAuthController {
             return "login";
         }
         setStudentInSession(request.getSession(), theStudent);
-        return "redirect:/student-profile";
+        return "redirect:/profile";
     }
 
 //    Logout
@@ -125,6 +125,5 @@ public class StudentAuthController {
         request.getSession().invalidate();
         return "redirect:/index";
     }
-
 
 }
