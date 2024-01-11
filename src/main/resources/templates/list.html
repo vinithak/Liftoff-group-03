@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List View</title>
+</head>
+<body>
+<div class="container body-content">
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+    <h2 th:if="${view == 'all'}" class = "centered">View Tutors and Subjects</h2>
+</div>
+
+<table class="centeredTable">
+    <tr>
+        <th>Tutors</th>
+        <th th:if="${view == 'all'}">Subjects</th>
+    </tr>
+
+    <tr>
+        <td>
+            <li th:each="tutor : ${tutors}">
+                <label th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></label>
+<!--                <a th:href="@{/tutor/profile(id=${tutor.getId()})}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>-->
+
+            </li>
+        </td>
+        <td th:if="${view == 'all'}">
+            <li th:each="subject : ${T(org.launchcode.tutorconnector.models.Subjects).values()}">
+                <a th:href="@{/list/subject(column=subject,value=${subject.displaySubject}, id=${subject.getDisplayId()})}" th:text="${subject.displaySubject}"></a>
+            </li>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
