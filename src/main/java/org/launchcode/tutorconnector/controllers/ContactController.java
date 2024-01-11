@@ -8,6 +8,7 @@ import org.launchcode.tutorconnector.models.data.ContactRepository;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
 import org.launchcode.tutorconnector.models.data.TutorReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -38,7 +39,8 @@ public class ContactController {
             return "contact/contact";
         }
         contactRepository.save(newContact);
-        return "redirect:/";
+        model.addAttribute("results", "Message Sent");
+        return "contact/contact";
     }
 
     @GetMapping("view")

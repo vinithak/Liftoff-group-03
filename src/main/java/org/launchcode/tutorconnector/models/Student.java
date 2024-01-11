@@ -1,7 +1,9 @@
 package org.launchcode.tutorconnector.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +13,10 @@ import java.util.List;
 
 @Entity
 public class Student extends AbstractEntity{
+
+    @OneToMany
+    @JoinColumn(name = "student_id")
+    private List<Event> events = new ArrayList<>();
 
     private GradeLevel gradeLevel;
 
@@ -62,5 +68,11 @@ public class Student extends AbstractEntity{
         return encoder.matches(password, pwHash);
     }
 
+    public List<Event> getEvents() {
+        return events;
+    }
 
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 }

@@ -11,6 +11,12 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @ManyToOne
+    private Tutor tutor;
+
+    @ManyToOne
+    private Student student;
+
     String text;
 
     @Column(name = "event_start")
@@ -59,5 +65,21 @@ public class Event {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }
