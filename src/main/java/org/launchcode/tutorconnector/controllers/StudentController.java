@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RestController
 @RequestMapping("student")
 public class StudentController {
 

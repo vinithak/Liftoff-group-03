@@ -41,10 +41,17 @@ public class TutorController {
 
     @GetMapping("/profile")
     public String displayTutorProfile(Model model, HttpSession session) {
-//        model.addAttribute(new Tutor);
-//        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
+        model.addAttribute("firstName", "First name");
+        model.addAttribute("lastName", "Last name");
+        model.addAttribute("email", "email");
+        model.addAttribute("qualifications", "qualifications");
+        model.addAttribute("availability", "availability");
+
+        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
         return "tutor/profile";
     }
+
+
 
 //    @GetMapping("add")
 //    public String displayAddJobForm(Model model) {

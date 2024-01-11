@@ -15,14 +15,44 @@
         <!--        TODO: placeholder profile pic-->
         <div class="img-column"><img src="static/images/notebook.png" alt="profile pic"></div>
         <p>Tutor profile</p></div>
+
     <div class="column">
-        <ul>
-            <li>Name: </li>
-            <li>Email: </li>
-            <li>Password: </li>
-            <li>Subjects: </li>
-            <li>Qualifications: </li>
-        </ul>
+
+        <th:block th:if="${tutor} and ${tutor.size()}">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Profile Information</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>Name: </td>
+                    <td th:text="${tutor.firstName} + ' ' + ${tutor.lastName}"  >Tutor name</td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td th:text="${tutor.email}" >Tutor email</td>
+                </tr>
+
+                <tr>
+                    <td>Subjects: </td>
+                    <td th:text="${tutor.subjects}" >Tutor subjects</td>
+                </tr>
+
+                <tr>
+                    <td>Qualifications: </td>
+                    <td th:text="${tutor.qualifications}" >Tutor qualifications</td>
+                </tr>
+
+                <tr>
+                    <td>Availability: </td>
+                    <td th:text="${tutor.availability}" >Tutor availability</td>
+                </tr>
+            </table>
+        </th:block>
+
+
         <!--            TODO: edit button-->
     </div>
 </article>
