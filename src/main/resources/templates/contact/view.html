@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<table class="centeredTable" style = "border:1; frame:hsides; rules=rows">
+    <tr th:each="contact : ${contacts}">
+        <td>
+            <p th:text="${'Name: ' + contact.name}"></p>
+            <p th:text="${'Email: ' + contact.email}"></p>
+            <p th:text="${'Message: ' + contact.message}"></p>
+            <hr>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
