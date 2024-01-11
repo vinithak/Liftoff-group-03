@@ -107,4 +107,13 @@ public class Tutor extends AbstractEntity {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+
+
+    @Override
+    public String toString() {
+        return "Tutor{" +
+                "subjects=" + subjects +
+                '}';
+    }
 }
+

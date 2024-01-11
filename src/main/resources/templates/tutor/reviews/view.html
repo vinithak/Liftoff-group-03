@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>View Tutor Reviews</title>
+</head>
+<body>
+<div class="container body-content">
+    <h1 th:text="'Tutor Reviews: ' + ${tutor.firstName} + ' ' + ${tutor.lastName}"></h1>
+</div>
+
+<table class="centeredTable">
+    <tr th:each="subject : ${tutor.subjects}">
+        <td>
+            <label th:text = "${subject.courseName}" style="font-style: italic;"></label>
+            <div th:each="tutorReview : ${tutorReviews}">
+                <div th:switch="${tutorReview.subject}">
+                    <p th:case="${subject.courseName}" >
+                        <label th:text="${tutorReview.review}" style="text-indent: 50em;"></label>
+                    </p>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
