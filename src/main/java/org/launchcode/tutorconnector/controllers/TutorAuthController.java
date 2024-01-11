@@ -8,14 +8,18 @@ import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
+@Controller
+@RequestMapping("/tutor")
 public class TutorAuthController {
 
     @Autowired
@@ -30,7 +34,6 @@ public class TutorAuthController {
     }
 
     //look up user with key
-
     public Tutor getTutorFromSession(HttpSession session) {
 
         Integer tutorId = (Integer) session.getAttribute(tutorSessionKey);
@@ -39,6 +42,7 @@ public class TutorAuthController {
         }
 
         Optional<Tutor> tutorOpt = tutorRepository.findById(tutorId);
+
         if (tutorOpt.isEmpty()) {
             return null;
         }
@@ -46,43 +50,47 @@ public class TutorAuthController {
         return tutorOpt.get();
     }
 
-    @GetMapping("/tutor/register")
+    @GetMapping("/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
         // Send value of logged in boolean
         model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
-        return "register";
+        return "tutor/register";
     }
 
-    @PostMapping("/tutor/register")
+    @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
-        // Send tutor back to form if errors are found
 
+        // Send tutor back to form if errors are found
         if(errors.hasErrors()) {
-            return "register";
+            return "tutor/register";
         }
         // Send tutor back if email already exists
-        Tutor existingTutor = tutorRepository.findByEmail(RegistrationFormDTO.getEmail());
+        Tutor existingTutor = tutorRepository.findByEmail(registrationFormDTO.getEmail());
 
         if(existingTutor != null) {
             errors.rejectValue("email", "email.alreadyExists", "An account with that email already exists.");
-            return "register";
+            return "tutor/register";
         }
         // Send tutor back if passwords don't match
-        String password = RegistrationFormDTO.getPassword();
+        String password = registrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return "register";
+            return "tutor/register";
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
-        Tutor newTutor = new Tutor(RegistrationFormDTO.getEmail(), RegistrationFormDTO.getPassword());
+        Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+            newTutor.setFirstName(registrationFormDTO.getFirstName()); // Set the first name from the DTO
+            newTutor.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
+            newTutor.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
+            newTutor.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
         tutorRepository.save(newTutor);
         setTutorInSession(request.getSession(), newTutor);
-        return "redirect:/tutor-profile";
+        return "redirect:/tutor/profile";
     }
 // Login forms
-    @GetMapping("/tutor/login")
+    @GetMapping("/login")
     public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
         //SEND VALUE OF LOGGEDIN BOOLEAN
@@ -90,32 +98,32 @@ public class TutorAuthController {
         return "login";
     }
 
-    @PostMapping("/tutor/login")
+    @PostMapping("/login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             return "login";
         }
-        Tutor theTutor = tutorRepository.findByEmail(LoginFormDTO.getEmail());
+        Tutor theTutor = tutorRepository.findByEmail(loginFormDTO.getEmail());
 
-        String password = LoginFormDTO.getPassword();
+        String password = loginFormDTO.getPassword();
         //check both. security through obscurity
         if(theTutor == null || !theTutor.isMatchingPassword(password)) {
             errors.rejectValue("password",
-                    "Login.invalid",
+                    "login.invalid",
                     "Incorrect email/password. Please try again."
             );
             return "login";
         }
         setTutorInSession(request.getSession(), theTutor);
-        return "redirect:/tutor-profile";
+        return "redirect:/profile";
     }
 
     //Logout
-    @GetMapping("/tutor/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:/index";
     }
 
 }

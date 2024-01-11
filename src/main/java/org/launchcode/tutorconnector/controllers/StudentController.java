@@ -1,4 +1,6 @@
 package org.launchcode.tutorconnector.controllers;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
+@RestController
 @RequestMapping("student")
 public class StudentController {
 
@@ -23,24 +26,21 @@ public class StudentController {
         return "student/index";
     }
 
-
-
-    @GetMapping("add")
-    public String displayAddSkillForm(Model model) {
-        model.addAttribute(new Student());
-        return "student/add";
+    @GetMapping("/profile")
+    public String displayStudentProfile(Model model, HttpSession session) {
+//        model.addAttribute(new Student);
+//        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
+        return "student/profile";
     }
 
-    @PostMapping("add")
-    public String processAddStudentForm(@ModelAttribute @Valid Student newStudent,
-                                        Errors errors, Model model) {
 
-        if (errors.hasErrors()) {
-            return "student/add";
-        }
-        studentRepository.save(newStudent);
-        return "redirect:";
-    }
+//    @GetMapping("add")
+//    public String displayAddSkillForm(Model model) {
+//        model.addAttribute(new Student());
+//        return "student/add";
+//    }
+
+
 
     @GetMapping("view/{studentId}")
     public String displayViewSkill(Model model, @PathVariable int studentId) {

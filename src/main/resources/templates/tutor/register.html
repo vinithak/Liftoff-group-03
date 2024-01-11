@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="../../static/css/styles.css" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Tutor Register</title>
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+
+<div class="form-group">
+    <h1>Register as a Tutor</h1>
+
+    <form th:action="@{/tutor/register}" th:method="POST" th:object="${registrationFormDTO}">
+
+        <div class="container">
+            <div class="row">
+                <div class="form-item col-4">
+                    <label th:for="firstName">First Name</label>
+                    <input th:field="${registrationFormDTO.firstName}"/>
+                    <p class="error" th:errors="${registrationFormDTO.firstName}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="form-item col-4">
+                    <label th:for="lastName">Last Name</label>
+                    <input th:field="${registrationFormDTO.lastName}"/>
+                    <p class="error" th:errors="${registrationFormDTO.lastName}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="form-item col-4">
+                    <label th:for="email">Email</label>
+                    <input th:field="${registrationFormDTO.email}"/>
+                    <p class="error" th:errors="${registrationFormDTO.email}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="form-item col-4">
+                    <label th:for="password">Enter password</label>
+                    <input th:field="${registrationFormDTO.password}" type="password"/>
+                    <p class="error" th:errors="${registrationFormDTO.password}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="form-item col-4">
+                    <label th:for="verifyPassword">Re-enter password</label>
+                    <input th:field="${registrationFormDTO.verifyPassword}" type="password"/>
+                    <p class="error" th:errors="${registrationFormDTO.verifyPassword}"></p>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="form-item col-6">-->
+<!--                    <label>Qualifications: </label>-->
+<!--                        <textarea rows="5" cols="25" th:field="*{qualifications}"></textarea>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

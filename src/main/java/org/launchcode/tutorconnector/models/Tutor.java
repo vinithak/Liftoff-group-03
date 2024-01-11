@@ -1,7 +1,9 @@
 package org.launchcode.tutorconnector.models;
 
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,36 +11,49 @@ import java.util.List;
 @Entity
 public class Tutor extends AbstractEntity {
 
+    private ArrayList<String> qualifications;
+
+    @ManyToMany
+    private List<Subject> subjects = new ArrayList<>();
+
+    private String availability;
+
+    private String zoomLink;
+
+    @ManyToMany
+    private List<Student> students = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "tutor_id")
     private List<TutorReview> tutorReviews = new ArrayList<>();
 
-    @ManyToMany
-    private List<Subject> subjects = new ArrayList<>();
+    @NotBlank
+    @NotNull
+    private String pwHash;
 
-    private String zoomLink;
-
-    private ArrayList<String> qualifications;
-
-    private String availability;
-
-    @ManyToMany
-    private List<Student> students = new ArrayList<>();
-
+    static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Tutor() {
     }
 
 
-    public Tutor(String firstName, String lastName, String email, String password, TimeZone timeZone, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
-        super(firstName, lastName, email, password, timeZone);
+    public Tutor(String firstName, String lastName, String email, String password, String pwHash, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
+        super(firstName, lastName, email, password);
         this.qualifications = qualifications;
         this.subjects = subjects;
         this.availability = availability;
+        this.pwHash = encoder.encode(password);
     }
 
     public Tutor(String email, String password) {
+    }
+
+    public ArrayList<String> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(ArrayList<String> qualifications) {
+        this.qualifications = qualifications;
     }
 
     public List<Subject> getSubjects() {
@@ -47,6 +62,14 @@ public class Tutor extends AbstractEntity {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
     }
 
     public List<Student> getStudents() {
@@ -73,21 +96,18 @@ public class Tutor extends AbstractEntity {
         this.zoomLink = zoomLink;
     }
 
-    public ArrayList<String> getQualifications() {
-        return qualifications;
+    public String getPwHash() {
+        return pwHash;
     }
 
-    public void setQualifications(ArrayList<String> qualifications) {
-        this.qualifications = qualifications;
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
     }
 
-    public String getAvailability() {
-        return availability;
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 
-    public void setAvailability(String availability) {
-        this.availability = availability;
-    }
 
     @Override
     public String toString() {
@@ -96,3 +116,4 @@ public class Tutor extends AbstractEntity {
                 '}';
     }
 }
+

@@ -1,5 +1,6 @@
 package org.launchcode.tutorconnector.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
@@ -38,24 +39,31 @@ public class TutorController {
         return "index";
     }
 
-    @GetMapping("add")
-    public String displayAddJobForm(Model model) {
-        model.addAttribute("title", "Add Tutor");
-        model.addAttribute(new Tutor());
-        return "add";
+    @GetMapping("/profile")
+    public String displayTutorProfile(Model model, HttpSession session) {
+//        model.addAttribute(new Tutor);
+//        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
+        return "tutor/profile";
     }
 
-    @PostMapping("add")
-    public String processAddTutorForm(@ModelAttribute @Valid Tutor newTutor,
-                                    Errors errors, Model model, @RequestParam int tutorId) {
+//    @GetMapping("add")
+//    public String displayAddJobForm(Model model) {
+//        model.addAttribute("title", "Add Tutor");
+//        model.addAttribute(new Tutor());
+//        return "add";
+//    }
 
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Tutor");
-            return "add";
-        }
-        tutorRepository.save(newTutor);
-        return "redirect:";
-    }
+//    @PostMapping("add")
+//    public String processAddTutorForm(@ModelAttribute @Valid Tutor newTutor,
+//                                    Errors errors, Model model, @RequestParam int tutorId) {
+//
+//        if (errors.hasErrors()) {
+//            model.addAttribute("title", "Add Tutor");
+//            return "add";
+//        }
+//        tutorRepository.save(newTutor);
+//        return "redirect:";
+//    }
 
     @GetMapping("view/{tutorId}")
     public String displayViewJob(Model model, @PathVariable int tutorId) {

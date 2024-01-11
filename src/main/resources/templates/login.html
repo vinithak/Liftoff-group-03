@@ -9,21 +9,18 @@
 <header th:replace="~{fragments :: header}"></header>
 <div>
     <h1>Login</h1>
-    <form action="login.html" method="post">
+    <form th:action="@{/login}" method='POST'>
 
 
         <div class="form-item">
-            <!--            <label for="email">Email: </label>-->
             <label>Email: </label>
-            <input th:field="${student.email}" />
-            <p class="error" th:errors="${student.email}"></p>
+            <input th:field="${email}" />
         </div>
 
         <div class="form-item">
-            <!--            <label for="password">Enter password: </label>-->
+
             <label>Enter password: </label>
-            <input type="password" th:field="${student.password}" />
-            <p class="error" th:errors="${student.password}"></p>
+            <input type="password" th:field="${password}" />
         </div>
 
 
@@ -32,8 +29,8 @@
         <br/><hr/>
         <h3>Need to register?</h3>
         <ul>
-            <li><a th:href="@{/student-register}">Student Registration</a></li>
-            <li><a th:href="@{/tutor-register}">Tutor Registration</a></li>
+            <li><a th:href="@{/student/register}">Student Registration</a></li>
+            <li><a th:href="@{/tutor/register}">Tutor Registration</a></li>
         </ul>
     </form>
 </div>
