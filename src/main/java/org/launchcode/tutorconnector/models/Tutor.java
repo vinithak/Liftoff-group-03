@@ -27,6 +27,10 @@ public class Tutor extends AbstractEntity {
     @JoinColumn(name = "tutor_id")
     private List<TutorReview> tutorReviews = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "tutor_id")
+    private List<Event> events = new ArrayList<>();
+
     @NotBlank
     @NotNull
     private String pwHash;
@@ -108,6 +112,13 @@ public class Tutor extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 
     @Override
     public String toString() {
