@@ -3,6 +3,7 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
@@ -14,11 +15,13 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
 
 @Controller
+@RequestMapping("/student")
 public class StudentAuthController {
 
     @Autowired
@@ -46,40 +49,44 @@ public class StudentAuthController {
         return studentOpt.get();
     }
 
-    @GetMapping("/student-register")
+    @GetMapping("/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
         //Send value of logged in boolean
         model.addAttribute("loggedIn", session.getAttribute("student") !=null);
-        return "student/student-register";
+        return "student/register";
     }
 
-    @PostMapping("student/student-register")
+    @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
         // Send user back to form if errors are found
 
         if (errors.hasErrors()) {
-            return "student-register";
+            return "student/register";
         }
         // Send user back if email already exists
         Student existingStudent = studentRepository.findByEmail(registrationFormDTO.getEmail());
 
         if (existingStudent != null) {
             errors.rejectValue("email", "email.alreadyExists", "An account with that email already exists.");
-            return "student/student-register";
+            return "student/register";
         }
         // Send user back if passwords don't match
         String password = registrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return "student/student-register";
+            return "student/register";
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
         Student newStudent = new Student(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+            newStudent.setFirstName(registrationFormDTO.getFirstName()); // Set the first name from the DTO
+            newStudent.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
+            newStudent.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
+            newStudent.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
         studentRepository.save(newStudent);
         setStudentInSession(request.getSession(), newStudent);
-        return "redirect:student/student-profile";
+        return "redirect:/student/profile";
     }
 
     //Login route
