@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Login;
+import org.launchcode.tutorconnector.models.data.LoginRepository;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
@@ -25,6 +26,9 @@ public class TutorAuthController {
 
     @Autowired
     private TutorRepository tutorRepository;
+
+    @Autowired
+    private LoginRepository loginRepository;
 
     //the key to store user IDs
     private static final String tutorSessionKey = "tutor";
@@ -89,9 +93,10 @@ public class TutorAuthController {
 
         Login newLogin = new Login(registrationFormDTO.getEmail());
         newLogin.setEmail(registrationFormDTO.getEmail());
-        newLogin.setRole("student");
+        newLogin.setRole("tutor");
 
         tutorRepository.save(newTutor);
+        loginRepository.save(newLogin);
         setTutorInSession(request.getSession(), newTutor);
         return "redirect:/tutor/profile";
     }
