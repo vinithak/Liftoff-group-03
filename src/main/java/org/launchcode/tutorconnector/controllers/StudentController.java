@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RestController
 @RequestMapping("student")
 public class StudentController {
 
@@ -34,16 +33,12 @@ public class StudentController {
     }
 
 
-//    @GetMapping("add")
-//    public String displayAddSkillForm(Model model) {
-//        model.addAttribute(new Student());
-//        return "student/add";
-//    }
+
 
 
 
     @GetMapping("view/{studentId}")
-    public String displayViewSkill(Model model, @PathVariable int studentId) {
+    public String displayViewStudent(Model model, @PathVariable int studentId) {
 
         Optional optStudent = studentRepository.findById(studentId);
         if (optStudent.isPresent()) {

@@ -3,6 +3,7 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.launchcode.tutorconnector.models.Login;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
@@ -85,6 +86,11 @@ public class TutorAuthController {
             newTutor.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
             newTutor.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
             newTutor.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
+
+        Login newLogin = new Login(registrationFormDTO.getEmail());
+        newLogin.setEmail(registrationFormDTO.getEmail());
+        newLogin.setRole("student");
+
         tutorRepository.save(newTutor);
         setTutorInSession(request.getSession(), newTutor);
         return "redirect:/tutor/profile";
