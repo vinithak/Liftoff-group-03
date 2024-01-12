@@ -100,41 +100,42 @@ public class TutorAuthController {
         setTutorInSession(request.getSession(), newTutor);
         return "redirect:/tutor/profile";
     }
-// Login forms
-    @GetMapping("/login")
-    public String displayLoginForm(Model model, HttpSession session) {
-        model.addAttribute(new LoginFormDTO()); //loginFormDTO
-        //SEND VALUE OF LOGGEDIN BOOLEAN
-        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
-        return "login";
-    }
 
-    @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
-
-        if (errors.hasErrors()) {
-            return "login";
-        }
-        Tutor theTutor = tutorRepository.findByEmail(loginFormDTO.getEmail());
-
-        String password = loginFormDTO.getPassword();
-        //check both. security through obscurity
-        if(theTutor == null || !theTutor.isMatchingPassword(password)) {
-            errors.rejectValue("password",
-                    "login.invalid",
-                    "Incorrect email/password. Please try again."
-            );
-            return "login";
-        }
-        setTutorInSession(request.getSession(), theTutor);
-        return "redirect:/profile";
-    }
-
-    //Logout
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "redirect:/index";
-    }
+//// Login forms
+//    @GetMapping("/login")
+//    public String displayLoginForm(Model model, HttpSession session) {
+//        model.addAttribute(new LoginFormDTO()); //loginFormDTO
+//        //SEND VALUE OF LOGGEDIN BOOLEAN
+//        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
+//        return "login";
+//    }
+//
+//    @PostMapping("/login")
+//    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
+//
+//        if (errors.hasErrors()) {
+//            return "login";
+//        }
+//        Tutor theTutor = tutorRepository.findByEmail(loginFormDTO.getEmail());
+//
+//        String password = loginFormDTO.getPassword();
+//        //check both. security through obscurity
+//        if(theTutor == null || !theTutor.isMatchingPassword(password)) {
+//            errors.rejectValue("password",
+//                    "login.invalid",
+//                    "Incorrect email/password. Please try again."
+//            );
+//            return "login";
+//        }
+//        setTutorInSession(request.getSession(), theTutor);
+//        return "redirect:/profile";
+//    }
+//
+//    //Logout
+//    @GetMapping("/logout")
+//    public String logout(HttpServletRequest request) {
+//        request.getSession().invalidate();
+//        return "redirect:/index";
+//    }
 
 }

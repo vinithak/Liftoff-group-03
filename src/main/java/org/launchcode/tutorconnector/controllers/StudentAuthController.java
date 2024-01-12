@@ -87,10 +87,10 @@ public class StudentAuthController {
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
         Student newStudent = new Student(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
-            newStudent.setFirstName(registrationFormDTO.getFirstName()); // Set the first name from the DTO
-            newStudent.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
-            newStudent.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
-            newStudent.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
+            newStudent.setFirstName(registrationFormDTO.getFirstName());
+            newStudent.setLastName(registrationFormDTO.getLastName());
+            newStudent.setPwHash(registrationFormDTO.getPassword());
+            newStudent.setEmail(registrationFormDTO.getEmail());
 
         Login newLogin = new Login(registrationFormDTO.getEmail());
             newLogin.setEmail(registrationFormDTO.getEmail());
@@ -102,41 +102,5 @@ public class StudentAuthController {
         return "redirect:/student/profile";
     }
 
-    //Login route
-    @GetMapping("login")
-    public String displayLoginForm(Model model, HttpSession session) {
-        model.addAttribute(new LoginFormDTO()); //loginFormDTO
-        //SEND VALUE OF LOGGEDIN BOOLEAN
-        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
-        return "login";
-    }
-
-    @PostMapping("login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
-
-        if (errors.hasErrors()) {
-            return "login";
-        }
-        Student theStudent = studentRepository.findByEmail(loginFormDTO.getEmail());
-
-        String password = loginFormDTO.getPassword();
-        //check both. security through obscurity
-        if(theStudent == null || !theStudent.isMatchingPassword(password)) {
-            errors.rejectValue("password",
-                    "Login.invalid",
-                    "Incorrect email/password. Please try again."
-            );
-            return "login";
-        }
-        setStudentInSession(request.getSession(), theStudent);
-        return "redirect:/profile";
-    }
-
-//    Logout
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "redirect:/index";
-    }
 
 }

@@ -9,18 +9,19 @@
 <header th:replace="~{fragments :: header}"></header>
 <div>
     <h1>Login</h1>
-    <form th:action="@{/login}" method='POST'>
+    <form th:action="@{/login}" method='POST' th:object="${loginFormDTO}">
 
 
         <div class="form-item">
-            <label>Email: </label>
-            <input th:field="${email}" />
+            <label th:for="email">Email: </label>
+            <input th:field="${loginFormDTO.email}" />
+            <p class="error" th:errors="${loginFormDTO.email}"></p>
         </div>
 
         <div class="form-item">
-
-            <label>Enter password: </label>
-            <input type="password" th:field="${password}" />
+            <label th:for="password">Enter password: </label>
+            <input type="password" th:field="${loginFormDTO.password}" />
+            <p class="error" th:errors="${loginFormDTO.password}"></p>
         </div>
 
 
