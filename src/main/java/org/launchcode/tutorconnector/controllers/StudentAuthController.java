@@ -3,7 +3,10 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.launchcode.tutorconnector.models.Contact;
+import org.launchcode.tutorconnector.models.Login;
 import org.launchcode.tutorconnector.models.Tutor;
+import org.launchcode.tutorconnector.models.data.LoginRepository;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
@@ -26,6 +29,9 @@ public class StudentAuthController {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private LoginRepository loginRepository;
 
 
     private static final String studentSessionKey = "student";
@@ -52,6 +58,7 @@ public class StudentAuthController {
     @GetMapping("/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
+//        model.addAttribute(new Login());
         //Send value of logged in boolean
         model.addAttribute("loggedIn", session.getAttribute("student") !=null);
         return "student/register";
@@ -84,7 +91,13 @@ public class StudentAuthController {
             newStudent.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
             newStudent.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
             newStudent.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
+
+        Login newLogin = new Login(registrationFormDTO.getEmail());
+            newLogin.setEmail(registrationFormDTO.getEmail());
+            newLogin.setRole("student");
+
         studentRepository.save(newStudent);
+        loginRepository.save(newLogin);
         setStudentInSession(request.getSession(), newStudent);
         return "redirect:/student/profile";
     }

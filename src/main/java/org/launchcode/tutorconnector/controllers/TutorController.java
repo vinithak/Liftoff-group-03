@@ -48,7 +48,7 @@ public class TutorController {
 
 
     @GetMapping("view/{tutorId}")
-    public String displayViewJob(Model model, @PathVariable int tutorId) {
+    public String displayViewTutor(Model model, @PathVariable int tutorId) {
 
         Optional<Tutor> optTutor = tutorRepository.findById(tutorId);
         if (optTutor.isPresent()) {
