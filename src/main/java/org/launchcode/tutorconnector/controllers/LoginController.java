@@ -137,10 +137,10 @@ public class LoginController {
 
         if (theTutor != null) {
             setTutorInSession(request.getSession(), theTutor);
-            return "redirect:/tutor/profile/" + theTutor.getId();
+            return "redirect:/tutor/profile/{tutorId}";
         } else {
             setStudentInSession(request.getSession(), theStudent);
-            return "redirect:/student/profile/" + theStudent.getId();
+            return "redirect:/student/profile//{studentId}";
         }
 
     }

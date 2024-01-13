@@ -9,7 +9,7 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 
-<article class="story">
+<article class="infobox">
     <h3>Welcome, <span th:text="${student != null ? student.firstName : 'Student'}">!</span></h3>
 
 
@@ -18,24 +18,49 @@
         <div class="img-column"><img src="static/images/notebook.png" alt="profile pic"></div>
         <p>Student profile</p></div>
         <div class="column">
-            <ul>
-                <li>Name: </li>
-                <li>Email: </li>
-                <li>Password: </li>
-                <li>Subjects: </li>
-                <li>Grade Level: </li>
-            </ul>
-<!--            TODO: edit button-->
+            <table class="ic-Table ic-Table--hover-row ic-Table--striped" style="border-collapse: collapse; width: 65%;
+        margin: 15px auto 25px auto; border-bottom: 1px solid black;">
+            <thead>
+            <tr>
+                <th>Profile Information</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tr>
+                <td>Name: </td>
+                <td th:text="${student.firstName} + ' ' + ${student.lastName}">Student name</td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td th:text="${student.email}" >Student email</td>
+            </tr>
+
+            <tr>
+                <td>Grade level: </td>
+                <td th:text="${student.gradeLevel}">Student grade level</td>
+            </tr>
+
+            </table>
+
+            <!--            TODO: edit button-->
     </div>
 </article>
 
-<article class="story">
+<article class="infobox">
     <h3>Schedule</h3>
     <div class="row">
 
 <!--        <div class="img-column"><img src="static/images/books.png"  alt="a book"/></div>-->
         <div class="column">
             <p>Schedule here  </p></div>
+    </div>
+</article>
+<article class="infobox">
+    <h3>Payment</h3>
+    <div class="row">
+
+        <div class="column">
+            <p>Payment info here</p></div>
     </div>
 </article>
 

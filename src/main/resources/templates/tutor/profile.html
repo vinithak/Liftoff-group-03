@@ -9,53 +9,46 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 
-<article class="story">
-    <h3>Welcome, <span th:text="${tutor.firstName}">Welcome Tutor!</span></h3>
+<article class="infobox">
+    <h3>Welcome, <span th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
     <div class="row">
         <!--        TODO: placeholder profile pic-->
         <div class="img-column"><img src="static/images/notebook.png" alt="profile pic"></div>
         <p>Tutor profile</p></div>
     <div class="column">
-        <div class="column">
 
-            <th:block th:if="${tutor} and ${tutor.size()}">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Profile Information</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tr>
-                        <td>Name: </td>
-                        <td th:text="${tutor.firstName} + ' ' + ${tutor.lastName}"  >Tutor name</td>
-                    </tr>
-                    <tr>
-                        <td>Email: </td>
-                        <td th:text="${tutor.email}" >Tutor email</td>
-                    </tr>
+        <table class="ic-Table ic-Table--hover-row ic-Table--striped" style="border-collapse: collapse; width: 65%;
+        margin: 15px auto 25px auto; border-bottom: 1px solid black;">
+                <thead>
+                <tr>
+                    <th>Profile Information</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>Name: </td>
+                    <td th:text="${tutor.firstName} + ' ' + ${tutor.lastName}">Tutor name</td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td th:text="${tutor.email}" >Tutor email</td>
+                </tr>
 
-                    <tr>
-                        <td>Subjects: </td>
-                        <td th:text="${tutor.subjects}" >Tutor subjects</td>
-                    </tr>
+                <tr>
+                    <td>Qualifications: </td>
+                    <td th:text="${tutor.qualifications}" >Tutor qualifications</td>
+                </tr>
 
-                    <tr>
-                        <td>Qualifications: </td>
-                        <td th:text="${tutor.qualifications}" >Tutor qualifications</td>
-                    </tr>
-
-                    <tr>
-                        <td>Availability: </td>
-                        <td th:text="${tutor.availability}" >Tutor availability</td>
-                    </tr>
-                </table>
-            </th:block>
+                <tr>
+                    <td>Availability: </td>
+                    <td th:text="${tutor.availability}" >Tutor availability</td>
+                </tr>
+            </table>
 
             <!--            TODO: edit button-->
     </div>
 </article>
-<article class="story">
+<article class="infobox">
     <h3>Reviews</h3>
     <div class="row">
 
@@ -65,7 +58,16 @@
     </div>
 </article>
 
-<article class="story">
+<article class="infobox">
+    <h3>Payment</h3>
+    <div class="row">
+
+        <div class="column">
+            <p>Payment info here</p></div>
+    </div>
+</article>
+
+<article class="infobox">
     <h3>Schedule</h3>
     <div class="row">
 

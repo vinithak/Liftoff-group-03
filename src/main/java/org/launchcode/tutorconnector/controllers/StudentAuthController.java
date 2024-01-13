@@ -99,7 +99,7 @@ public class StudentAuthController {
         studentRepository.save(newStudent);
         loginRepository.save(newLogin);
         setStudentInSession(request.getSession(), newStudent);
-        return "redirect:/student/profile";
+        return "redirect:/student/profile/" + newStudent.getId();
     }
 
 

@@ -8,6 +8,7 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <div>
+    <article class="infobox">
     <h1>Login</h1>
     <form th:action="@{/login}" method='POST' th:object="${loginFormDTO}">
 
@@ -34,6 +35,7 @@
             <li><a th:href="@{/tutor/register}">Tutor Registration</a></li>
         </ul>
     </form>
+    </article>
 </div>
 
 <footer th:replace="~{fragments :: footer}"></footer>

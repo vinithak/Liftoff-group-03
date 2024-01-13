@@ -103,7 +103,7 @@ public class TutorAuthController {
         tutorRepository.save(newTutor);
         loginRepository.save(newLogin);
         setTutorInSession(request.getSession(), newTutor);
-        return "redirect:/tutor/profile";
+        return "redirect:/tutor/profile/" + newTutor.getId();
     }
 
 //// Login forms
