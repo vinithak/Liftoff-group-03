@@ -8,7 +8,8 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <div class="form-group">
-    <h1>Student Registration</h1>
+    <article class="infobox">
+        <h1>Student Registration</h1>
 
     <form th:action="@{/student/register}" method='POST' th:object="${registrationFormDTO}">
 
@@ -55,6 +56,7 @@
 
         <button type="submit">Register</button>
     </form>
+    </article>
 </div>
 
 <footer th:replace="~{fragments :: footer}"></footer>

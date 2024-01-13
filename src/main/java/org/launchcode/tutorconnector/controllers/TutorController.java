@@ -2,6 +2,7 @@ package org.launchcode.tutorconnector.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.data.SubjectRepository;
@@ -39,24 +40,17 @@ public class TutorController {
         return "index";
     }
 
-    @GetMapping("/profile")
-    public String displayTutorProfile(Model model, HttpSession session) {
-//        model.addAttribute(new Tutor);
-//        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
-        return "tutor/profile";
-    }
 
-
-    @GetMapping("view/{tutorId}")
-    public String displayViewTutor(Model model, @PathVariable int tutorId) {
-
-        Optional<Tutor> optTutor = tutorRepository.findById(tutorId);
+    @GetMapping("/profile/{id}")
+    public String displayTutorProfile(@PathVariable int id, Model model) {
+        Optional<Tutor> optTutor = tutorRepository.findById(id);
         if (optTutor.isPresent()) {
             Tutor tutor = (Tutor) optTutor.get();
             model.addAttribute("tutor", tutor);
-            return "view";
+            return "tutor/profile";
+        } else {
+            return "redirect:/register";
         }
-        return "redirect:../";
     }
 
 
