@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Login;
+import org.launchcode.tutorconnector.models.Subjects;
 import org.launchcode.tutorconnector.models.data.LoginRepository;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
 import org.launchcode.tutorconnector.models.Tutor;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @Controller
@@ -59,7 +61,7 @@ public class TutorAuthController {
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
         // Send value of logged in boolean
-        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
+        model.addAttribute("tutorLoggedIn", session.getAttribute("tutor") !=null);
         return "tutor/register";
     }
 
@@ -86,14 +88,17 @@ public class TutorAuthController {
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
         Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
-            newTutor.setFirstName(registrationFormDTO.getFirstName()); // Set the first name from the DTO
-            newTutor.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
-            newTutor.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
-            newTutor.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
+            newTutor.setFirstName(registrationFormDTO.getFirstName());
+            newTutor.setLastName(registrationFormDTO.getLastName());
+            newTutor.setPwHash(registrationFormDTO.getPassword());
+            newTutor.setEmail(registrationFormDTO.getEmail());
+            newTutor.setQualifications(registrationFormDTO.getQualifications());
+
+
 
         Login newLogin = new Login(registrationFormDTO.getEmail());
-        newLogin.setEmail(registrationFormDTO.getEmail());
-        newLogin.setRole("tutor");
+            newLogin.setEmail(registrationFormDTO.getEmail());
+            newLogin.setRole("tutor");
 
         tutorRepository.save(newTutor);
         loginRepository.save(newLogin);

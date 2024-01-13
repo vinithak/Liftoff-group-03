@@ -33,7 +33,7 @@
 
                     <a th:href="@{/}">Home</a> |
                     <a th:href="@{/tutor/list}">List of Tutors</a> |
-                    <a th:href="@{profile/studentProfile/{id}}">My Profile</a> |
+                    <a th:href="@{student/profile/{id}}">My Profile</a> |
                     <a href="#">Chat</a> |
                     <a href="#">Logout</a>
 
@@ -43,7 +43,7 @@
                 <th:block th:if="${tutorLoggedIn}">
 
                     <a th:href="@{/}">Home</a> |
-                    <a th:href="@{profile/tutorProfile/{id}}">My Profile</a> |
+                    <a th:href="@{tutor/profile/{id}}">My Profile</a> |
                     <a th:href="@{/tutor/tutor-clients}">List of Students</a> |
                     <a href="#">Chat</a> |
                     <a href="#">Logout</a>

@@ -1,6 +1,11 @@
 package org.launchcode.tutorconnector.models.dto;
 
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.*;
+import org.launchcode.tutorconnector.models.Subject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginFormDTO {
 
@@ -56,4 +61,5 @@ public class LoginFormDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

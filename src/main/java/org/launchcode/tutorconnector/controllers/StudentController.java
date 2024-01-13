@@ -27,8 +27,7 @@ public class StudentController {
 
     @GetMapping("/profile")
     public String displayStudentProfile(Model model, HttpSession session) {
-//        model.addAttribute(new Student);
-//        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
+        model.addAttribute("studentLoggedIn", session.getAttribute("student") !=null);
         return "student/profile";
     }
 
@@ -37,14 +36,14 @@ public class StudentController {
 
 
 
-    @GetMapping("view/{studentId}")
+    @GetMapping("/profile/{studentId}")
     public String displayViewStudent(Model model, @PathVariable int studentId) {
 
         Optional optStudent = studentRepository.findById(studentId);
         if (optStudent.isPresent()) {
             Student student = (Student) optStudent.get();
             model.addAttribute("student", student);
-            return "student/view";
+            return "student/profile";
         } else {
             return "redirect:../";
         }

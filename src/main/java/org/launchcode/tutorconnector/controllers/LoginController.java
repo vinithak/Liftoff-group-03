@@ -89,8 +89,8 @@ public class LoginController {
     public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
         // Send value of logged in boolean
-        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
-        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
+        model.addAttribute("studentLoggedIn", session.getAttribute("student") !=null);
+        model.addAttribute("tutorLoggedIn", session.getAttribute("tutor") !=null);
         return "login";
     }
 
@@ -137,10 +137,10 @@ public class LoginController {
 
         if (theTutor != null) {
             setTutorInSession(request.getSession(), theTutor);
-            return "redirect:/tutorProfile" + theTutor.getId();
+            return "redirect:/tutor/profile/" + theTutor.getId();
         } else {
             setStudentInSession(request.getSession(), theStudent);
-            return "redirect:/studentProfile" + theStudent.getId();
+            return "redirect:/student/profile/" + theStudent.getId();
         }
 
     }

@@ -58,16 +58,16 @@ public class StudentAuthController {
     @GetMapping("/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
-//        model.addAttribute(new Login());
+//      model.addAttribute(new Login());
         //Send value of logged in boolean
-        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
+        model.addAttribute("studentLoggedIn", session.getAttribute("student") !=null);
         return "student/register";
     }
 
     @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
-        // Send user back to form if errors are found
 
+        // Send user back to form if errors are found
         if (errors.hasErrors()) {
             return "student/register";
         }
