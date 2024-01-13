@@ -20,10 +20,11 @@
 
 
                     <a th:href="@{/}">Home</a> |
+                    <a th:href="@{/login}">Login</a> |
                     <a th:href="@{/student/register}">Student Sign up</a> |
                     <a th:href="@{/tutor/register}">Become a Tutor</a> |
                     <a th:href="@{/resources}">Learning Resources</a> |
-                    <a th:href="@{/login}">Login</a>
+                    <a th:href="@{/logout}">Logout</a>
 
 
                 </th:block>
@@ -35,7 +36,7 @@
                     <a th:href="@{/tutor/list}">List of Tutors</a> |
                     <a th:href="@{student/profile/{id}}">My Profile</a> |
                     <a href="#">Chat</a> |
-                    <a href="#">Logout</a>
+                    <a th:href="@{/logout}">Logout</a>
 
                 </th:block>
 
@@ -46,7 +47,7 @@
                     <a th:href="@{tutor/profile/{id}}">My Profile</a> |
                     <a th:href="@{/tutor/tutor-clients}">List of Students</a> |
                     <a href="#">Chat</a> |
-                    <a href="#">Logout</a>
+                    <a th:href="@{/logout}">Logout</a>
 
                 </th:block>
 

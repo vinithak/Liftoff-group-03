@@ -12,6 +12,7 @@ import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,6 +27,9 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/student")
 public class StudentAuthController {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -86,7 +90,7 @@ public class StudentAuthController {
             return "student/register";
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
-        Student newStudent = new Student(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+        Student newStudent = new Student(registrationFormDTO.getEmail(), bCryptPasswordEncoder.encode(registrationFormDTO.getPassword()));
             newStudent.setFirstName(registrationFormDTO.getFirstName());
             newStudent.setLastName(registrationFormDTO.getLastName());
             newStudent.setPwHash(registrationFormDTO.getPassword());

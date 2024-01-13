@@ -96,7 +96,7 @@ public class LoginController {
 
     @PostMapping
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
-        System.out.println("pre");
+
         if (errors.hasErrors()) {
             return "login";
         }
@@ -137,10 +137,10 @@ public class LoginController {
 
         if (theTutor != null) {
             setTutorInSession(request.getSession(), theTutor);
-            return "redirect:/tutor/profile/{tutorId}";
+            return "redirect:/tutor/profile/" + theTutor.getId();
         } else {
             setStudentInSession(request.getSession(), theStudent);
-            return "redirect:/student/profile//{studentId}";
+            return "redirect:/student/profile/" + theStudent.getId();
         }
 
     }
@@ -149,7 +149,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/index";
+        return "redirect:/";
     }
 
 }

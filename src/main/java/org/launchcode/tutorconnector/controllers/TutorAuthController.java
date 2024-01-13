@@ -11,6 +11,7 @@ import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,6 +26,9 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/tutor")
 public class TutorAuthController {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private TutorRepository tutorRepository;
@@ -87,7 +91,7 @@ public class TutorAuthController {
             return "tutor/register";
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
-        Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+        Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), bCryptPasswordEncoder.encode(registrationFormDTO.getPassword()));
             newTutor.setFirstName(registrationFormDTO.getFirstName());
             newTutor.setLastName(registrationFormDTO.getLastName());
             newTutor.setPwHash(registrationFormDTO.getPassword());
@@ -105,42 +109,5 @@ public class TutorAuthController {
         setTutorInSession(request.getSession(), newTutor);
         return "redirect:/tutor/profile/" + newTutor.getId();
     }
-
-//// Login forms
-//    @GetMapping("/login")
-//    public String displayLoginForm(Model model, HttpSession session) {
-//        model.addAttribute(new LoginFormDTO()); //loginFormDTO
-//        //SEND VALUE OF LOGGEDIN BOOLEAN
-//        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
-//        return "login";
-//    }
-//
-//    @PostMapping("/login")
-//    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
-//
-//        if (errors.hasErrors()) {
-//            return "login";
-//        }
-//        Tutor theTutor = tutorRepository.findByEmail(loginFormDTO.getEmail());
-//
-//        String password = loginFormDTO.getPassword();
-//        //check both. security through obscurity
-//        if(theTutor == null || !theTutor.isMatchingPassword(password)) {
-//            errors.rejectValue("password",
-//                    "login.invalid",
-//                    "Incorrect email/password. Please try again."
-//            );
-//            return "login";
-//        }
-//        setTutorInSession(request.getSession(), theTutor);
-//        return "redirect:/profile";
-//    }
-//
-//    //Logout
-//    @GetMapping("/logout")
-//    public String logout(HttpServletRequest request) {
-//        request.getSession().invalidate();
-//        return "redirect:/index";
-//    }
 
 }
