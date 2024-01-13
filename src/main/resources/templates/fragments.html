@@ -12,25 +12,55 @@
 <body>
 
 <header th:fragment="header">
+
     <div class="row">
-        <div class="head-column">
+
+        <div class="head col-4">
+            <img src="/icons/connect_iconsm.png" alt="beads connected by lines">
+            <div>
+            <div class="head col-4">
             <h1 id="head">TutorConnector</h1>
         </div>
-        <div class="nav">
-            <div class="column">
-                <!--if no logged-in user-->
-                <th:block th:unless="${loggedIn}">
+
+        <nav class="navbar navbar-expand-md">
+            <div class="container-xxl">
+
+<!--                toggle button for mobile nav-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+<!--                navbar links-->
+                <div class="collapse navbar-collapse justify-content-end align-center"
+                     id="main-nav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/login}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/student/register}">Student Signup</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tutor/register}">Become a Tutor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/resources}">Learning Resources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/logout}">Logout</a>
+                        </li>
+
+                    </ul>
+            </div>
+        </nav>
 
 
-                    <a th:href="@{/}">Home</a> |
-                    <a th:href="@{/login}">Login</a> |
-                    <a th:href="@{/student/register}">Student Sign up</a> |
-                    <a th:href="@{/tutor/register}">Become a Tutor</a> |
-                    <a th:href="@{/resources}">Learning Resources</a> |
-                    <a th:href="@{/logout}">Logout</a>
-
-
-                </th:block>
+<!--        ----------------------------------------------       -->
 
                 <!--if student user-->
                 <th:block th:if="${studentLoggedIn}">
