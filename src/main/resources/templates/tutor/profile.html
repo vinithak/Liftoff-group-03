@@ -21,30 +21,30 @@
         <p>Tutor profile</p></div>
     <div class="column">
 
-        <table class="ic-Table ic-Table--hover-row ic-Table--striped" style="border-collapse: collapse; width: 65%;
-        margin: 15px auto 25px auto; border-bottom: 1px solid black;">
-                <thead>
+        <table class="table table--striped" style="border-collapse: collapse; width: 65%;
+        margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
+            <thead>
+            <tr>
+                <th colspan="2" style="text-align: center;">Profile Information</th>
+
+            </tr>
+            </thead>
                 <tr>
-                    <th>Profile Information</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tr>
-                    <td>Name: </td>
+                    <td style="width: 25%;">Name: </td>
                     <td th:text="${tutor.firstName} + ' ' + ${tutor.lastName}">Tutor name</td>
                 </tr>
                 <tr>
-                    <td>Email: </td>
+                    <td style="width: 25%;">Email: </td>
                     <td th:text="${tutor.email}" >Tutor email</td>
                 </tr>
 
                 <tr>
-                    <td>Qualifications: </td>
+                    <td style="width: 25%;">Qualifications: </td>
                     <td th:text="${tutor.qualifications}" >Tutor qualifications</td>
                 </tr>
 
                 <tr>
-                    <td>Availability: </td>
+                    <td style="width: 25%;">Availability: </td>
                     <td th:text="${tutor.availability}" >Tutor availability</td>
                 </tr>
             </table>
