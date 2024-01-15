@@ -27,7 +27,7 @@ public abstract class AbstractEntity {
     private String lastName;
 
     @Email(message = "Invalid email. Try again.")
-    private String email;
+    public String email;
 
     private String imagePath;
 
@@ -36,11 +36,16 @@ public abstract class AbstractEntity {
     public AbstractEntity() {}
 
     // actual constructor used to instantiate an object
-    public AbstractEntity(String firstName, String lastName, String email, String password) {
+    public AbstractEntity(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
+
+    public AbstractEntity(String email) {
+        this.email = email;
+    }
+
 
     public int getId() {
         return id;

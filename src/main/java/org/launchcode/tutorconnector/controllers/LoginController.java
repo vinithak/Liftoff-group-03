@@ -19,11 +19,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+
+
+    // Logger
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
 
     @Autowired
     private StudentRepository studentRepository;
@@ -33,6 +41,12 @@ public class LoginController {
 
     @Autowired
     private TutorRepository tutorRepository;
+
+    @Autowired
+    StudentAuthController studentAuthController;
+
+    @Autowired
+    TutorAuthController tutorAuthController;
 
 
     //Student
@@ -89,15 +103,24 @@ public class LoginController {
     public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
         // Send value of logged in boolean
-        model.addAttribute("studentLoggedIn", session.getAttribute("student") !=null);
-        model.addAttribute("tutorLoggedIn", session.getAttribute("tutor") !=null);
+//        model.addAttribute("studentLoggedIn", session.getAttribute("student") !=null);
+//        model.addAttribute("tutorLoggedIn", session.getAttribute("tutor") !=null);
+        model.addAttribute("studentLoggedIn", studentAuthController.getStudentFromSession(session) != null);
+        model.addAttribute("tutorLoggedIn", tutorAuthController.getTutorFromSession(session) != null);
         return "login";
     }
 
     @PostMapping
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
 
+//        if (errors.hasErrors()) {
+//            return "login";
+//        }
+
+        logger.info("Processing login form for email: {}", loginFormDTO.getEmail());
+
         if (errors.hasErrors()) {
+            logger.warn("Login form has errors: {}", errors.getAllErrors());
             return "login";
         }
 
@@ -109,15 +132,20 @@ public class LoginController {
 
         // Check if the email exists in either the tutor or student table
         if (theTutor == null && theStudent == null) {
+            logger.warn("No user found with email: {}", loginFormDTO.getEmail());
             errors.rejectValue("email",
                     "login.invalid",
                     "Incorrect email/password. Please try again."
             );
             return "login";
+        } else {
+            logger.info("User found with email: {}", loginFormDTO.getEmail());
         }
+
 
         // Check the password for the found user
         if (theTutor != null && !theTutor.isMatchingPassword(password)) {
+            logger.warn("Incorrect password for tutor with email: {}", loginFormDTO.getEmail());
             errors.rejectValue("password",
                     "login.invalid",
                     "Incorrect email/password. Please try again."
@@ -126,6 +154,7 @@ public class LoginController {
         }
 
         if (theStudent != null && !theStudent.isMatchingPassword(password)) {
+            logger.warn("Incorrect password for student with email: {}", loginFormDTO.getEmail());
             errors.rejectValue("password",
                     "login.invalid",
                     "Incorrect email/password. Please try again."
@@ -136,9 +165,11 @@ public class LoginController {
         // Route to profile by role
 
         if (theTutor != null) {
+            logger.info("Setting session for tutor with email: {}", loginFormDTO.getEmail());
             setTutorInSession(request.getSession(), theTutor);
             return "redirect:/tutor/profile/" + theTutor.getId();
         } else {
+            logger.info("Setting session for student with email: {}", loginFormDTO.getEmail());
             setStudentInSession(request.getSession(), theStudent);
             return "redirect:/student/profile/" + theStudent.getId();
         }
