@@ -25,34 +25,16 @@ public class StudentController {
         return "student/index";
     }
 
-    @GetMapping("/profile")
-    public String displayStudentProfile(Model model, HttpSession session) {
-//        model.addAttribute(new Student);
-//        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
-        return "student/profile";
-    }
-
-
-//    @GetMapping("add")
-//    public String displayAddSkillForm(Model model) {
-//        model.addAttribute(new Student());
-//        return "student/add";
-//    }
-
-
-
-    @GetMapping("view/{studentId}")
-    public String displayViewSkill(Model model, @PathVariable int studentId) {
-
-        Optional optStudent = studentRepository.findById(studentId);
+    @GetMapping("/profile/{id}")
+    public String displayStudentProfile(@PathVariable int id, Model model) {
+        Optional<Student> optStudent = studentRepository.findById(id);
         if (optStudent.isPresent()) {
-            Student student = (Student) optStudent.get();
+            Student student = optStudent.get();
             model.addAttribute("student", student);
-            return "student/view";
+            return "student/profile";
         } else {
-            return "redirect:../";
+            return "redirect:/register";
         }
-
     }
 
 }

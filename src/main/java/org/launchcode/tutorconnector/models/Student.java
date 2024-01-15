@@ -1,7 +1,9 @@
 package org.launchcode.tutorconnector.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,10 @@ import java.util.List;
 @Entity
 public class Student extends AbstractEntity{
 
+    @OneToMany
+    @JoinColumn(name = "student_id")
+    private List<Event> events = new ArrayList<>();
+
     private GradeLevel gradeLevel;
 
     @ManyToMany(mappedBy = "students")
@@ -21,18 +27,23 @@ public class Student extends AbstractEntity{
     @NotNull
     private String pwHash;
 
-    static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    //static method to use the bcrypt dependency for encoding
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Student() {}
 
-    public Student(String firstName, String lastName, String email, String password, String pwHash, GradeLevel gradeLevel) {
-        super(firstName, lastName, email, password);
+    public Student(String firstName, String lastName, String email, String password, GradeLevel gradeLevel) {
+        super(firstName, lastName, email);
         this.gradeLevel = gradeLevel;
         this.pwHash = encoder.encode(password);
     }
 
     public Student(String email, String password) {
+        super(email);
+        this.pwHash = encoder.encode(password);
     }
+
+
 
     public GradeLevel getGradeLevel() {
         return gradeLevel;
@@ -50,17 +61,19 @@ public class Student extends AbstractEntity{
         this.tutors = tutors;
     }
 
-    public String getPwHash() {
-        return pwHash;
-    }
-
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
     }
 
     public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, pwHash);
+        return encoder.matches(password, this.pwHash);
     }
 
+    public List<Event> getEvents() {
+        return events;
+    }
 
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 }

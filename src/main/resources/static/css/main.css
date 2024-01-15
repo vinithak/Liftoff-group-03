@@ -1,5 +1,5 @@
 p, body, td, input, select, button {
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    font-family: Lato;
     font-size: 14px;
 }
 
@@ -34,6 +34,8 @@ a {
 }
 
 .header h1 {
+    font-family: 'Lato',
+    font-size: 24px;
     padding: 0px;
     margin: 0px;
 }

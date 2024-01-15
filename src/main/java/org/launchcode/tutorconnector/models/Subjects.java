@@ -1,5 +1,8 @@
 package org.launchcode.tutorconnector.models;
 
+import jakarta.persistence.*;
+
+@Entity
 public enum Subjects {
 
     MATH("Math",1),
@@ -8,6 +11,10 @@ public enum Subjects {
     ARTS("Arts", 4),
     MUSIC("Music", 5);
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private final String displaySubject;
 
     private final int displayId;
@@ -15,6 +22,10 @@ public enum Subjects {
     Subjects(String displaySubject, int displayId) {
         this.displaySubject = displaySubject;
         this.displayId = displayId;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getDisplaySubject() {

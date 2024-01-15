@@ -13,7 +13,6 @@ import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CalendarController {
 
     @Autowired
-    EventRepository er;
+    EventRepository eventRepository;
 
 
     @RequestMapping("/api")
@@ -36,7 +35,7 @@ public class CalendarController {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     Iterable<Event> events(@RequestParam("start") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime start,
                            @RequestParam("end") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime end) {
-        return er.findBetween(start, end);
+        return eventRepository.findBetween(start, end);
     }
 
     @PostMapping("/api/events/create")
@@ -48,7 +47,7 @@ public class CalendarController {
         e.setStart(params.start);
         e.setEnd(params.end);
         e.setText(params.text);
-        er.save(e);
+        eventRepository.save(e);
 
         return e;
     }
@@ -58,10 +57,10 @@ public class CalendarController {
     @Transactional
     Event moveEvent(@RequestBody EventMoveParams params) {
 
-        Event e = er.findById(params.id).get();
+        Event e = eventRepository.findById(params.id).get();
         e.setStart(params.start);
         e.setEnd(params.end);
-        er.save(e);
+        eventRepository.save(e);
 
         return e;
     }
@@ -71,9 +70,9 @@ public class CalendarController {
     @Transactional
     Event setColor(@RequestBody SetColorParams params) {
 
-        Event e = er.findById(params.id).get();
+        Event e = eventRepository.findById(params.id).get();
         e.setColor(params.color);
-        er.save(e);
+        eventRepository.save(e);
 
         return e;
     }
@@ -83,7 +82,7 @@ public class CalendarController {
     @Transactional
     EventDeleteResponse deleteEvent(@RequestBody EventDeleteParams params) {
 
-        er.deleteById(params.id);
+        eventRepository.deleteById(params.id);
 
         return new EventDeleteResponse() {{
             message = "Deleted";

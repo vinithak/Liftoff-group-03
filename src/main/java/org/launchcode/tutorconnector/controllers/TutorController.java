@@ -2,6 +2,7 @@ package org.launchcode.tutorconnector.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.data.SubjectRepository;
@@ -39,49 +40,17 @@ public class TutorController {
         return "index";
     }
 
-    @GetMapping("/profile")
-    public String displayTutorProfile(Model model, HttpSession session) {
-        model.addAttribute("firstName", "First name");
-        model.addAttribute("lastName", "Last name");
-        model.addAttribute("email", "email");
-        model.addAttribute("qualifications", "qualifications");
-        model.addAttribute("availability", "availability");
 
-        model.addAttribute("loggedIn", session.getAttribute("tutor") !=null);
-        return "tutor/profile";
-    }
-
-
-
-//    @GetMapping("add")
-//    public String displayAddJobForm(Model model) {
-//        model.addAttribute("title", "Add Tutor");
-//        model.addAttribute(new Tutor());
-//        return "add";
-//    }
-
-//    @PostMapping("add")
-//    public String processAddTutorForm(@ModelAttribute @Valid Tutor newTutor,
-//                                    Errors errors, Model model, @RequestParam int tutorId) {
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Add Tutor");
-//            return "add";
-//        }
-//        tutorRepository.save(newTutor);
-//        return "redirect:";
-//    }
-
-    @GetMapping("view/{tutorId}")
-    public String displayViewJob(Model model, @PathVariable int tutorId) {
-
-        Optional<Tutor> optTutor = tutorRepository.findById(tutorId);
+    @GetMapping("/profile/{id}")
+    public String displayTutorProfile(@PathVariable int id, Model model) {
+        Optional<Tutor> optTutor = tutorRepository.findById(id);
         if (optTutor.isPresent()) {
             Tutor tutor = (Tutor) optTutor.get();
             model.addAttribute("tutor", tutor);
-            return "view";
+            return "tutor/profile";
+        } else {
+            return "redirect:/register";
         }
-        return "redirect:../";
     }
 
 

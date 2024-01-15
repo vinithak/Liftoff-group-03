@@ -3,12 +3,16 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.launchcode.tutorconnector.models.Contact;
+import org.launchcode.tutorconnector.models.Login;
 import org.launchcode.tutorconnector.models.Tutor;
+import org.launchcode.tutorconnector.models.data.LoginRepository;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,6 +30,9 @@ public class StudentAuthController {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private LoginRepository loginRepository;
 
 
     private static final String studentSessionKey = "student";
@@ -52,15 +59,16 @@ public class StudentAuthController {
     @GetMapping("/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegistrationFormDTO());
+//      model.addAttribute(new Login());
         //Send value of logged in boolean
-        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
+        model.addAttribute("studentLoggedIn", session.getAttribute("student") !=null);
         return "student/register";
     }
 
     @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
-        // Send user back to form if errors are found
 
+        // Send user back to form if errors are found
         if (errors.hasErrors()) {
             return "student/register";
         }
@@ -79,51 +87,22 @@ public class StudentAuthController {
             return "student/register";
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
-        Student newStudent = new Student(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
-            newStudent.setFirstName(registrationFormDTO.getFirstName()); // Set the first name from the DTO
-            newStudent.setLastName(registrationFormDTO.getLastName());   // Set the last name from the DTO
-            newStudent.setPwHash(registrationFormDTO.getPassword());     // Set the password hash from the DTO
-            newStudent.setEmail(registrationFormDTO.getEmail());         // Set the email from the DTO
+        Student newStudent = new Student(registrationFormDTO.getFirstName(), registrationFormDTO.getLastName(), registrationFormDTO.getEmail(), registrationFormDTO.getPassword(), null);
+        newStudent.setGradeLevel(registrationFormDTO.getGradeLevel());
+//            newStudent.setFirstName(registrationFormDTO.getFirstName());
+//            newStudent.setLastName(registrationFormDTO.getLastName());
+//            newStudent.setPwHash(registrationFormDTO.getPassword());
+//            newStudent.setEmail(registrationFormDTO.getEmail());
+//
+        Login newLogin = new Login(registrationFormDTO.getEmail());
+            newLogin.setEmail(registrationFormDTO.getEmail());
+            newLogin.setRole("student");
+
         studentRepository.save(newStudent);
+        loginRepository.save(newLogin);
         setStudentInSession(request.getSession(), newStudent);
-        return "redirect:/student/profile";
+        return "redirect:/student/profile/" + newStudent.getId();
     }
 
-    //Login route
-    @GetMapping("login")
-    public String displayLoginForm(Model model, HttpSession session) {
-        model.addAttribute(new LoginFormDTO()); //loginFormDTO
-        //SEND VALUE OF LOGGEDIN BOOLEAN
-        model.addAttribute("loggedIn", session.getAttribute("student") !=null);
-        return "login";
-    }
-
-    @PostMapping("login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
-
-        if (errors.hasErrors()) {
-            return "login";
-        }
-        Student theStudent = studentRepository.findByEmail(loginFormDTO.getEmail());
-
-        String password = loginFormDTO.getPassword();
-        //check both. security through obscurity
-        if(theStudent == null || !theStudent.isMatchingPassword(password)) {
-            errors.rejectValue("password",
-                    "Login.invalid",
-                    "Incorrect email/password. Please try again."
-            );
-            return "login";
-        }
-        setStudentInSession(request.getSession(), theStudent);
-        return "redirect:/profile";
-    }
-
-//    Logout
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "redirect:/index";
-    }
 
 }
