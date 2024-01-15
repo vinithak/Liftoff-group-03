@@ -13,18 +13,9 @@
 
 <header th:fragment="header">
 
-    <div class="row">
-
-        <div class="head col-4">
-
-
-
-        </div>
 
         <div class="container">
             <div class="row">
-
-
 
                 <div class="col-4"><a href="#index" class="navbar-brand">
                 <h1 class="fw-bold text-secondary"><img src="/icons/connect_iconsm.png" alt="beads connected by lines">TutorConnector</h1></a>
@@ -42,7 +33,7 @@
                         </button>
 
                         <!--                navbar links-->
-                        <div class="collapse navbar-collapse justify-content-end"
+                        <div class="collapse navbar-collapse justify-content-md-end"
                              id="main-nav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
@@ -66,41 +57,39 @@
 
                             </ul>
                         </div>
+                    </div>
                 </nav>
                 </div>
             </div>
         </div>
-
+</header>
 
 
 <!--        ----------------------------------------------       -->
 
                 <!--if student user-->
-                <th:block th:if="${studentLoggedIn}">
+<!--                <th:block th:if="${studentLoggedIn}">-->
 
-                    <a th:href="@{/}">Home</a> |
-                    <a th:href="@{/tutor/list}">List of Tutors</a> |
-                    <a th:href="@{student/profile/{id}}">My Profile</a> |
-                    <a href="#">Chat</a> |
-                    <a th:href="@{/logout}">Logout</a>
+<!--                    <a th:href="@{/}">Home</a> |-->
+<!--                    <a th:href="@{/tutor/list}">List of Tutors</a> |-->
+<!--                    <a th:href="@{student/profile/{id}}">My Profile</a> |-->
+<!--                    <a href="#">Chat</a> |-->
+<!--                    <a th:href="@{/logout}">Logout</a>-->
 
-                </th:block>
+<!--                </th:block>-->
 
-                <!--if tutor user-->
-                <th:block th:if="${tutorLoggedIn}">
+<!--                &lt;!&ndash;if tutor user&ndash;&gt;-->
+<!--                <th:block th:if="${tutorLoggedIn}">-->
 
-                    <a th:href="@{/}">Home</a> |
-                    <a th:href="@{tutor/profile/{id}}">My Profile</a> |
-                    <a th:href="@{/tutor/tutor-clients}">List of Students</a> |
-                    <a href="#">Chat</a> |
-                    <a th:href="@{/logout}">Logout</a>
+<!--                    <a th:href="@{/}">Home</a> |-->
+<!--                    <a th:href="@{tutor/profile/{id}}">My Profile</a> |-->
+<!--                    <a th:href="@{/tutor/tutor-clients}">List of Students</a> |-->
+<!--                    <a href="#">Chat</a> |-->
+<!--                    <a th:href="@{/logout}">Logout</a>-->
 
-                </th:block>
+<!--                </th:block>-->
 
-            </div>
-        </div>
-    </div>
-</header>
+
 
 <footer th:fragment="footer">
     <br/>
