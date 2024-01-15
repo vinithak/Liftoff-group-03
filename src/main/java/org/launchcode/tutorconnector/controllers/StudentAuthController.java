@@ -29,9 +29,6 @@ import java.util.Optional;
 public class StudentAuthController {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     private StudentRepository studentRepository;
 
     @Autowired
@@ -90,12 +87,13 @@ public class StudentAuthController {
             return "student/register";
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
-        Student newStudent = new Student(registrationFormDTO.getEmail(), bCryptPasswordEncoder.encode(registrationFormDTO.getPassword()));
-            newStudent.setFirstName(registrationFormDTO.getFirstName());
-            newStudent.setLastName(registrationFormDTO.getLastName());
-            newStudent.setPwHash(registrationFormDTO.getPassword());
-            newStudent.setEmail(registrationFormDTO.getEmail());
-
+        Student newStudent = new Student(registrationFormDTO.getFirstName(), registrationFormDTO.getLastName(), registrationFormDTO.getEmail(), registrationFormDTO.getPassword(), null);
+        newStudent.setGradeLevel(registrationFormDTO.getGradeLevel());
+//            newStudent.setFirstName(registrationFormDTO.getFirstName());
+//            newStudent.setLastName(registrationFormDTO.getLastName());
+//            newStudent.setPwHash(registrationFormDTO.getPassword());
+//            newStudent.setEmail(registrationFormDTO.getEmail());
+//
         Login newLogin = new Login(registrationFormDTO.getEmail());
             newLogin.setEmail(registrationFormDTO.getEmail());
             newLogin.setRole("student");
