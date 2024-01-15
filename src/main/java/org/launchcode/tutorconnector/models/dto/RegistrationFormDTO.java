@@ -1,7 +1,7 @@
 package org.launchcode.tutorconnector.models.dto;
 
-import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.*;
+import org.launchcode.tutorconnector.models.GradeLevel;
 import org.launchcode.tutorconnector.models.Subject;
 import org.launchcode.tutorconnector.models.Subjects;
 
@@ -38,9 +38,13 @@ public class RegistrationFormDTO {
     @Pattern(regexp = "^(?=.*[A-Z]).*$", message = "Password must contain at least one uppercase letter")
     private static String verifyPassword;
 
-    private Subjects subjects;
+    private List<Subject> subjects;
 
     private ArrayList<String> qualifications;
+
+    private GradeLevel GradeLevel;
+
+    private String availability;
 
     public String getFirstName() {
         return firstName;
@@ -89,11 +93,27 @@ public class RegistrationFormDTO {
         this.qualifications = qualifications;
     }
 
-    public Subjects getSubjects() {
+    public List<Subject> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(Subjects subjects) {
+    public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public org.launchcode.tutorconnector.models.GradeLevel getGradeLevel() {
+        return GradeLevel;
+    }
+
+    public void setGradeLevel(org.launchcode.tutorconnector.models.GradeLevel gradeLevel) {
+        GradeLevel = gradeLevel;
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
     }
 }

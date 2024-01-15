@@ -88,14 +88,12 @@ public class TutorAuthController {
             return "tutor/register";
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
-        Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+        Tutor newTutor = new Tutor(registrationFormDTO.getFirstName(), registrationFormDTO.getLastName(), registrationFormDTO.getEmail(), registrationFormDTO.getPassword(), null, null, null);
 //        tutorRepository.save(newTutor);
 //        setTutorInSession(request.getSession(), newTutor);
-            newTutor.setFirstName(registrationFormDTO.getFirstName());
-            newTutor.setLastName(registrationFormDTO.getLastName());
-            newTutor.setPwHash(registrationFormDTO.getPassword());
-            newTutor.setEmail(registrationFormDTO.getEmail());
             newTutor.setQualifications(registrationFormDTO.getQualifications());
+            newTutor.setSubjects(registrationFormDTO.getSubjects());
+            newTutor.setAvailability(registrationFormDTO.getAvailability());
 
 
 //

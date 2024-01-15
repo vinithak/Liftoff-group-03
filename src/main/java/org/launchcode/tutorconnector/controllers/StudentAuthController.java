@@ -88,7 +88,7 @@ public class StudentAuthController {
         }
         //If no errors, save new email and password, start new session, redirect to userprofile
         Student newStudent = new Student(registrationFormDTO.getFirstName(), registrationFormDTO.getLastName(), registrationFormDTO.getEmail(), registrationFormDTO.getPassword(), null);
-//        newStudent.setGradeLevel();
+        newStudent.setGradeLevel(registrationFormDTO.getGradeLevel());
 //            newStudent.setFirstName(registrationFormDTO.getFirstName());
 //            newStudent.setLastName(registrationFormDTO.getLastName());
 //            newStudent.setPwHash(registrationFormDTO.getPassword());
