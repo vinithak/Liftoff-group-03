@@ -28,9 +28,6 @@ import java.util.Optional;
 public class TutorAuthController {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     private TutorRepository tutorRepository;
 
     @Autowired
@@ -91,7 +88,9 @@ public class TutorAuthController {
             return "tutor/register";
         }
         //If no errors, save new email and password, start new session, redirect to tutor profile
-        Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), bCryptPasswordEncoder.encode(registrationFormDTO.getPassword()));
+        Tutor newTutor = new Tutor(registrationFormDTO.getEmail(), registrationFormDTO.getPassword());
+//        tutorRepository.save(newTutor);
+//        setTutorInSession(request.getSession(), newTutor);
             newTutor.setFirstName(registrationFormDTO.getFirstName());
             newTutor.setLastName(registrationFormDTO.getLastName());
             newTutor.setPwHash(registrationFormDTO.getPassword());
@@ -99,7 +98,7 @@ public class TutorAuthController {
             newTutor.setQualifications(registrationFormDTO.getQualifications());
 
 
-
+//
         Login newLogin = new Login(registrationFormDTO.getEmail());
             newLogin.setEmail(registrationFormDTO.getEmail());
             newLogin.setRole("tutor");

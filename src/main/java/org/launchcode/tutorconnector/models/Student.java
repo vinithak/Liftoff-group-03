@@ -23,23 +23,27 @@ public class Student extends AbstractEntity{
     @ManyToMany(mappedBy = "students")
     private List<Tutor> tutors = new ArrayList<>();
 
-
     @NotBlank
     @NotNull
     private String pwHash;
 
-    static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    //static method to use the bcrypt dependency for encoding
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Student() {}
 
-    public Student(String firstName, String lastName, String email, String password, String pwHash, GradeLevel gradeLevel) {
-        super(firstName, lastName, email, password);
+    public Student(String firstName, String lastName, String email, String password, GradeLevel gradeLevel) {
+        super(firstName, lastName, email);
         this.gradeLevel = gradeLevel;
         this.pwHash = encoder.encode(password);
     }
 
     public Student(String email, String password) {
+        super(email);
+        this.pwHash = encoder.encode(password);
     }
+
+
 
     public GradeLevel getGradeLevel() {
         return gradeLevel;
@@ -57,16 +61,12 @@ public class Student extends AbstractEntity{
         this.tutors = tutors;
     }
 
-    public String getPwHash() {
-        return pwHash;
-    }
-
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
     }
 
     public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, pwHash);
+        return encoder.matches(password, this.pwHash);
     }
 
     public List<Event> getEvents() {

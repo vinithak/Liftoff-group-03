@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginFormDTO {
-
-    @NotNull(message = "First name is required")
-    @NotBlank(message = "First name is required")
-    private String firstName;
-
-    @NotNull(message = "Last name is required")
-    @NotBlank(message = "Last name is required")
-    private String lastName;
+//
+//    @NotNull(message = "First name is required")
+//    @NotBlank(message = "First name is required")
+//    private String firstName;
+//
+//    @NotNull(message = "Last name is required")
+//    @NotBlank(message = "Last name is required")
+//    private String lastName;
 
     @NotNull(message = "Email is required")
     @NotBlank(message = "Email is required")
@@ -29,22 +29,22 @@ public class LoginFormDTO {
     @Pattern(regexp = "^(?=.*[A-Z]).*$", message = "Password must contain at least one uppercase letter")
     private String password;
 
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+//
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
 
     public String getEmail() {
         return email;
