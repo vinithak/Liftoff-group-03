@@ -73,7 +73,14 @@
 <article class="infobox">
     <h3>Schedule</h3>
     <div class="container-fluid">
-            <div th:include="~{calendar :: showCalendar}"></div>
+<!--            <div th:include="~{calendar :: showCalendar}"></div>-->
+
+        <form th:action="@{/calendar}" method = "post">
+            <p>
+                <input type="hidden" th:value="${tutor.id}" th:attr="name='tutorId'"/>
+            </p>
+            <input type="submit" value="Schedule" />
+        </form>
     </div>
 </article>
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("tutor")
+//@RequestMapping("tutor")
 public class TutorController {
 
     @Autowired
@@ -32,16 +32,16 @@ public class TutorController {
     @Autowired
     private SubjectRepository subjectRepository;
 
-    @RequestMapping("/")
+    @RequestMapping("/tutor")
     public String index(Model model) {
 
         model.addAttribute("title", "All Tutors");
         model.addAttribute("tutors", tutorRepository.findAll());
-        return "index";
+        return "tutor/index";
     }
 
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("tutor/profile/{id}")
     public String displayTutorProfile(@PathVariable int id, Model model) {
         Optional<Tutor> optTutor = tutorRepository.findById(id);
         if (optTutor.isPresent()) {
@@ -52,6 +52,16 @@ public class TutorController {
             return "redirect:/register";
         }
     }
-
+    @RequestMapping("/calendar")
+    public String displayCalendar(Model model,@RequestParam String tutorId) {
+        int value = Integer.parseInt(tutorId);
+        Optional optTutor = tutorRepository.findById(value);
+        if (optTutor.isPresent()) {
+            Tutor tutor = (Tutor) optTutor.get();
+            model.addAttribute("tutor", tutor);
+            model.addAttribute("events", tutor.getEvents());
+        }
+        return "calendar";
+    }
 
 }
