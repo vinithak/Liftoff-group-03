@@ -25,7 +25,8 @@
         margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
             <thead>
             <tr>
-                <th colspan="2" style="text-align: center;">Profile Information</th>
+                <th style="text-align: center;">Profile Information</th>
+                <th style="text-align: center;"><button>Edit</button></th>
 
             </tr>
             </thead>
@@ -46,6 +47,10 @@
                 <tr>
                     <td style="width: 25%;">Availability: </td>
                     <td th:text="${tutor.availability}" >Tutor availability</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;">Zoom Link: </td>
+                    <td th:text="${tutor.zoom_link}" >Tutor Zoom Link</td>
                 </tr>
             </table>
 

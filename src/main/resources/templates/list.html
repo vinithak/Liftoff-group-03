@@ -8,32 +8,35 @@
 
 </head>
 <body>
+<header th:replace="~{fragments :: header}"></header>
 <div class="container body-content">
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
     <h2 th:if="${view == 'all'}" class = "centered">View Tutors and Subjects</h2>
 </div>
 
-<table class="centeredTable">
-    <tr>
-        <th>Tutors</th>
-        <th th:if="${view == 'all'}">Subjects</th>
-    </tr>
-
-    <tr>
-        <td>
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <h3>Tutors</h3>
+            <ul class="list-group list-group-flush" list-style="none;">
             <li th:each="tutor : ${tutors}">
                 <label th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></label>
-<!--                <a th:href="@{/tutor/profile(id=${tutor.getId()})}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>-->
+<!--                                <a th:href="@{/tutor/profile(id=${tutor.getId()})}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>-->
 
             </li>
-        </td>
-        <td th:if="${view == 'all'}">
+            </ul>
+        </div>
+        <div class="col">
+            <h3 th:if="${view == 'all'}">Subjects</h3>
+            <p th:if="${view == 'all'}">
+            <ul class="list-group list-group-flush">
             <li th:each="subject : ${T(org.launchcode.tutorconnector.models.Subjects).values()}">
-                <a th:href="@{/list/subject(column=subject,value=${subject.displaySubject}, id=${subject.getDisplayId()})}" th:text="${subject.displaySubject}"></a>
+                    <a th:href="@{/list/subject(column=subject,value=${subject.displaySubject}, id=${subject.getDisplayId()})}" th:text="${subject.displaySubject}"></a>
             </li>
-        </td>
-    </tr>
-</table>
+        </ul>
+        </div>
+    </div>
+</div>
 
 <footer th:replace="~{fragments :: footer}"></footer>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

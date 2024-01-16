@@ -9,6 +9,7 @@
 
 </head>
 <body>
+<header th:replace="~{fragments :: header}"></header>
     <div class="container body-content">
         <h1 th:text="'Tutor Review for ' + ${tutor.firstName} + ' ' + ${tutor.lastName}"></h1>
     </div>

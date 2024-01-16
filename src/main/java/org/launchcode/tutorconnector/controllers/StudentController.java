@@ -37,4 +37,22 @@ public class StudentController {
         }
     }
 
+//    @GetMapping("/profile/{id}/update")
+//    public String displayUpdateStudentProfile(Model model){
+//        model.addAttribute("students", studentRepository.findAll() );
+//        return "student/index";
+//    }
+//
+//    @GetMapping("/profile/{id}/update")
+//    public String updateStudentProfile(@PathVariable int id, Model model) {
+//        Optional<Student> optStudent = studentRepository.findById(id);
+//        if (optStudent.isPresent()) {
+//            Student student = optStudent.get();
+//            model.addAttribute("student", student);
+//            return "student/profile";
+//        } else {
+//            return "redirect:/profile/{id}";
+//        }
+//    }
+
 }

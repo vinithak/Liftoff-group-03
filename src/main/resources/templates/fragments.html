@@ -13,82 +13,63 @@
 
 <header th:fragment="header">
 
+    <nav class="navbar navbar-expand-lg" style="background-color:#c8e5eb;">
+        <div class="container-fluid">
+            <h1><a class="navbar-brand" th:href="@{/index}"><img src="/icons/tcicon.png" alt="TC logo">TutorConnector</a></h1>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="avbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#ffffff;">
+                <span class="navbar-toggler-icon" style="background-color:#ffffff;"></span>
+            </button>
 
-        <div class="container">
-            <div class="row">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Home</a>
+                    </li>
 
-                <div class="col-4"><a href="#index" class="navbar-brand">
-                <h1 class="fw-bold text-secondary"><img src="/icons/connect_iconsm.png" alt="beads connected by lines">TutorConnector</h1></a>
-                </div>
+                    <th:block th:if="${studentLoggedIn != null}">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{student/profile/{id}}">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/list}">List of Tutors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/search}">Tutor Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/reviews/add}">Review a Tutor</a>
+                        </li>
+                    </th:block>
 
-                <div class="col-8"> <nav class="navbar navbar-expand-md navbar-light">
-                    <div class="container-xxl">
+                    <th:block th:if="${tutorLoggedIn != null}">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{tutor/profile/{id}}">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/list}">List of Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/reviews/view/{id}}">View Reviews</a>
+                        </li>
+                    </th:block>
 
-
-                        <!--                toggle button for mobile nav-->
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <!--                navbar links-->
-                        <div class="collapse navbar-collapse justify-content-md-end"
-                             id="main-nav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/}">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/login}">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/student/register}">Student Signup</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/tutor/register}">Become a Tutor</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/resources}">Learning Resources</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/logout}">Logout</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                </div>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact/contact}">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
+
+
+
+
+
 </header>
-
-
-<!--        ----------------------------------------------       -->
-
-                <!--if student user-->
-<!--                <th:block th:if="${studentLoggedIn}">-->
-
-<!--                    <a th:href="@{/}">Home</a> |-->
-<!--                    <a th:href="@{/tutor/list}">List of Tutors</a> |-->
-<!--                    <a th:href="@{student/profile/{id}}">My Profile</a> |-->
-<!--                    <a href="#">Chat</a> |-->
-<!--                    <a th:href="@{/logout}">Logout</a>-->
-
-<!--                </th:block>-->
-
-<!--                &lt;!&ndash;if tutor user&ndash;&gt;-->
-<!--                <th:block th:if="${tutorLoggedIn}">-->
-
-<!--                    <a th:href="@{/}">Home</a> |-->
-<!--                    <a th:href="@{tutor/profile/{id}}">My Profile</a> |-->
-<!--                    <a th:href="@{/tutor/tutor-clients}">List of Students</a> |-->
-<!--                    <a href="#">Chat</a> |-->
-<!--                    <a th:href="@{/logout}">Logout</a>-->
-
-<!--                </th:block>-->
-
 
 
 <footer th:fragment="footer">
