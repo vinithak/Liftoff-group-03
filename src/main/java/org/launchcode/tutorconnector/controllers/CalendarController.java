@@ -3,7 +3,9 @@ package org.launchcode.tutorconnector.controllers;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.launchcode.tutorconnector.models.Event;
+import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.EventRepository;
+import org.launchcode.tutorconnector.models.data.TutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,8 @@ public class CalendarController {
     @Autowired
     EventRepository eventRepository;
 
+    @Autowired
+    TutorRepository tutorRepository;
 
     @RequestMapping("/api")
     @ResponseBody
@@ -35,6 +40,8 @@ public class CalendarController {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     Iterable<Event> events(@RequestParam("start") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime start,
                            @RequestParam("end") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime end) {
+
+
         return eventRepository.findBetween(start, end);
     }
 
@@ -47,6 +54,11 @@ public class CalendarController {
         e.setStart(params.start);
         e.setEnd(params.end);
         e.setText(params.text);
+        Optional optTutor = tutorRepository.findById(params.tutorId);
+        if (optTutor.isPresent()) {
+            Tutor tutor = (Tutor) optTutor.get();
+            e.setTutor(tutor);
+        }
         eventRepository.save(e);
 
         return e;
@@ -89,6 +101,8 @@ public class CalendarController {
         }};
     }
 
+
+
     public static class EventDeleteParams {
         public Long id;
     }
@@ -101,6 +115,8 @@ public class CalendarController {
         public LocalDateTime start;
         public LocalDateTime end;
         public String text;
+
+        public int tutorId;
     }
 
     public static class EventMoveParams {

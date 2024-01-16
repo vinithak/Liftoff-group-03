@@ -13,9 +13,9 @@ public class Event {
 
     @ManyToOne
     private Tutor tutor;
-
-    @ManyToOne
-    private Student student;
+//
+//    @ManyToOne
+//    private Student student;
 
     String text;
 
@@ -67,19 +67,13 @@ public class Event {
         this.color = color;
     }
 
-    public Tutor getTutor() {
-        return tutor;
-    }
 
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+//
+//    public void setStudent(Student student) {
+//        this.student = student;
+//    }
 }

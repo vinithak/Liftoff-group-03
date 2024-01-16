@@ -116,10 +116,6 @@ public class Tutor extends AbstractEntity {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
     @Override
     public String toString() {
         return "Tutor{" +

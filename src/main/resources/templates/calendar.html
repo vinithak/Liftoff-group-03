@@ -20,9 +20,10 @@
                     <button id="next">Next</button>
                 </div>
                 <h2>Calendar</h2>
-                <form method="post" th:action="@{/calendar}" >
-                    <div id="dp">
-                    </div>
+                <form>
+                    <label th:text="'Tutor:' + ${tutor.firstName} + ' ' +  ${tutor.lastName}"></label>
+                    <div id="dp"></div>
+                    <input type="hidden" id="tutorId" value="{tutor.id}">
                </form>
             </div>
         </div>
@@ -32,7 +33,11 @@
         <script type="text/javascript" th:src="@{js\daypilot\daypilot-all.min.js}"></script>
     </div>
 
-    <script>
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+          const valueId = [[${tutor.id}]];
+        /*]]>*/
 
         const datePicker = new DayPilot.Navigator("nav", {
           showMonths: 3,
@@ -42,10 +47,17 @@
             calendar.update({
               startDate: args.day
             });
-            calendar.events.load("/api/events");
+             /*<![CDATA[*/
+
+                calendar.events.list = [[${events}]];
+
+            /*]]>*/
+            calendar.update()
           }
         });
         datePicker.init();
+
+
 
         const calendar = new DayPilot.Calendar("dp", {
           viewType: "Week",
@@ -61,7 +73,8 @@
             const params = {
               start: args.start,
               end: args.end,
-              text: modal.result
+              text: modal.result,
+              tutorId: valueId
             };
             const {data} = await DayPilot.Http.post('/api/events/create', params);
             calendar.events.add(data);
@@ -187,8 +200,14 @@
               const current = datePicker.selectionDay;
               datePicker.select(current.addMonths(1));
             });
+            /*<![CDATA[*/
 
-            calendar.events.load("/api/events");
+                calendar.events.list = [[${events}]];
+
+            /*]]>*/
+                calendar.update()
+
+
           }
         };
 

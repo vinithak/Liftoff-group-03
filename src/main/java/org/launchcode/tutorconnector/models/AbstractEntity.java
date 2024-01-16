@@ -73,7 +73,8 @@ public abstract class AbstractEntity {
     @Override
     public String toString() {
         return "AbstractEntity{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", imagePath='" + imagePath + '\'' +
