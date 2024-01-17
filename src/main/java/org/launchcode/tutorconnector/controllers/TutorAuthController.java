@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Login;
+import org.launchcode.tutorconnector.models.Subject;
 import org.launchcode.tutorconnector.models.Subjects;
 import org.launchcode.tutorconnector.models.data.LoginRepository;
+import org.launchcode.tutorconnector.models.data.SubjectRepository;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
@@ -15,12 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -32,6 +32,9 @@ public class TutorAuthController {
 
     @Autowired
     private LoginRepository loginRepository;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     //the key to store user IDs
     private static final String tutorSessionKey = "tutor";
@@ -63,11 +66,12 @@ public class TutorAuthController {
         model.addAttribute(new RegistrationFormDTO());
         // Send value of logged in boolean
         model.addAttribute("tutorLoggedIn", session.getAttribute("tutor") !=null);
+        model.addAttribute("subjects",subjectRepository.findAll());
         return "tutor/register";
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, Errors errors, HttpServletRequest request) {
+    public String processRegistrationForm(@ModelAttribute @Valid RegistrationFormDTO registrationFormDTO, @RequestParam List<Integer> subjects, Errors errors, HttpServletRequest request) {
 
         // Send tutor back to form if errors are found
         if(errors.hasErrors()) {
@@ -92,8 +96,11 @@ public class TutorAuthController {
 //        tutorRepository.save(newTutor);
 //        setTutorInSession(request.getSession(), newTutor);
             newTutor.setQualifications(registrationFormDTO.getQualifications());
-            newTutor.setSubjects(registrationFormDTO.getSubjects());
+       //     newTutor.setSubjects(registrationFormDTO.getSubjects());
             newTutor.setAvailability(registrationFormDTO.getAvailability());
+
+        List<Subject> subjectObjs = (List<Subject>) subjectRepository.findAllById(subjects);
+        newTutor.setSubjects(subjectObjs);
 
 
 //
