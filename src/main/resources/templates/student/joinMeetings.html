@@ -30,7 +30,7 @@
     /*<![CDATA[*/
     document.getElementById('join-meeting-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        const meetingUrl = [[${meetingUrl}]];
+         const meetingUrl = document.getElementById('meetingUrl').value; // Ensure this is the URL provided by the tutor
 
         if (meetingUrl) {
             const container = document.getElementById('meeting-container');

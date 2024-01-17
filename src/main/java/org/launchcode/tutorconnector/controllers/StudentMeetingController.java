@@ -30,10 +30,9 @@ public class StudentMeetingController {
 
         if (!meetingDetails.containsKey("error")) {
             model.addAttribute("meetingUrl", meetingUrl); // URL for the video call
+        } else {
+            model.addAttribute("error", "Unable to join the meeting");
         }
-//        } else {
-//            model.addAttribute("error", "Unable to join the meeting");
-//        }
 
         return "student/joinMeetings";
     }

@@ -42,15 +42,14 @@ public class TutorMeetingController {
     public String joinMeeting(@RequestParam(required = false) String meetingUrl, Model model) {
         Map<String, Object> meetingDetails = dailyCoService.getMeetingDetails(meetingUrl);
 
-        if (!meetingDetails.containsKey("error")) {
-            model.addAttribute("meetingUrl", meetingUrl); // URL for the video call
-        }
-//        } else {
-//            model.addAttribute("error", "Unable to join the meeting");
-//        }
+            if (!meetingDetails.containsKey("error")) {
+                model.addAttribute("meetingUrl", meetingUrl); // URL for the video call
+            } else {
+                model.addAttribute("error", "Unable to join the meeting");
+            }
 
-        return "tutor/joinMeetings";
-    }
+            return "tutor/joinMeetings";
+        }
 
 }
 

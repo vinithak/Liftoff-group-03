@@ -20,10 +20,11 @@ public class DailyCoService {
         this.apiKey = apiKey;
     }
 
+    //create a new meeting room in Daily.co
     public Map<String, Object> createMeeting(String roomName) {
         String url = "https://api.daily.co/v1/rooms/"; // URL for Daily endpoint
 
-        // Set headers
+        // Set headers for API access
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + apiKey); //authorization header
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -35,7 +36,7 @@ public class DailyCoService {
         // Create request entity
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
 
-        // Send POST request
+        // Send POST request to the API
         try {
             ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
             return response.getBody();
