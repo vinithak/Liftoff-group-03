@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Join Meeting</title>
 </head>
 <body>
 
-<h1>Join a Session as a Student</h1>
+<h1>Join a Session as a Tutor</h1>
 
-<!--&lt;!&ndash; Display error message if any &ndash;&gt;-->
 <!--<div th:if="${error != null}">-->
 <!--    <p th:text="${error}"></p>-->
 <!--</div>-->
 
-<!--form to join a meeting-->
-<form id="join-meeting-form" th:action="@{/student/meetings/join}" method="get">
+<form id="join-meeting-form" th:action="@{/tutor/meetings/join}" method="get">
     <label for="meetingUrl">Meeting URL:</label>
     <input type="text" id="meetingUrl" name="meetingUrl" required>
     <button type="submit">Join Session</button>
@@ -27,9 +25,6 @@
     <p>Click the link below to join the meeting:</p>
     <a th:href="${meetingUrl}" target="_blank" th:text="${meetingUrl}"></a>
 </div>
-
-<!-- Container for the Daily.co video call -->
-<div id="meeting-container" style="width: 600px; height: 400px;"></div>
 <script th:inline="javascript">
     /*<![CDATA[*/
     document.getElementById('join-meeting-form').addEventListener('submit', function(e) {
@@ -59,3 +54,4 @@
 
 </body>
 </html>
+

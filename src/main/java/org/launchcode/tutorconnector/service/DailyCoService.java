@@ -16,38 +16,38 @@ public class DailyCoService {
     private final String apiKey;
 
     public DailyCoService(RestTemplate restTemplate, @Value("${DAILY_CO_API_KEY}") String apiKey) {
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = restTemplate;
         this.apiKey = apiKey;
     }
 
     public Map<String, Object> createMeeting(String roomName) {
         String url = "https://api.daily.co/v1/rooms/"; // URL for Daily endpoint
 
-            // Set headers
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "Bearer " + apiKey); //authorization header
-            headers.setContentType(MediaType.APPLICATION_JSON);
+        // Set headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + apiKey); //authorization header
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-            // Create request body
-            Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("name", roomName);
+        // Create request body
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("name", roomName);
 
-            // Create request entity
-            HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+        // Create request entity
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
 
-            // Send POST request
-            try {
-                ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
-                return response.getBody();
-            } catch (HttpClientErrorException e) { //handles client-side HTTP status code and error messages
-                Map<String, Object> errorDetails = new HashMap<>();
-                errorDetails.put("status", e.getStatusCode().toString());
-                errorDetails.put("error", e.getResponseBodyAsString());
+        // Send POST request
+        try {
+            ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+            return response.getBody();
+        } catch (HttpClientErrorException e) { //handles client-side HTTP status code and error messages
+            Map<String, Object> errorDetails = new HashMap<>();
+            errorDetails.put("status", e.getStatusCode().toString());
+            errorDetails.put("error", e.getResponseBodyAsString());
 
 
-                return errorDetails; // Returning the error details for now
-            }
+            return errorDetails; // Returning the error details for now
         }
+    }
 
     public Map<String, Object> getMeetingDetails(String roomName) {
         String url = "https://api.daily.co/v1/rooms/" + roomName; // URL to get room details
@@ -72,5 +72,5 @@ public class DailyCoService {
         }
 
     }
-    }
+}
 

@@ -180,7 +180,10 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 }
+
+//Session Key Constants: It's a good practice to define session key constants in a central place to avoid any typos and make it easier to manage. You already have these constants in your controllers, but it would be better to move them to a separate class and use them consistently across your code.
+//Browser Caching: Sometimes, the issue could be related to browser caching. Make sure that the pages are not being cached by the browser in a way that would show a logged-in state even after logout.

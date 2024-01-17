@@ -24,17 +24,17 @@ public class StudentMeetingController {
                 this.dailyCoService = dailyCoService;
             }
 
-            @GetMapping("/join")
-            public String joinMeeting(@RequestParam(required = false) String roomName, Model model) {
-                Map<String, Object> meetingDetails = dailyCoService.getMeetingDetails(roomName);
+    @GetMapping("/join")
+    public String joinMeeting(@RequestParam(required = false) String meetingUrl, Model model) {
+        Map<String, Object> meetingDetails = dailyCoService.getMeetingDetails(meetingUrl);
 
-                if (!meetingDetails.containsKey("error")) {
-                    model.addAttribute("meetingUrl", meetingDetails.get("url"));
-                }
-//                } else {
-////                    model.addAttribute("error", "Unable to join the meeting");
-//                }
+        if (!meetingDetails.containsKey("error")) {
+            model.addAttribute("meetingUrl", meetingUrl); // URL for the video call
+        }
+//        } else {
+//            model.addAttribute("error", "Unable to join the meeting");
+//        }
 
-                return "student/joinMeetings";
-            }
+        return "student/joinMeetings";
+    }
         }
