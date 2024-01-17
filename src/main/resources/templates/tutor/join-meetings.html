@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../static/css/styles.css" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Join Meeting</title>
+</head>
+<body>
+
+<h1>Join a Session</h1>
+
+<div th:if="${error != null}">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/tutor/meetings/join}" method="get">
+    <label for="roomName">Room Name:</label>
+    <input type="text" id="roomName" name="roomName" required>
+    <button type="submit">Join Session</button>
+</form>
+
+<!-- Display meeting URL if available -->
+<div th:if="${meetingUrl != null}">
+    <h2>Session URL</h2>
+    <p>Click the link below to join the meeting:</p>
+    <a th:href="${meetingUrl}" target="_blank" th:text="${meetingUrl}"></a>
+</div>
+
+
+
+<!-- New code for live video SDK -->
+<div id="meeting-container" style="width: 600px; height: 400px;"></div> <!-- Container for the video call -->
+
+<script src="https://unpkg.com/@daily-co/daily-js"></script> <!-- Daily.co SDK -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const meetingUrl = `[[${meetingUrl}]]`; // URL from the controller
+    if (meetingUrl) {
+        const container = document.getElementById('meeting-container');
+        const callFrame = DailyIframe.createFrame(container);
+
+        callFrame.on('joined-meeting', () => {
+            // Handle successful joining of the meeting
+            console.log('Successfully joined the meeting');
+        });
+
+        callFrame.on('error', (error) => {
+            // Handle errors
+            console.error('Error joining the meeting:', error);
+            alert("Error: Unable to join the meeting.");
+        });
+
+        callFrame.join({ url: meetingUrl });
+    } else {
+        alert("Error: Meeting URL is empty. Please provide a valid URL.");
+    }
+    /*]]>*/
+</script>
+
+</body>
+</html>

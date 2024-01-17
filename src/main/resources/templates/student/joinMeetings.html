@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Meeting</title>
+    <!-- Include your CSS file here if you have one -->
+</head>
+<body>
+
+<h1>Join a Session as a Student</h1>
+
+<!--&lt;!&ndash; Display error message if any &ndash;&gt;-->
+<!--<div th:if="${error != null}">-->
+<!--    <p th:text="${error}"></p>-->
+<!--</div>-->
+
+<!-- Form to join a meeting -->
+<form id="join-meeting-form" th:action="@{/student/meetings/join}" method="get">
+    <label for="roomName">Room Name:</label>
+    <input type="text" id="roomName" name="roomName" required>
+    <button type="submit">Join Session</button>
+</form>
+
+<!-- Display meeting URL if available -->
+<div th:if="${meetingUrl != null}">
+    <h2>Session URL</h2>
+    <p>Click the link below to join the meeting:</p>
+    <a th:href="${meetingUrl}" target="_blank" th:text="${meetingUrl}"></a>
+</div>
+
+<!-- Container for the Daily.co video call -->
+<div id="meeting-container" style="width: 600px; height: 400px;"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.getElementById('join-meeting-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const meetingUrl = [[${meetingUrl}]];
+
+        if (meetingUrl) {
+            const container = document.getElementById('meeting-container');
+            const callFrame = DailyIframe.createFrame(container);
+
+            callFrame.on('joined-meeting', () => {
+                console.log('Successfully joined the meeting');
+            });
+
+            callFrame.on('error', (error) => {
+                console.error('Error joining the meeting:', error);
+                alert("Error: Unable to join the meeting.");
+            });
+
+            callFrame.join({ url: meetingUrl });
+        } else {
+            alert("Please enter a valid room name.");
+        }
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>
