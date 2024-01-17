@@ -3,6 +3,7 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Student;
+import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,18 @@ public class StudentController {
         } else {
             return "redirect:/register";
         }
+    }
+
+    @RequestMapping("/calendar")
+    public String displayCalendar(Model model,@RequestParam String studentId) {
+        int value = Integer.parseInt(studentId);
+        Optional optStudent = studentRepository.findById(value);
+        if (optStudent.isPresent()) {
+            Student student = (Student) optStudent.get();
+            model.addAttribute("student", student);
+            model.addAttribute("events", student.getEvents());
+        }
+        return "student/calendar";
     }
 
 }

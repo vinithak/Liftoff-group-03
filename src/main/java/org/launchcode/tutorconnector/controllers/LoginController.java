@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping
 public class LoginController {
 
 
@@ -99,7 +99,7 @@ public class LoginController {
 
 
     //Login route
-    @GetMapping
+    @GetMapping("/login")
     public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO()); //loginFormDTO
         // Send value of logged in boolean
@@ -110,7 +110,7 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
 
 //        if (errors.hasErrors()) {
