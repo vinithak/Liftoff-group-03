@@ -61,7 +61,7 @@ public class TutorController {
             model.addAttribute("tutor", tutor);
             model.addAttribute("events", tutor.getEvents());
         }
-        return "calendar";
+        return "tutor/calendar";
     }
 
 }

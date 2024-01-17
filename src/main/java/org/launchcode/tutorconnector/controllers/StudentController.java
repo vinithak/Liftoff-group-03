@@ -3,6 +3,7 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.tutorconnector.models.Student;
+import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,22 +38,16 @@ public class StudentController {
         }
     }
 
-//    @GetMapping("/profile/{id}/update")
-//    public String displayUpdateStudentProfile(Model model){
-//        model.addAttribute("students", studentRepository.findAll() );
-//        return "student/index";
-//    }
-//
-//    @GetMapping("/profile/{id}/update")
-//    public String updateStudentProfile(@PathVariable int id, Model model) {
-//        Optional<Student> optStudent = studentRepository.findById(id);
-//        if (optStudent.isPresent()) {
-//            Student student = optStudent.get();
-//            model.addAttribute("student", student);
-//            return "student/profile";
-//        } else {
-//            return "redirect:/profile/{id}";
-//        }
-//    }
+    @RequestMapping("/calendar")
+    public String displayCalendar(Model model,@RequestParam String studentId) {
+        int value = Integer.parseInt(studentId);
+        Optional optStudent = studentRepository.findById(value);
+        if (optStudent.isPresent()) {
+            Student student = (Student) optStudent.get();
+            model.addAttribute("student", student);
+            model.addAttribute("events", student.getEvents());
+        }
+        return "student/calendar";
+    }
 
 }
