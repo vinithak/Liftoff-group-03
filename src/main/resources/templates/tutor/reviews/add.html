@@ -15,8 +15,8 @@
     </div>
     <form th:action = "@{/tutorreviews/add}" method = "post">
         <p>
-            <label for="subject">Subject: </label>
-            <select class="form-control" id="subject" name="subject">
+            <label for="subject">Select Subject: </label>
+            <select id="subject" name="subject">
                 <option th:each="subject : ${tutor.getSubjects()}" th:value="${subject.courseName}" th:text="${subject.courseName}"></option>
             </select>
         </p>

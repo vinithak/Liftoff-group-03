@@ -63,7 +63,11 @@
 
         <!--        <div class="img-column"><img src="static/images/books.png"  alt="a book"/></div>-->
         <div class="column">
-            <p>Student reviews of tutor here  </p></div>
+            <a th:href="@{'/tutorreviews/add/' + ${tutor.id}}">Add Tutor Review</a>
+        </div>
+        <div class="column">
+            <a th:href="@{'/tutorreviews/view/' + ${tutor.id}}">View Tutor Review</a>
+        </div>
     </div>
 </article>
 

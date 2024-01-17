@@ -19,21 +19,20 @@
         <div class="col">
             <h3>Tutors</h3>
             <ul class="list-group list-group-flush" list-style="none;">
-            <li th:each="tutor : ${tutors}">
-                <label th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></label>
-<!--                                <a th:href="@{/tutor/profile(id=${tutor.getId()})}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>-->
-
-            </li>
+                <li th:each="tutor : ${tutors}">
+                    <a th:href="@{'/tutor/profile/'+ ${tutor.id}}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>
+                </li>
             </ul>
         </div>
         <div class="col">
             <h3 th:if="${view == 'all'}">Subjects</h3>
-            <p th:if="${view == 'all'}">
-            <ul class="list-group list-group-flush">
-            <li th:each="subject : ${T(org.launchcode.tutorconnector.models.Subjects).values()}">
-                    <a th:href="@{/list/subject(column=subject,value=${subject.displaySubject}, id=${subject.getDisplayId()})}" th:text="${subject.displaySubject}"></a>
-            </li>
-        </ul>
+            <div th:if="${view == 'all'}">
+                <ul class="list-group list-group-flush">
+                    <li th:each="subject : ${T(org.launchcode.tutorconnector.models.Subjects).values()}">
+                            <a th:href="@{/list/subject(column=subject,value=${subject.displaySubject}, id=${subject.getDisplayId()})}" th:text="${subject.displaySubject}"></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
