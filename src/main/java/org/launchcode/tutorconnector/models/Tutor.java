@@ -17,8 +17,8 @@ public class Tutor extends AbstractEntity {
     private List<Subject> subjects = new ArrayList<>();
 
     private String availability;
-
-    private String zoomLink;
+//
+//    private String zoomLink;
 
     @ManyToMany
     private List<Student> students = new ArrayList<>();
@@ -94,13 +94,13 @@ public class Tutor extends AbstractEntity {
         this.tutorReviews = tutorReviews;
     }
 
-    public String getZoomLink() {
-        return zoomLink;
-    }
-
-    public void setZoomLink(String zoomLink) {
-        this.zoomLink = zoomLink;
-    }
+//    public String getZoomLink() {
+//        return zoomLink;
+//    }
+//
+//    public void setZoomLink(String zoomLink) {
+//        this.zoomLink = zoomLink;
+//    }
 
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
