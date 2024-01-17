@@ -1,25 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Join Meeting</title>
+    <script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
 </head>
 <body>
 
 <h1>Join a Session as a Student</h1>
 
-<!--&lt;!&ndash; Display error message if any &ndash;&gt;-->
-<!--<div th:if="${error != null}">-->
-<!--    <p th:text="${error}"></p>-->
-<!--</div>-->
-
-<!--form to join a meeting-->
+<!-- Form to join a meeting -->
 <form id="join-meeting-form" th:action="@{/student/meetings/join}" method="get">
     <label for="meetingUrl">Meeting URL:</label>
     <input type="text" id="meetingUrl" name="meetingUrl" required>
     <button type="submit">Join Session</button>
 </form>
-
 
 <!-- Display meeting URL if available -->
 <div th:if="${meetingUrl != null}">
@@ -30,6 +25,7 @@
 
 <!-- Container for the Daily.co video call -->
 <div id="meeting-container" style="width: 600px; height: 400px;"></div>
+
 <script th:inline="javascript">
     /*<![CDATA[*/
     document.getElementById('join-meeting-form').addEventListener('submit', function(e) {
@@ -38,18 +34,18 @@
 
         if (meetingUrl) {
             const container = document.getElementById('meeting-container');
-            const callFrame = DailyIframe.createFrame(container);
+            const call = window.Daily.createFrame(container);
 
-            callFrame.on('joined-meeting', () => {
+            call.on('joined-meeting', () => {
                 console.log('Successfully joined the meeting');
             });
 
-            callFrame.on('error', (error) => {
+            call.on('error', (error) => {
                 console.error('Error joining the meeting:', error);
                 alert("Error: Unable to join the meeting.");
             });
 
-            callFrame.join({ url: meetingUrl });
+            call.join({ url: meetingUrl });
         } else {
             alert("Please enter a valid room name.");
         }
@@ -59,3 +55,4 @@
 
 </body>
 </html>
+

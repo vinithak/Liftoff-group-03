@@ -38,3 +38,4 @@ public class StudentMeetingController {
         return "student/joinMeetings";
     }
         }
+
