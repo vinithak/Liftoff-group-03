@@ -35,14 +35,14 @@ public class Tutor extends AbstractEntity {
     @NotNull
     private String pwHash;
 
-    static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Tutor() {
     }
 
 
-    public Tutor(String firstName, String lastName, String email, String password, String pwHash, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
-        super(firstName, lastName, email, password);
+    public Tutor(String firstName, String lastName, String email, String password, ArrayList<String> qualifications, List<Subject> subjects, String availability) {
+        super(firstName, lastName, email);
         this.qualifications = qualifications;
         this.subjects = subjects;
         this.availability = availability;
@@ -50,6 +50,8 @@ public class Tutor extends AbstractEntity {
     }
 
     public Tutor(String email, String password) {
+        super(email);
+        this.pwHash = encoder.encode(password);
     }
 
     public ArrayList<String> getQualifications() {
@@ -100,16 +102,12 @@ public class Tutor extends AbstractEntity {
         this.zoomLink = zoomLink;
     }
 
-    public String getPwHash() {
-        return pwHash;
-    }
-
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
     }
 
     public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, pwHash);
+        return encoder.matches(password, this.pwHash);
     }
 
     public List<Event> getEvents() {

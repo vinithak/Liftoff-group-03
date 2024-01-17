@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<header th:replace="~{fragments :: header}"></header>
 <table class="centeredTable" style = "border:1; frame:hsides; rules=rows">
     <tr th:each="contact : ${contacts}">
         <td>
