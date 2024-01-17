@@ -49,11 +49,12 @@
             </table>
 
             <!--            TODO: edit button-->
+            </div>
     </div>
 </article>
 
 <article class="infobox">
-    <h3>Schedule</h3>
+    <h3>View Schedule</h3>
     <div class="row">
 
 <!--        <div class="img-column"><img src="static/images/books.png"  alt="a book"/></div>-->
@@ -63,6 +64,15 @@
             </p>
             <input type="submit" value="Schedule" />
         </form>
+    </div>
+    <div class="row"></div>
+    <div class="row">
+        <div class="column">
+            <a th:href="@{/list}">List All Tutors</a>
+        </div>
+        <div class="column">
+            <a th:href="@{/search}">Search Tutor</a>
+        </div>
     </div>
 </article>
 <article class="infobox">

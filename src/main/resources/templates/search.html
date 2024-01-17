@@ -45,8 +45,7 @@
         <tr>
             <td>
                 <li th:each="tutor : ${tutors}">
-                    <label th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></label>
-                    <!--                <a th:href="@{/tutor/profile(id=${tutor.getId()})}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>-->
+                    <a th:href="@{'/tutor/profile/'+ ${tutor.id}}" th:text="${tutor.firstName} + ' ' +  ${tutor.lastName}"></a>
 
                 </li>
             </td>

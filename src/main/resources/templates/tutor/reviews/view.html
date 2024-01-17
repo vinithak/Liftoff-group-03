@@ -21,10 +21,11 @@
             <div th:each="tutorReview : ${tutorReviews}">
                 <div th:switch="${tutorReview.subject}">
                     <p th:case="${subject.courseName}" >
-                        <label th:text="${tutorReview.review}" style="text-indent: 50em;"></label>
+                        <label th:text="${tutorReview.review}"></label>
                     </p>
                 </div>
             </div>
+            <hr>
         </td>
     </tr>
 </table>
