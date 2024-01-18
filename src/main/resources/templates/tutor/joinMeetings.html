@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Meeting</title>
+    <script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
+</head>
+<body>
+
+<h1>Join a Session as a Tutor</h1>
+
+<form id="join-meeting-form" th:action="@{/tutor/meetings/join}" method="get">
+    <label for="meetingUrl">Meeting URL:</label>
+    <input type="text" id="meetingUrl" name="meetingUrl" required>
+    <button type="submit">Join Session</button>
+</form>
+
+<!-- Container for the Daily.co video call -->
+<div id="meeting-container" style="width: 600px; height: 400px;"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.getElementById('join-meeting-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const meetingUrl = document.getElementById('meetingUrl').value;
+
+        if (meetingUrl) {
+            const container = document.getElementById('meeting-container');
+            const callFrame = DailyIframe.createFrame(container);
+
+            callFrame.on('joined-meeting', () => {
+                console.log('Successfully joined the meeting');
+            });
+
+            callFrame.on('error', (error) => {
+                console.error('Error joining the meeting:', error);
+                alert("Error: Unable to join the meeting.");
+            });
+
+            callFrame.join({ url: meetingUrl });
+        } else {
+            alert("Please enter a valid room name.");
+        }
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>

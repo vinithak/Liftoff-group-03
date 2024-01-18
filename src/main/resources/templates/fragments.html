@@ -17,8 +17,7 @@
         <div class="container-fluid">
             <h1><a class="navbar-brand" th:href="@{/index}"><img src="/icons/tcicon.png" alt="TC logo">TutorConnector</a></h1>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#ffffff;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="avbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#ffffff;">
                 <span class="navbar-toggler-icon" style="background-color:#ffffff;"></span>
             </button>
 
@@ -28,48 +27,54 @@
                         <a class="nav-link" th:href="@{/}">Home</a>
                     </li>
 
-                    <th:block th:if="${session.student != null}">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{student/profile/{id}}">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/list}">List of Tutors</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/search}">Tutor Search</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/tutor/reviews/add/{id}}">Review a Tutor</a>
-                    </li>
+                    <th:block th:if="${studentLoggedIn}">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{student/profile/{id}}">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/list}">List of Tutors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/search}">Tutor Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tutorreviews/add/{id}}">Review a Tutor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/student/meetings/join}">Join a Session</a>
+                        </li>
                     </th:block>
 
-                    <th:block th:if="${session.tutor != null}">>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{tutor/profile/{id}}">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/tutor/reviews/view/{id}}">View Reviews</a>
-                    </li>
+                    <th:block th:if="${tutorLoggedIn}">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{tutor/profile/{id}}">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/list}">List of Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tutorreviews/view/{id}}">View Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tutor/meetings/create}">Create a Session</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tutor/meetings/join}">Join a Session</a>
+                        </li>
                     </th:block>
-
-                    <th:block th:if="${session.student == null and session.tutor == null}">
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/student/register}">Register as a Student</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/tutor/register}">Become a Tutor</a>
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
+                        <a class="nav-link" th:href="@{/tutor/registration}">Become a Tutor</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
-                    </th:block>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/resources}">Learning Resources</a>
-                    </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/contact}">Contact Us</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
                 </ul>
