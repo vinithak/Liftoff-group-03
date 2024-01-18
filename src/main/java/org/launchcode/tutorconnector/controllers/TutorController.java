@@ -47,6 +47,7 @@ public class TutorController {
         if (optTutor.isPresent()) {
             Tutor tutor = (Tutor) optTutor.get();
             model.addAttribute("tutor", tutor);
+            model.addAttribute("tutorId", tutor.getId());
             return "tutor/profile";
         } else {
             return "redirect:/register";
