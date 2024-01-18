@@ -27,7 +27,7 @@
                         <a class="nav-link" th:href="@{/}">Home</a>
                     </li>
 
-                    <th:block th:if="${studentLoggedIn != null}">
+                    <th:block th:if="${studentLoggedIn}">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" th:href="@{student/profile/{id}}">My Profile</a>
                         </li>
@@ -41,11 +41,11 @@
                             <a class="nav-link" th:href="@{/tutorreviews/add/{id}}">Review a Tutor</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/student/meetings/join}">Join a Session</a> |
+                            <a class="nav-link" th:href="@{/student/meetings/join}">Join a Session</a>
                         </li>
                     </th:block>
 
-                    <th:block th:if="${tutorLoggedIn != null}">
+                    <th:block th:if="${tutorLoggedIn}">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" th:href="@{tutor/profile/{id}}">My Profile</a>
                         </li>
@@ -56,25 +56,25 @@
                             <a class="nav-link" th:href="@{/tutorreviews/view/{id}}">View Reviews</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/tutor/meetings/create}">Create a Session</a> |
+                            <a class="nav-link" th:href="@{/tutor/meetings/create}">Create a Session</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/tutor/meetings/join}">Join a Session</a> |
+                            <a class="nav-link" th:href="@{/tutor/meetings/join}">Join a Session</a>
                         </li>
                     </th:block>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/student/register}">Register as a Student</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/tutor/registration}">Become a Tutor</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/contact}">Contact Us</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
                 </ul>
