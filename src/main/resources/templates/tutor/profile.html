@@ -18,13 +18,13 @@
 
     <div class="container">
         <div class="row">
-        <div class="col-3">
-        <div class="box box3">
-            <img th:if="${tutor.imagePath != null}" th:src="'/images/' + ${tutor.imagePath}" alt="Profile Picture">
-            <img th:unless="${tutor != null && tutor.imagePath != null}" src="/images/tutorimg_ic.png" alt="Default Profile Picture">
-        </div>
-        <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
-        </div>
+            <div class="col-3">
+                <div class="box box3">
+                    <img th:if="${tutor.imagePath != null}" th:src="'/images/' + ${tutor.imagePath}" alt="Profile Picture">
+                    <img th:unless="${tutor != null && tutor.imagePath != null}" src="/images/tutorimg_ic.png" alt="Default Profile Picture">
+                </div>
+                <a th:if="${tutorLoggedIn && '/tutor/upload/' + tutor.id == '/tutor/upload/' + tutor.id}" th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
+            </div>
 
 
         <div class="column col-8">
@@ -38,11 +38,7 @@
                             <a th:href="@{/tutor/profile/edit/{id}(id=${tutor.id})}">Edit</a>
                         </td>
                     </th:block>
-                    <th:block th:if="${tutorLoggedIn}">
-                        <form th:action="@{/tutor/delete/{id}(id=${tutor.id})}" method="post" onsubmit="return confirmDelete()">>
-                            <button type="submit" class="btn btn-danger">Delete Account</button>
-                        </form>
-                    </th:block>
+
 
 
                 </tr>
@@ -70,6 +66,11 @@
     <!--                    <td th:text="${tutor.zoom_link}" >Tutor Zoom Link</td>-->
     <!--                </tr>-->
                 </table>
+            <th:block class="text-end" th:if="${tutorLoggedIn}">
+                <form th:action="@{/tutor/delete/{id}(id=${tutor.id})}" method="post" onsubmit="return confirmDelete()">>
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </form>
+            </th:block>
         </div>
     </div>
     </div>
