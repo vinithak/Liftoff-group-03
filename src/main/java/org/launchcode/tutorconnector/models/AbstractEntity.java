@@ -75,6 +75,14 @@ public abstract class AbstractEntity {
         this.email = email;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public String toString() {
         return "AbstractEntity{" +

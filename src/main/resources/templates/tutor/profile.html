@@ -17,7 +17,8 @@
     <h3>Welcome, <span th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
     <div class="row">
         <!--        TODO: placeholder profile pic-->
-        <div class="img-column"><img src="static/images/notebook.png" alt="profile pic"></div>
+        <div class="img-column"><img th:src="${tutor.imagePath}" alt="profile pic"></div>
+        <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
         <p>Tutor profile</p></div>
     <div class="column">
 
