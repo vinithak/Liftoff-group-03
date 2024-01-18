@@ -18,8 +18,10 @@
 
     <div class="row">
 
-        <div class="img-column col-3" style="align-center;"><img src="/images/notebook.png" alt="profile pic">
-
+        <div class="img-column col-3" style="align-center;">
+<!--            <img th:src="/images/notebook.png" alt="profile pic">-->
+            <img th:src="${student.imagePath}" alt="profile pic"></div>
+            <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>
         </div>
 
         <div class="column col-9">
