@@ -28,40 +28,40 @@
                     </li>
 
                     <th:block th:if="${session.student != null}">
-                    <li class="nav-item" th:if = "${student}">
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{student/profile/{id}}">My Profile</a>
                     </li>
-                    <li class="nav-item" th:if = "${student}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/list}">List of Tutors</a>
                     </li>
-                    <li class="nav-item" th:if = "${student}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/search}">Tutor Search</a>
                     </li>
-                    <li class="nav-item" th:if = "${student}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/tutorreviews/add/{id}}">Review a Tutor</a>
                     </li>
                     </th:block>
 
                     <th:block th:if="${session.tutor != null}">>
-                    <li class="nav-item" th:if = "${tutor}">
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{tutor/profile/{id}}">My Profile</a>
                     </li>
-                    <li class="nav-item" th:if = "${tutor}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/list}">List of Students</a>
                     </li>
-                    <li class="nav-item" th:if = "${tutor}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/tutor/reviews/view/{id}}">View Reviews</a>
                     </li>
                     </th:block>
 
                     <th:block th:if="${session.student == null and session.tutor == null}">
-                    <li class="nav-item" th:unless = "${student} or ${tutor}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/student/register}">Register as a Student</a>
                     </li>
-                    <li class="nav-item" th:unless = "${student} or ${tutor}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/tutor/registration}">Become a Tutor</a>
                     </li>
-                    <li class="nav-item" th:unless = "${student} or ${tutor}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
                     </th:block>
