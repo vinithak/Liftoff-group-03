@@ -16,46 +16,49 @@
 <article class="infobox">
     <h3>Welcome, <span th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
     <div class="row">
-        <!--        TODO: placeholder profile pic-->
-        <div class="img-column"><img th:src="${tutor.imagePath}" alt="profile pic"></div>
-        <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
-        <p>Tutor profile</p></div>
-    <div class="column">
+        <div class="img-column col-3" style="align-center;">
+            <div class="box box3"><img th:src="'/images/' +${tutor.imagePath}" alt="profile pic"></div>
+            <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
+        </div>
+        <p>Tutor profile</p>
 
-        <table class="table table--striped" style="border-collapse: collapse; width: 65%;
-        margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
-            <thead>
-            <tr>
-                <th style="text-align: center;">Profile Information</th>
-                <th style="text-align: center;"><button>Edit</button></th>
+        <div class="column col-9">
 
-            </tr>
-            </thead>
+            <table class="table table--striped" style="border-collapse: collapse; width: 65%;
+            margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
+                <thead>
                 <tr>
-                    <td style="width: 25%;">Name: </td>
-                    <td th:text="${tutor.firstName} + ' ' + ${tutor.lastName}">Tutor name</td>
-                </tr>
-                <tr>
-                    <td style="width: 25%;">Email: </td>
-                    <td th:text="${tutor.email}" >Tutor email</td>
-                </tr>
+                    <th style="text-align: center;">Profile Information</th>
+                    <th style="text-align: center;"><button>Edit</button></th>
 
-                <tr>
-                    <td style="width: 25%;">Qualifications: </td>
-                    <td th:text="${tutor.qualifications}" >Tutor qualifications</td>
                 </tr>
+                </thead>
+                    <tr>
+                        <td style="width: 25%;">Name: </td>
+                        <td th:text="${tutor.firstName} + ' ' + ${tutor.lastName}">Tutor name</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;">Email: </td>
+                        <td th:text="${tutor.email}" >Tutor email</td>
+                    </tr>
 
-                <tr>
-                    <td style="width: 25%;">Availability: </td>
-                    <td th:text="${tutor.availability}" >Tutor availability</td>
-                </tr>
-<!--                <tr>-->
-<!--                    <td style="width: 25%;">Zoom Link: </td>-->
-<!--                    <td th:text="${tutor.zoom_link}" >Tutor Zoom Link</td>-->
-<!--                </tr>-->
-            </table>
+                    <tr>
+                        <td style="width: 25%;">Qualifications: </td>
+                        <td th:text="${tutor.qualifications}" >Tutor qualifications</td>
+                    </tr>
+
+                    <tr>
+                        <td style="width: 25%;">Availability: </td>
+                        <td th:text="${tutor.availability}" >Tutor availability</td>
+                    </tr>
+    <!--                <tr>-->
+    <!--                    <td style="width: 25%;">Zoom Link: </td>-->
+    <!--                    <td th:text="${tutor.zoom_link}" >Tutor Zoom Link</td>-->
+    <!--                </tr>-->
+                </table>
 
             <!--            TODO: edit button-->
+        </div>
     </div>
 </article>
 <article class="infobox">
