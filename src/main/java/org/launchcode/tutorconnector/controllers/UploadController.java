@@ -53,7 +53,7 @@ public class UploadController {
             tutorRepository.save(tutor);
         }
         model.addAttribute("msg", "Uploaded Image" + fileNames.toString());
-        return "imageupload/imageTutor";
+        return "redirect:/tutor/profile/" + tutorId;
     }
 
     @GetMapping("/student/upload/{studentId}")
@@ -76,6 +76,6 @@ public class UploadController {
             studentRepository.save(student);
         }
         model.addAttribute("msg", "Uploaded Image" + fileNames.toString());
-        return "imageupload/imageStudent";
+        return "redirect:/student/profile/" + studentId;
     }
 }

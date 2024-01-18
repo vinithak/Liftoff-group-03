@@ -81,7 +81,7 @@ article {
 
 h1 {
     font: Lato;
-    font-size: 28;
+    font-size: 20;
     font-style: bold;
     text-indent: 4rem;
     color: #1F3540;
@@ -89,7 +89,7 @@ h1 {
 
 h3 {
     font: Lato;
-    font-size: 20;
+    font-size: 18;
     font-style: regular;
     text-indent: 4rem;
     color: #1F3540;
@@ -135,13 +135,11 @@ footer {
   gap: 20px;
 }
 
-.box {
-  border: 1px solid gray;
-}
 
 .box img {
-  width: 100%;
-  height: 100%;
+  width: 75px;
+  height: 75px;
+  text-align: center
 }
 
 .box1 img {
@@ -157,6 +155,8 @@ footer {
 .box3 img {
   object-fit: fill;
   border: 1px solid gray;
+  width: 75px;
+  height: 75px;
 }
 
 </style>

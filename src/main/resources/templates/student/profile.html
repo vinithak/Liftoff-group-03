@@ -13,14 +13,24 @@
 <header th:replace="~{fragments :: header}"></header>
 
 <article class="infobox">
-    <h3>Welcome, <span th:text="${student != null ? student.firstName : 'Student'}">!</span></h3>
+    <h3 th:if="${studentLoggedIn}" >Welcome, <span th:text="${student != null ? student.firstName : 'Student'}">!</span></h3>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="box box3">
+                    <img th:if="${student.imagePath != null}" th:src="'/images/' + ${student.imagePath}" alt="Profile Picture">
+                    <img th:unless="${student != null && student.imagePath != null}" src="/images/studentimg_ic.png" alt="Default Profile Picture">
+                </div>
+                <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>
+            </div>
 
 
-    <div class="row">
-        <div class="img-column col-3" style="align-center;">
-            <div class="box box3"><img th:src="'/images/' +${student.imagePath}" alt="profile pic"></div>
-            <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>
-        </div>
+<!--    <div class="row">-->
+<!--        <div class="img-column col-3" style="align-center;">-->
+<!--            <div class="box box3"><img th:src="'/images/' +${student.imagePath}" alt="profile pic"></div>-->
+<!--            <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>-->
+<!--        </div>-->
 
         <div class="column col-9">
             <table class="table table--striped" style="border-collapse: collapse; width: 85%;
@@ -52,9 +62,9 @@
 
             </table>
 
-            <!--            TODO: edit button-->
+        </div>
+        </div>
 
-            </div>
     </div>
 </article>
 

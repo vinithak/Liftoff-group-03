@@ -14,22 +14,20 @@
 <header th:replace="~{fragments :: header}"></header>
 
 <article class="infobox">
-    <h3>Welcome, <span th:if="${tutorLoggedIn}" th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
+    <h3 th:if="${tutorLoggedIn}" >Welcome, <span th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
 
-<!--    <div class="row">-->
-<!--        <div class="img-column col-3" style="align-center;">-->
-<!--            <div class="box box3"><img th:src="'/images/' +${tutor.imagePath}" alt="profile pic"></div>-->
-<!--            <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>-->
-<!--        </div>-->
-
+    <div class="container">
+        <div class="row">
+        <div class="col-3">
         <div class="box box3">
             <img th:if="${tutor.imagePath != null}" th:src="'/images/' + ${tutor.imagePath}" alt="Profile Picture">
             <img th:unless="${tutor != null && tutor.imagePath != null}" src="/images/tutorimg_ic.png" alt="Default Profile Picture">
         </div>
         <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
+        </div>
 
 
-        <div class="column col-9">
+        <div class="column col-8">
             <table class="table table--striped" style="border-collapse: collapse; width: 65%;
             margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
                 <thead>
@@ -67,10 +65,10 @@
     <!--                    <td th:text="${tutor.zoom_link}" >Tutor Zoom Link</td>-->
     <!--                </tr>-->
                 </table>
-
-            <!--            TODO: edit button-->
         </div>
     </div>
+    </div>
+
 </article>
 <article class="infobox">
     <h3>Reviews</h3>
@@ -84,6 +82,7 @@
             <a th:href="@{'/tutorreviews/view/' + ${tutor.id}}">View Tutor Review</a>
         </div>
     </div>
+
 </article>
 
 <article class="infobox">
