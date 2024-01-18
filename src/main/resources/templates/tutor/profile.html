@@ -29,7 +29,9 @@
                 <thead>
                 <tr>
                     <th style="text-align: center;">Profile Information</th>
-                    <th style="text-align: center;"><button>Edit</button></th>
+                    <td style="width: 25%; text-align: right;">
+                        <a th:href="@{/tutor/profile/edit/{id}(id=${tutor.id})}">Edit</a>
+                    </td>
 
                 </tr>
                 </thead>

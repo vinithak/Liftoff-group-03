@@ -29,7 +29,9 @@
             <thead>
             <tr>
                 <th style="text-align: center;">Profile Information</th>
-                <td style="width: 25%; text-align: right;"><button>Edit</button></td>
+                <td style="width: 25%; text-align: right;">
+                    <a th:href="@{/student/profile/edit/{id}(id=${student.id})}">Edit</a>
+                </td>
 
             </tr>
             </thead>
@@ -50,6 +52,7 @@
             </table>
 
             <!--            TODO: edit button-->
+
             </div>
     </div>
 </article>
@@ -84,3 +87,5 @@
 
 </body>
 </html>
+
+
