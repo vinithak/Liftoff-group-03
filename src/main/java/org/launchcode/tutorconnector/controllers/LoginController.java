@@ -32,6 +32,8 @@ public class LoginController {
     // Logger
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -166,11 +168,13 @@ public class LoginController {
 
         if (theTutor != null) {
             logger.info("Setting session for tutor with email: {}", loginFormDTO.getEmail());
+            session.setAttribute("tutorId", theTutor.getId());
             setTutorInSession(request.getSession(), theTutor);
             return "redirect:/tutor/profile/" + theTutor.getId();
         } else {
             logger.info("Setting session for student with email: {}", loginFormDTO.getEmail());
             setStudentInSession(request.getSession(), theStudent);
+            session.setAttribute("studentId", theStudent.getId());
             return "redirect:/student/profile/" + theStudent.getId();
         }
 

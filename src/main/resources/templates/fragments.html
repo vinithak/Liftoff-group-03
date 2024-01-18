@@ -29,7 +29,7 @@
 
                     <th:block th:if="${studentLoggedIn}">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{student/profile/{id}}">My Profile</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/student/profile/{id}(id=${studentId})}">My Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/list}">List of Tutors</a>
@@ -38,22 +38,16 @@
                             <a class="nav-link" th:href="@{/search}">Tutor Search</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/tutorreviews/add/{id}}">Review a Tutor</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" th:href="@{/student/meetings/join}">Join a Session</a>
                         </li>
                     </th:block>
 
                     <th:block th:if="${tutorLoggedIn}">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{tutor/profile/{id}}">My Profile</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/tutor/profile/{id}(id=${tutorId})}">My Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/list}">List of Students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/tutorreviews/view/{id}}">View Reviews</a>
+                            <a class="nav-link" th:href="@{/tutorreviews/view/{id}(id=${tutorId})}">View Reviews</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/tutor/meetings/create}">Create a Session</a>

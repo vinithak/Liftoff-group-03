@@ -32,6 +32,7 @@ public class StudentController {
         if (optStudent.isPresent()) {
             Student student = optStudent.get();
             model.addAttribute("student", student);
+            model.addAttribute("studentId", student.getId());
             return "student/profile";
         } else {
             return "redirect:/register";
