@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,16 @@ public class CalendarController {
         return "Welcome!";
     }
 
+    @GetMapping("/getUpdatedEvents/{id}")
+    @ResponseBody
+    public List<Event> getUpdatedEvents(@PathVariable int id) {
+        // Fetch updated events from the server (replace with your logic)
+        Optional optTutor = tutorRepository.findById(id);
+        Tutor tutor = (Tutor) optTutor.get();
+        List<Event> updatedEvents = tutor.getEvents();
+        return updatedEvents;
+    }
+
     @GetMapping("/api/events")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     Iterable<Event> events(@RequestParam("start") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime start,
@@ -55,8 +66,8 @@ public class CalendarController {
     @PostMapping("/api/events/create")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
-    Event createEvent(Model model,@RequestBody EventCreateParams params) {
-        Tutor tutor;
+    Event createEvent(Model model, @RequestBody EventCreateParams params) {
+        Tutor tutor = new Tutor();
         Event e = new Event();
         e.setStart(params.start);
         e.setEnd(params.end);
