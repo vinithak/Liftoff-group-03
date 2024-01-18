@@ -136,7 +136,7 @@ footer {
 }
 
 .box {
-  border: 5px solid #000;
+  border: 1px solid gray;
 }
 
 .box img {
@@ -146,14 +146,17 @@ footer {
 
 .box1 img {
   object-fit: cover;
+  border: 1px solid gray;
 }
 
 .box2 img {
   object-fit: contain;
+  border: 1px solid gray;
 }
 
 .box3 img {
   object-fit: fill;
+  border: 1px solid gray;
 }
 
 </style>
