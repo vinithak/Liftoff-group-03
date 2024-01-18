@@ -84,6 +84,14 @@
             <p>
                 <input type="hidden" th:value="${tutor.id}" th:attr="name='tutorId'"/>
             </p>
+            <label for="studentSelected">Select Student: </label>
+            <select id="studentSelected" name="studentSelected">
+                <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.firstName} + ' ' +  ${student.lastName}"></option>
+            </select>
+            <label for="subjectSelected">Select Subject: </label>
+            <select id="subjectSelected" name="subjectSelected">
+                <option th:each="subject : ${subjects}" th:value="${subject.courseName}" th:text="${subject.courseName}"></option>
+            </select>
             <input type="submit" value="Schedule" />
         </form>
     </div>
