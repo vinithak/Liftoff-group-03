@@ -17,7 +17,8 @@
         <div class="container-fluid">
             <h1><a class="navbar-brand" th:href="@{/index}"><img src="/icons/tcicon.png" alt="TC logo">TutorConnector</a></h1>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#ffffff;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#ffffff;">
                 <span class="navbar-toggler-icon" style="background-color:#ffffff;"></span>
             </button>
 
@@ -38,16 +39,13 @@
                         <a class="nav-link" th:href="@{/search}">Tutor Search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/tutorreviews/add/{id}}">Review a Tutor</a>
+                        <a class="nav-link" th:href="@{/tutor/reviews/add/{id}}">Review a Tutor</a>
                     </li>
                     </th:block>
 
                     <th:block th:if="${session.tutor != null}">>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{tutor/profile/{id}}">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/list}">List of Students</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/tutor/reviews/view/{id}}">View Reviews</a>
@@ -59,7 +57,7 @@
                         <a class="nav-link" th:href="@{/student/register}">Register as a Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/tutor/registration}">Become a Tutor</a>
+                        <a class="nav-link" th:href="@{/tutor/register}">Become a Tutor</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/login}">Login</a>
