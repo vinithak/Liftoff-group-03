@@ -112,16 +112,25 @@ public class TutorAuthController {
         return "redirect:/tutor/profile/" + newTutor.getId();
     }
 
-
     @GetMapping("/profile/edit/{id}")
     public String displayEditForm(@PathVariable int id, Model model, HttpSession session) {
-        Optional<Tutor> optionalTutor = tutorRepository.findById(id);
-        if (optionalTutor.isPresent()) {
-            Tutor tutor = optionalTutor.get();
-            model.addAttribute("tutor", tutor);
-            model.addAttribute("editForm", new EditFormDTO(tutor));
-            return "tutor/edit";
+        Tutor loggedInTutor = getTutorFromSession(session);
+
+        // Check if a tutor is logged in and if their ID matches the path variable
+        if (loggedInTutor != null && loggedInTutor.getId() == id) {
+            Optional<Tutor> optionalTutor = tutorRepository.findById(id);
+
+            if (optionalTutor.isPresent()) {
+                Tutor tutor = optionalTutor.get();
+                model.addAttribute("tutor", tutor);
+                model.addAttribute("editForm", new EditFormDTO(tutor));
+                return "tutor/edit";
+            } else {
+                //if tutor id doesnt exist
+                return "redirect:/";
+            }
         } else {
+            // If no tutor is logged in or the ID doesn't match
             return "redirect:/";
         }
     }

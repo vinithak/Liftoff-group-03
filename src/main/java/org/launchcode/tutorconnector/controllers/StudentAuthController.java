@@ -104,16 +104,27 @@ public class StudentAuthController {
 
     @GetMapping("/profile/edit/{id}")
     public String displayEditForm(@PathVariable int id, Model model, HttpSession session) {
-        Optional<Student> optStudent = studentRepository.findById(id);
-        if (optStudent.isPresent()) {
-            Student student = optStudent.get();
-            model.addAttribute("student", student);
-            model.addAttribute("editForm", new EditFormDTO(student));
-            return "student/edit";
+        Student loggedInStudent = getStudentFromSession(session);
+
+        // Check if a student is logged in and if their ID matches the path variable
+        if (loggedInStudent != null && loggedInStudent.getId() == id) {
+            Optional<Student> optStudent = studentRepository.findById(id);
+
+            if (optStudent.isPresent()) {
+                Student student = optStudent.get();
+                model.addAttribute("student", student);
+                model.addAttribute("editForm", new EditFormDTO(student));
+                return "student/edit";
+            } else {
+                // If the student ID doesn't exist
+                return "redirect:/";
+            }
         } else {
+            // If no student is logged in or the ID doesn't match
             return "redirect:/";
         }
     }
+
 
     @PostMapping("/profile/edit/{id}")
     public String processEditForm(@PathVariable int id, @ModelAttribute("editForm") EditFormDTO editForm, Errors errors, HttpSession session) {
