@@ -1,9 +1,6 @@
 package org.launchcode.tutorconnector.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +11,7 @@ import java.util.List;
 @Entity
 public class Student extends AbstractEntity{
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "student_id")
     private List<Event> events = new ArrayList<>();
 
@@ -74,3 +71,4 @@ public class Student extends AbstractEntity{
     }
 
 }
+

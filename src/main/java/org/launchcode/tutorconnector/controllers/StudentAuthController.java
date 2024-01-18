@@ -146,6 +146,29 @@ public class StudentAuthController {
         }
     }
 
+
+    @GetMapping("/delete/{id}")
+    public String deleteStudent(@PathVariable int id) {
+        Optional<Student> studentOpt = studentRepository.findById(id);
+        if (studentOpt.isPresent()) {
+            studentRepository.delete(studentOpt.get());
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteStudentAccount(@PathVariable int id, HttpSession session) {
+        Student loggedInStudent = getStudentFromSession(session);
+        if (loggedInStudent != null && loggedInStudent.getId() == id) {
+            studentRepository.deleteById(id);
+            session.invalidate(); // Logging out the user after account deletion
+            return "redirect:/"; // Redirect to home page after deletion
+        } else {
+            return "redirect:/student/profile/" + id; // Redirect back if not authorized
+        }
+    }
+
+
 }
 
 

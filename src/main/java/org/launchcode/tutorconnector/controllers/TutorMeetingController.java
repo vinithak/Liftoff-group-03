@@ -34,7 +34,6 @@ public class TutorMeetingController {
     public String processCreateMeetingForm(@ModelAttribute MeetingForm meetingForm, Model model) {
         Map<String, Object> meetingDetails = dailyCoService.createMeeting(meetingForm.getRoomName());
         model.addAttribute("meetingDetails", meetingDetails);
-        // Add other attributes as needed...
         return "tutor/meetingDetails";
     }
 

@@ -27,7 +27,7 @@ public class Tutor extends AbstractEntity {
     @JoinColumn(name = "tutor_id")
     private List<TutorReview> tutorReviews = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tutor_id")
     private List<Event> events = new ArrayList<>();
 
