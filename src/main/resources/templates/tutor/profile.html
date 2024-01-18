@@ -67,7 +67,7 @@
     <!--                </tr>-->
                 </table>
             <th:block class="text-end" th:if="${tutorLoggedIn}">
-                <form th:action="@{/tutor/delete/{id}(id=${tutor.id})}" method="post" onsubmit="return confirmDelete()">>
+                <form th:action="@{/tutor/delete/{id}(id=${tutor.id})}" method="post" onsubmit="return confirmDelete()">
                     <button type="submit" class="btn btn-danger">Delete Account</button>
                 </form>
             </th:block>
