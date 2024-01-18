@@ -65,6 +65,7 @@
                 </div>
             </div>
         </div>
+        <p></p>
 
         <div class="container">
             <div class="row">
@@ -74,13 +75,20 @@
                 </div>
             </div>
         </div>
+        <p></p>
 
-        <div class="form-group">
-            <label th:for="subjects">Subjects</label>
-            <th:block th:each="subject : ${subjects}">
+        <div class="container form-check">
+            <div class="row">
+                <div class="form-item col-6">
+            <label th:for="subjects">Subjects:</label>
+                    <br>
+            <th:block class="form-check-input" th:each="subject : ${subjects}">
                 <input type="checkbox" name="subjects" th:value="${subject.id}">
-                <label th:text="${subject.courseName}"></label>
+                <label class="form-check-label" th:text="${subject.courseName}"></label>
+                <br>
             </th:block>
+                </div>
+            </div>
         </div>
 
 
