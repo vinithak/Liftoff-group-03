@@ -72,4 +72,10 @@ public class ListController {
         }
     }
 
+    @RequestMapping("student")
+    public String listStudents(Model model) {
+        model.addAttribute("students",studentRepository.findAll());
+        return "student/list";
+    }
+
 }
