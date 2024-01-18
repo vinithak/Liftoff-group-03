@@ -28,10 +28,11 @@
             <thead>
             <tr>
                 <th style="text-align: center;">Profile Information</th>
-                <td style="width: 25%; text-align: right;">
-                    <a th:href="@{/student/profile/edit/{id}(id=${student.id})}">Edit</a>
-                </td>
-
+                <th:block th:if="${studentLoggedIn}">
+                    <td style="width: 25%; text-align: right;">
+                        <a th:href="@{/student/profile/edit/{id}(id=${student.id})}">Edit</a>
+                    </td>
+                </th:block>
 
             </tr>
             </thead>
