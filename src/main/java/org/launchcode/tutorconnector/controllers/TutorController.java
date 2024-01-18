@@ -52,6 +52,7 @@ public class TutorController {
             return "redirect:/register";
         }
     }
+
     @RequestMapping("/calendar")
     public String displayCalendar(Model model,@RequestParam String tutorId) {
         int value = Integer.parseInt(tutorId);

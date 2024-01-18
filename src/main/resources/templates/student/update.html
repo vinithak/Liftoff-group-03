@@ -15,13 +15,13 @@
         <article class="infobox">
             <h1>Update Profile</h1>
 
-            <form id="editForm" th:object="${student}" th:action="@{/update}" method="post">
+            <form id="editForm" th:object="${student}" th:action="@{/update}" method="PUT">
                 <table class="table table--striped" style="border-collapse: collapse; width: 85%; margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
                     <thead>
                     <tr>
                         <th style="text-align: center;">Profile Information</th>
                         <td style="width: 25%; text-align: right;">
-                            <button type="button" onclick="toggleEditMode()">Edit</button>
+                            <button type="button" >Edit</button>
                         </td>
                     </tr>
                     </thead>
@@ -30,11 +30,7 @@
                         <td th:if="${!editMode}" th:text="${student.firstName} + ' ' + ${student.lastName}">Student name</td>
                         <td th:if="${editMode}"><input type="text" th:field="*{firstName}" /> <input type="text" th:field="*{lastName}" /></td>
                     </tr>
-                    <tr>
-                        <td style="width: 25%;">Email: </td>
-                        <td th:if="${!editMode}" th:text="${student.email}">Student email</td>
-                        <td th:if="${editMode}"><input type="text" th:field="*{email}" /></td>
-                    </tr>
+
                     <tr>
                         <td style="width: 25%;">Grade level: </td>
                         <td th:if="${!editMode}" th:text="${student.gradeLevel}">Student grade level</td>
