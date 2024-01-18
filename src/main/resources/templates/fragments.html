@@ -60,7 +60,7 @@
                         <a class="nav-link" th:href="@{/student/register}">Register as a Student</a>
                     </li>
                     <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
-                        <a class="nav-link" th:href="@{/tutor/registration}">Become a Tutor</a>
+                        <a class="nav-link" th:href="@{/tutor/register}">Become a Tutor</a>
                     </li>
                     <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/login}">Login</a>
