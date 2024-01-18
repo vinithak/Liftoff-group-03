@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,6 +80,8 @@
 
 <article class="infobox">
     <h3>View Schedule</h3>
+    <p>View your scheduled appointments here.  To schedule, find your tutor on the list page, then on their profile, choose your
+    name from the dropdown and click Schedule.</p>
     <div class="row">
 
 <!--        <div class="img-column"><img src="static/images/books.png"  alt="a book"/></div>-->
@@ -89,8 +92,12 @@
             <input type="submit" value="Schedule" />
         </form>
     </div>
-    <div class="row"></div>
+</article>
+
+<article class="infobox">
+
     <div class="row">
+        <p>Browse through our list of tutors, or click search tutor if you know the name of the tutor you want to work with.</p>
         <div class="column">
             <a th:href="@{/list}">List All Tutors</a>
         </div>
