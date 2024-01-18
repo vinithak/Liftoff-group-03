@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+<header th:replace="~{fragments :: header}"></header>
 <div th:fragment="showCalendar">
     <div class="main">
         <div class="wrap">
@@ -24,9 +25,9 @@
                     <button id="previous">Previous</button>
                     <button id="next">Next</button>
                 </div>
-                <h2>Calendar</h2>
+                <h2 th:text="'Calendar for ' + ${subjectSelected} + ' Tutor: ' + ${tutor.firstName} + ' ' +  ${tutor.lastName}">Calendar</h2>
+                <h3 th:text = "'Student: ' + ${student.firstName} + ' ' +  ${student.lastName}"></h3>
                 <form>
-                    <label th:text="'Tutor:' + ${tutor.firstName} + ' ' +  ${tutor.lastName}"></label>
                     <div id="dp"></div>
                     <input type="hidden" id="tutorId" value="{tutor.id}">
                </form>
@@ -42,6 +43,8 @@
 
         /*<![CDATA[*/
           const valueId = [[${tutor.id}]];
+          const subject = [[${subjectSelected}]];
+          const studentId = [[${student.id}]];
         /*]]>*/
 
         const datePicker = new DayPilot.Navigator("nav", {
@@ -58,6 +61,7 @@
 
             /*]]>*/
             calendar.update()
+
           }
         });
         datePicker.init();
@@ -79,7 +83,9 @@
               start: args.start,
               end: args.end,
               text: modal.result,
-              tutorId: valueId
+              tutorId: valueId,
+              subject: subject,
+              studentId: studentId
             };
             const {data} = await DayPilot.Http.post('/api/events/create', params);
             calendar.events.add(data);
@@ -210,7 +216,7 @@
                 calendar.events.list = [[${events}]];
 
             /*]]>*/
-                calendar.update()
+                calendar.update();
 
 
           }
