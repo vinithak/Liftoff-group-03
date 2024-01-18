@@ -30,7 +30,7 @@ public class UploadController {
 
 
 
-    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
+    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images";
 
 
     @GetMapping("/tutor/upload/{tutorId}")
@@ -41,15 +41,15 @@ public class UploadController {
     }
 
     @PostMapping("/tutor/upload")
-    public String uploadTutorImage(Model model, @RequestParam("image") MultipartFile file, @RequestParam int tutorId) throws IOException {
+    public String uploadTutorImage(Model model, @RequestParam("image") MultipartFile file, @RequestParam String tutorId) throws IOException {
         StringBuilder fileNames = new StringBuilder();
         Path fileNameandPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
         fileNames.append(file.getOriginalFilename());
         Files.write(fileNameandPath,file.getBytes());
-        Optional optTutor = tutorRepository.findById(tutorId);
+        Optional optTutor = tutorRepository.findById(Integer.parseInt(tutorId));
         if (optTutor.isPresent()) {
             Tutor tutor = (Tutor) optTutor.get();
-            tutor.setImagePath(fileNameandPath.toString());
+            tutor.setImagePath(file.getOriginalFilename());
             tutorRepository.save(tutor);
         }
         model.addAttribute("msg", "Uploaded Image" + fileNames.toString());
@@ -72,7 +72,7 @@ public class UploadController {
         Optional optStudent = studentRepository.findById(Integer.parseInt(studentId));
         if (optStudent.isPresent()) {
             Student student = (Student) optStudent.get();
-            student.setImagePath(fileNameandPath.toString());
+            student.setImagePath(file.getOriginalFilename());
             studentRepository.save(student);
         }
         model.addAttribute("msg", "Uploaded Image" + fileNames.toString());
