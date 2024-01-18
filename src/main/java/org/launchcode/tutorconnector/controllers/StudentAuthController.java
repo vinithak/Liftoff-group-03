@@ -9,6 +9,7 @@ import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.LoginRepository;
 import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.Student;
+import org.launchcode.tutorconnector.models.dto.EditFormDTO;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -104,6 +102,50 @@ public class StudentAuthController {
         return "redirect:/student/profile/" + newStudent.getId();
     }
 
+    @GetMapping("/profile/edit/{id}")
+    public String displayEditForm(@PathVariable int id, Model model, HttpSession session) {
+        Student loggedInStudent = getStudentFromSession(session);
+
+        // Check if a student is logged in and if their ID matches the path variable
+        if (loggedInStudent != null && loggedInStudent.getId() == id) {
+            Optional<Student> optStudent = studentRepository.findById(id);
+
+            if (optStudent.isPresent()) {
+                Student student = optStudent.get();
+                model.addAttribute("student", student);
+                model.addAttribute("editForm", new EditFormDTO(student));
+                return "student/edit";
+            } else {
+                // If the student ID doesn't exist
+                return "redirect:/";
+            }
+        } else {
+            // If no student is logged in or the ID doesn't match
+            return "redirect:/";
+        }
+    }
+
+
+    @PostMapping("/profile/edit/{id}")
+    public String processEditForm(@PathVariable int id, @ModelAttribute("editForm") EditFormDTO editForm, Errors errors, HttpSession session) {
+        if (errors.hasErrors()) {
+            return "student/edit";
+        }
+
+        Optional<Student> optStudent = studentRepository.findById(id);
+        if (optStudent.isPresent()) {
+            Student student = optStudent.get();
+            student.setFirstName(editForm.getFirstName());
+            student.setLastName(editForm.getLastName());
+            student.setEmail(editForm.getEmail());
+            student.setGradeLevel(editForm.getGradeLevel());
+            studentRepository.save(student);
+            return "redirect:/student/profile/" + student.getId();
+        } else {
+            return "redirect:/";
+        }
+    }
 
 }
+
 

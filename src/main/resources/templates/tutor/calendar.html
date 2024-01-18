@@ -47,6 +47,21 @@
           const studentId = [[${student.id}]];
         /*]]>*/
 
+        function fetchUpdatedEvents(valueId) {
+            return fetch(`/getUpdatedEvents/${valueId}`)
+                .then(response => response.json())
+                .catch(error => console.error('Error fetching updated events:', error));
+        }
+
+        // Function to rebind the data to the DayPilot calendar
+        function rebindCalendar(updatedEvents) {
+            // Assuming 'calendar' is your DayPilot Calendar instance
+            calendar.events.list = updatedEvents;
+            calendar.update();
+        }
+
+
+
         const datePicker = new DayPilot.Navigator("nav", {
           showMonths: 3,
           skipMonths: 3,
@@ -57,9 +72,12 @@
             });
              /*<![CDATA[*/
 
-                calendar.events.list = [[${events}]];
+           /*     calendar.events.list = [[${events}]];*/
 
             /*]]>*/
+        fetchUpdatedEvents(valueId)
+            .then(updatedEvents => rebindCalendar(updatedEvents))
+            .catch(error => console.error('Error fetching and rebinding events:', error));
             calendar.update()
 
           }
@@ -89,6 +107,7 @@
             };
             const {data} = await DayPilot.Http.post('/api/events/create', params);
             calendar.events.add(data);
+
           },
           onEventMove: async (args) => {
               const params = {
@@ -213,10 +232,14 @@
             });
             /*<![CDATA[*/
 
-                calendar.events.list = [[${events}]];
+              /*  calendar.events.list = [[${events}]];*/
+        fetchUpdatedEvents(valueId)
+            .then(updatedEvents => rebindCalendar(updatedEvents))
+            .catch(error => console.error('Error fetching and rebinding events:', error));
 
             /*]]>*/
                 calendar.update();
+
 
 
           }

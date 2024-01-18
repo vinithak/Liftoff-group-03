@@ -3,13 +3,11 @@ package org.launchcode.tutorconnector.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.launchcode.tutorconnector.models.Login;
-import org.launchcode.tutorconnector.models.Subject;
-import org.launchcode.tutorconnector.models.Subjects;
+import org.launchcode.tutorconnector.models.*;
 import org.launchcode.tutorconnector.models.data.LoginRepository;
 import org.launchcode.tutorconnector.models.data.SubjectRepository;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
-import org.launchcode.tutorconnector.models.Tutor;
+import org.launchcode.tutorconnector.models.dto.EditFormDTO;
 import org.launchcode.tutorconnector.models.dto.LoginFormDTO;
 import org.launchcode.tutorconnector.models.dto.RegistrationFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,5 +111,51 @@ public class TutorAuthController {
         setTutorInSession(request.getSession(), newTutor);
         return "redirect:/tutor/profile/" + newTutor.getId();
     }
+
+    @GetMapping("/profile/edit/{id}")
+    public String displayEditForm(@PathVariable int id, Model model, HttpSession session) {
+        Tutor loggedInTutor = getTutorFromSession(session);
+
+        // Check if a tutor is logged in and if their ID matches the path variable
+        if (loggedInTutor != null && loggedInTutor.getId() == id) {
+            Optional<Tutor> optionalTutor = tutorRepository.findById(id);
+
+            if (optionalTutor.isPresent()) {
+                Tutor tutor = optionalTutor.get();
+                model.addAttribute("tutor", tutor);
+                model.addAttribute("editForm", new EditFormDTO(tutor));
+                return "tutor/edit";
+            } else {
+                //if tutor id doesnt exist
+                return "redirect:/";
+            }
+        } else {
+            // If no tutor is logged in or the ID doesn't match
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/profile/edit/{id}")
+    public String processEditForm(@PathVariable int id, @ModelAttribute("editForm") EditFormDTO editForm, Errors errors, HttpSession session) {
+        if (errors.hasErrors()) {
+            return "tutor/edit";
+        }
+
+        Optional<Tutor> optionalTutor = tutorRepository.findById(id);
+        if (optionalTutor.isPresent()) {
+            Tutor tutor = optionalTutor.get();
+            tutor.setFirstName(editForm.getFirstName());
+            tutor.setLastName(editForm.getLastName());
+            tutor.setEmail(editForm.getEmail());
+            tutor.setQualifications(editForm.getQualifications());
+            tutor.setAvailability(editForm.getAvailability());
+            tutorRepository.save(tutor);
+            return "redirect:/tutor/profile/" + tutor.getId();
+        } else {
+            return "redirect:/";
+        }
+    }
+
+
 
 }
