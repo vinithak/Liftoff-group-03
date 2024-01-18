@@ -3,12 +3,15 @@ package org.launchcode.tutorconnector.controllers;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.launchcode.tutorconnector.models.Event;
+import org.launchcode.tutorconnector.models.Student;
 import org.launchcode.tutorconnector.models.Tutor;
 import org.launchcode.tutorconnector.models.data.EventRepository;
+import org.launchcode.tutorconnector.models.data.StudentRepository;
 import org.launchcode.tutorconnector.models.data.TutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.transaction.Transactional;
@@ -30,6 +33,10 @@ public class CalendarController {
     @Autowired
     TutorRepository tutorRepository;
 
+    @Autowired
+    StudentRepository studentRepository;
+
+
     @RequestMapping("/api")
     @ResponseBody
     String home() {
@@ -48,16 +55,21 @@ public class CalendarController {
     @PostMapping("/api/events/create")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
-    Event createEvent(@RequestBody EventCreateParams params) {
-
+    Event createEvent(Model model,@RequestBody EventCreateParams params) {
+        Tutor tutor;
         Event e = new Event();
         e.setStart(params.start);
         e.setEnd(params.end);
         e.setText(params.text);
         Optional optTutor = tutorRepository.findById(params.tutorId);
         if (optTutor.isPresent()) {
-            Tutor tutor = (Tutor) optTutor.get();
+            tutor = (Tutor) optTutor.get();
             e.setTutor(tutor);
+        }
+        Optional optStudent = studentRepository.findById(params.studentId);
+        if (optStudent.isPresent()) {
+            Student student = (Student) optStudent.get();
+            e.setStudent(student);
         }
         eventRepository.save(e);
 
@@ -117,6 +129,9 @@ public class CalendarController {
         public String text;
 
         public int tutorId;
+
+        public String subject;
+        public int studentId;
     }
 
     public static class EventMoveParams {

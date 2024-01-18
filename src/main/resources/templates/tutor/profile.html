@@ -14,16 +14,22 @@
 <header th:replace="~{fragments :: header}"></header>
 
 <article class="infobox">
-    <h3>Welcome, <span th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
-    <div class="row">
-        <div class="img-column col-3" style="align-center;">
-            <div class="box box3"><img th:src="'/images/' +${tutor.imagePath}" alt="profile pic"></div>
-            <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
+    <h3>Welcome, <span th:if="${tutorLoggedIn}" th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
+
+<!--    <div class="row">-->
+<!--        <div class="img-column col-3" style="align-center;">-->
+<!--            <div class="box box3"><img th:src="'/images/' +${tutor.imagePath}" alt="profile pic"></div>-->
+<!--            <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>-->
+<!--        </div>-->
+
+        <div class="box box3">
+            <img th:if="${tutor.imagePath != null}" th:src="'/images/' + ${tutor.imagePath}" alt="Profile Picture">
+            <img th:unless="${tutor != null && tutor.imagePath != null}" src="/images/tutorimg_ic.png" alt="Default Profile Picture">
         </div>
-        <p>Tutor profile</p>
+        <a th:href="@{'/tutor/upload/' + ${tutor.id}}">Upload Image</a>
+
 
         <div class="column col-9">
-
             <table class="table table--striped" style="border-collapse: collapse; width: 65%;
             margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
                 <thead>
@@ -86,6 +92,14 @@
             <p>
                 <input type="hidden" th:value="${tutor.id}" th:attr="name='tutorId'"/>
             </p>
+            <label for="studentSelected">Select Student: </label>
+            <select id="studentSelected" name="studentSelected">
+                <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.firstName} + ' ' +  ${student.lastName}"></option>
+            </select>
+            <label for="subjectSelected">Select Subject: </label>
+            <select id="subjectSelected" name="subjectSelected">
+                <option th:each="subject : ${subjects}" th:value="${subject.courseName}" th:text="${subject.courseName}"></option>
+            </select>
             <input type="submit" value="Schedule" />
         </form>
     </div>

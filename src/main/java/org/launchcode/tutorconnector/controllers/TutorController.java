@@ -48,6 +48,8 @@ public class TutorController {
             Tutor tutor = (Tutor) optTutor.get();
             model.addAttribute("tutor", tutor);
             model.addAttribute("tutorId", tutor.getId());
+            model.addAttribute("students", studentRepository.findAll());
+            model.addAttribute("subjects", tutor.getSubjects());
             return "tutor/profile";
         } else {
             return "redirect:/register";
@@ -55,14 +57,21 @@ public class TutorController {
     }
 
     @RequestMapping("/calendar")
-    public String displayCalendar(Model model,@RequestParam String tutorId) {
+    public String displayCalendar(Model model,@RequestParam String tutorId,@RequestParam String studentSelected,@RequestParam String subjectSelected) {
         int value = Integer.parseInt(tutorId);
         Optional optTutor = tutorRepository.findById(value);
         if (optTutor.isPresent()) {
             Tutor tutor = (Tutor) optTutor.get();
             model.addAttribute("tutor", tutor);
             model.addAttribute("events", tutor.getEvents());
+            model.addAttribute("subjectSelected", subjectSelected);
         }
+        Optional optStudent = studentRepository.findById(Integer.parseInt(studentSelected));
+        if (optStudent.isPresent()) {
+            Student student = (Student) optStudent.get();
+            model.addAttribute("student", student);
+        }
+
         return "tutor/calendar";
     }
 

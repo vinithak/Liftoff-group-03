@@ -13,9 +13,9 @@ public class Event {
 
     @ManyToOne
     private Tutor tutor;
-//
-//    @ManyToOne
-//    private Student student;
+
+    @ManyToOne
+    private Student student;
 
     String text;
 
@@ -72,8 +72,8 @@ public class Event {
         this.tutor = tutor;
     }
 
-//
-//    public void setStudent(Student student) {
-//        this.student = student;
-//    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }

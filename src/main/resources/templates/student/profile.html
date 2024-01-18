@@ -17,7 +17,6 @@
 
 
     <div class="row">
-
         <div class="img-column col-3" style="align-center;">
             <div class="box box3"><img th:src="'/images/' +${student.imagePath}" alt="profile pic"></div>
             <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>
@@ -32,6 +31,7 @@
                 <td style="width: 25%; text-align: right;">
                     <a th:href="@{/student/profile/edit/{id}(id=${student.id})}">Edit</a>
                 </td>
+
 
             </tr>
             </thead>
