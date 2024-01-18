@@ -22,11 +22,13 @@
                     <img th:if="${student.imagePath != null}" th:src="'/images/' + ${student.imagePath}" alt="Profile Picture">
                     <img th:unless="${student != null && student.imagePath != null}" src="/images/studentimg_ic.png" alt="Default Profile Picture">
                 </div>
-                <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>
+                <a th:if="${studentLoggedIn && '/student/upload/' + student.id == '/student/upload/' + student.id}" th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>
             </div>
 
 
-<!--    <div class="row">-->
+
+
+            <!--    <div class="row">-->
 <!--        <div class="img-column col-3" style="align-center;">-->
 <!--            <div class="box box3"><img th:src="'/images/' +${student.imagePath}" alt="profile pic"></div>-->
 <!--            <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>-->
@@ -43,11 +45,7 @@
                         <a th:href="@{/student/profile/edit/{id}(id=${student.id})}">Edit</a>
                     </td>
                 </th:block>
-                <th:block th:if="${studentLoggedIn}">
-                <form th:action="@{/student/delete/{id}(id=${student.id})}" method="post" onsubmit="return confirmDelete()">>
-                    <button type="submit" class="btn btn-danger">Delete Account</button>
-                </form>
-                </th:block>
+
 
 
             </tr>
@@ -67,6 +65,11 @@
             </tr>
 
             </table>
+            <th:block class="text-end" th:if="${studentLoggedIn}">
+                <form th:action="@{/student/delete/{id}(id=${student.id})}" method="post" onsubmit="return confirmDelete()">
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </form>
+            </th:block>
 
         </div>
         </div>

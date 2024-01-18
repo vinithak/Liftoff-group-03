@@ -15,7 +15,7 @@
 
     <nav class="navbar navbar-expand-lg" style="background-color:#c8e5eb;">
         <div class="container-fluid">
-            <h1><a class="navbar-brand" th:href="@{/index}"><img src="images/tcicon.png" alt="TC logo">TutorConnector</a></h1>
+            <h1><a class="navbar-brand" th:href="@{/}">TutorConnector</a></h1>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="avbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#ffffff;">
                 <span class="navbar-toggler-icon" style="background-color:#ffffff;"></span>
@@ -74,12 +74,16 @@
                     <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
-                    <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/contact}">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/resources}">Resources</a>
                     </li>
                     <li class="nav-item" th:if="${studentLoggedIn} or ${tutorLoggedIn}">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
+
                 </ul>
             </div>
         </div>
