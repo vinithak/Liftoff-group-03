@@ -40,6 +40,9 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/student/meetings/join}">Join a Session</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/contact}">Contact Us</a>
+                        </li>
                     </th:block>
 
                     <th:block th:if="${tutorLoggedIn}">
@@ -54,6 +57,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/tutor/meetings/join}">Join a Session</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/contact}">Contact Us</a>
                         </li>
                     </th:block>
                     <li class="nav-item" th:unless="${studentLoggedIn} or ${tutorLoggedIn}">
