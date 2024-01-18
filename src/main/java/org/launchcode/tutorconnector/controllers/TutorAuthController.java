@@ -157,5 +157,26 @@ public class TutorAuthController {
     }
 
 
+    @GetMapping("/delete/{id}")
+    public String deleteTutor(@PathVariable int id) {
+        Optional<Tutor> tutorOpt = tutorRepository.findById(id);
+        if (tutorOpt.isPresent()) {
+            tutorRepository.delete(tutorOpt.get());
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteTutorAccount(@PathVariable int id, HttpSession session) {
+        Tutor loggedInTutor = getTutorFromSession(session);
+        if (loggedInTutor != null && loggedInTutor.getId() == id) {
+            tutorRepository.deleteById(id);
+            session.invalidate(); // Logging out the user after account deletion
+            return "redirect:/"; // Redirect to home page after deletion
+        } else {
+            return "redirect:/tutor/profile/" + id; // Redirect back if not authorized
+        }
+    }
+
 
 }
