@@ -113,7 +113,7 @@
                 <input type="hidden" th:value="${tutor.id}" th:attr="name='tutorId'"/>
             </p>
 
-                  <div class="form-group col-md-4">
+
             <label for="subjectSelected" th:text="${studentLoggedIn} ? 'Selected Student' : 'Select Student'"></label>
             <select id="studentSelected" name="studentSelected" th:disabled="${studentLoggedIn}">
                 <th:block th:if="${tutorLoggedIn}">
