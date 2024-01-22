@@ -94,13 +94,6 @@ public class Tutor extends AbstractEntity {
         this.tutorReviews = tutorReviews;
     }
 
-//    public String getZoomLink() {
-//        return zoomLink;
-//    }
-//
-//    public void setZoomLink(String zoomLink) {
-//        this.zoomLink = zoomLink;
-//    }
 
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;

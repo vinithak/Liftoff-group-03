@@ -27,15 +27,8 @@
             </div>
 
 
+        <div class="column col-9">
 
-
-            <!--    <div class="row">-->
-<!--        <div class="img-column col-3" style="align-center;">-->
-<!--            <div class="box box3"><img th:src="'/images/' +${student.imagePath}" alt="profile pic"></div>-->
-<!--            <a th:href="@{'/student/upload/' + ${student.id}}">Upload Image</a>-->
-<!--        </div>-->
-
-        <div class="col-sm-12 col-md-9">
             <table class="table table--striped" style="border-collapse: collapse; width: 85%;
         margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
             <thead>
@@ -93,11 +86,10 @@
 
 <article class="infobox">
     <h3>View Schedule</h3>
-    <p>View your scheduled appointments here.  To schedule, find your tutor on the list page, then on their profile, choose your
-    name from the dropdown and click Schedule.</p>
+    <p>View your scheduled appointments here.  To schedule, find your tutor on the list page, then on their profile, choose the
+    subject from the dropdown and click Schedule.</p>
     <div class="row">
 
-<!--        <div class="img-column"><img src="static/images/books.png"  alt="a book"/></div>-->
         <form th:action="@{/student/calendar}" method = "post">
             <p>
                 <input type="hidden" th:value="${student.id}" th:attr="name='studentId'"/>
