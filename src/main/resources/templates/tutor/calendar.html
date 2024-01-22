@@ -25,8 +25,8 @@
                     <button id="previous">Previous</button>
                     <button id="next">Next</button>
                 </div>
-                <h2 th:text="'Calendar for ' + ${subjectSelected} + ' Tutor: ' + ${tutor.firstName} + ' ' +  ${tutor.lastName}">Calendar</h2>
-                <h3 th:text = "'Student: ' + ${student.firstName} + ' ' +  ${student.lastName}"></h3>
+                <h2 th:text="'Calendar for '  + ' Tutor: ' + ${tutor.firstName} + ' ' +  ${tutor.lastName}">Calendar</h2>
+                <h3 th:text = "'Schedule Student: ' + ${student.firstName} + ' ' +  ${student.lastName} + ' for Subject ' + ${subjectSelected}"></h3>
                 <form>
                     <div id="dp"></div>
                     <input type="hidden" id="tutorId" value="{tutor.id}">

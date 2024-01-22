@@ -82,9 +82,11 @@
     <div class="row">
 
         <!--        <div class="img-column"><img src="static/images/books.png"  alt="a book"/></div>-->
-        <div class="column">
-            <a th:href="@{'/tutorreviews/add/' + ${tutor.id}}">Add Tutor Review</a>
-        </div>
+        <th:block th:if="${studentLoggedIn}">
+            <div class="column">
+                <a th:href="@{'/tutorreviews/add/' + ${tutor.id}}">Add Tutor Review</a>
+            </div>
+        </th:block>
         <div class="column">
             <a th:href="@{'/tutorreviews/view/' + ${tutor.id}}">View Tutor Review</a>
         </div>
@@ -94,7 +96,8 @@
 
 <article class="infobox">
     <h3>Schedule</h3>
-    <p>Students can select their name, subject and Schedule to schedule an appointment with this tutor.</p>
+    <p th:if="${studentLoggedIn}">Students can select the subject and click Schedule to schedule an appointment with this tutor.</p>
+    <p th:if="${tutorLoggedIn}">Tutor can select the student's name, subject and click Schedule to schedule an appointment for the student.</p>
     <div class="container-fluid">
 <!--            <div th:include="~{calendar :: showCalendar}"></div>-->
 
@@ -102,10 +105,17 @@
             <p>
                 <input type="hidden" th:value="${tutor.id}" th:attr="name='tutorId'"/>
             </p>
-            <label for="studentSelected">Select Student: </label>
-            <select id="studentSelected" name="studentSelected">
-                <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.firstName} + ' ' +  ${student.lastName}"></option>
+            <label for="subjectSelected" th:text="${studentLoggedIn} ? 'Selected Student' : 'Select Student'"></label>
+            <select id="studentSelected" name="studentSelected" th:disabled="${studentLoggedIn}">
+                <th:block th:if="${tutorLoggedIn}">
+                    <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.firstName} + ' ' +  ${student.lastName}"></option>
+                </th:block>
+                <th:block th:if="${studentLoggedIn}">
+                    <option th:value="${student.getId()}" th:text="${student.firstName} + ' ' +  ${student.lastName}" selected></option>
+                </th:block>
+                <input type="hidden" name="studentSelected" th:attr="value=${student.getId()}" th:if="${studentLoggedIn}" />
             </select>
+
             <label for="subjectSelected">Select Subject: </label>
             <select id="subjectSelected" name="subjectSelected">
                 <option th:each="subject : ${subjects}" th:value="${subject.courseName}" th:text="${subject.courseName}"></option>
