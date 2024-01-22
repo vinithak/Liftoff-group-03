@@ -55,8 +55,10 @@
                     <label th:for="subjects">Subjects:</label>
                     <br>
                     <th:block class="form-check-input" th:each="subject : ${subjects}">
+                        <div class="form-check">
                         <input type="checkbox" name="subjects" th:value="${subject.id}">
                         <label class="form-check-label" th:text="${subject.courseName}"></label>
+                        </div>
                         <br>
                     </th:block>
                 </div>

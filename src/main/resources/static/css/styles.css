@@ -36,24 +36,24 @@ a.navlink:hover, a.navlink:active {
 }
 
 
-    label {
-        display: inline-block;
-        width: 200px;
-        margin: 5px;
-        text-align: left;
-    }
-    input[type=text], input[type=password], select {
-        display: inline-block;
-        width: 200px;
-    }
+label {
+    display: inline-block;
+    width: 200px;
+    margin: 5px;
+    text-align: left;
+}
+input[type=text], input[type=password], select {
+    display: inline-block;
+    width: 200px;
+}
 
-    input[type=checkbox] {
-        margin-right: 190px;
-    }
-    button {
-        padding: 5px;
-        margin: 10px;
-    }
+input[type=checkbox] {
+    margin-right: 15px;
+}
+button {
+    padding: 5px;
+    margin: 10px;
+}
 
 article {
     border-radius: 15px;
@@ -85,6 +85,7 @@ h1 {
     font-style: bold;
     text-indent: 4rem;
     color: #1F3540;
+    padding-bottom: 3rem;
 }
 
 h3 {
@@ -93,6 +94,7 @@ h3 {
     font-style: regular;
     text-indent: 4rem;
     color: #1F3540;
+    padding-bottom: 2rem;
 }
 
 img {
@@ -160,6 +162,16 @@ footer {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.error {
+    margin: 1.5rem;
+    text-align: center;
+    color: #D8000C;
+	background-color: #FFBABA;
+	border: 1px solid;
+	font-size: 12px;
+	padding: .3rem;
 }
 
 </style>
