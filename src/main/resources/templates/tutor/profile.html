@@ -18,8 +18,8 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                <div class="box box3">
+            <div class="col-sm-12 col-md-3">
+                <div class="box box3" style="text-align:center;">
                     <img th:if="${tutor.imagePath != null}" th:src="'/images/' + ${tutor.imagePath}" alt="Profile Picture">
                     <img th:unless="${tutor != null && tutor.imagePath != null}" src="/images/tutorimg_ic.png" alt="Default Profile Picture">
                 </div>
@@ -27,7 +27,7 @@
             </div>
 
 
-        <div class="column col-8">
+        <div class="col-sm-12 col-md-9">
             <table class="table table--striped" style="border-collapse: collapse; width: 65%;
             margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
                 <thead>
