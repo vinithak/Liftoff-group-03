@@ -13,41 +13,32 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <article class="infobox">
+    <h1>Let us know what's on your mind!</h1>
 <form th:action = "@{/contact}" method = "post">
-<table>
-    <tr class="form-group">
-        <td>
-            <label th:for="name">Name: </label>
-            <input class="form-control" th:field="${contact.name}" />
-            <span th:errors="${contact.name}" class="error"></span>
-        </td>
-    </tr>
-    <tr class="form-group">
-        <td>
-            <label th:for="email">Email: </label>
-            <input class="form-control" th:field="${contact.email}" />
-            <span th:errors="${contact.email}" class="error"></span>
-        </td>
-    </tr>
-    <tr class="form-group">
-        <td>
-            <label th:for="message">Message: </label>
-            <textarea rows="5" th:field="${contact.message}" ></textarea>
-            <span th:errors="${contact.message}" class="error"></span>
-        </td>
-    </tr>
-    <tr class="form-group">
-        <td>
-            <input type="submit" value="Send Message" />
-        </td>
-    </tr>
-    <tr class="form-group">
-        <td>
-            <h3 th:text="${results}"></h3>
-        </td>
-    </tr>
+    <div class="container">
+        <div class="form-group row">
+            <div class="col-xs-12 col-sm-6">
+                <label th:for="name">Name: </label>
+                <input class="form-control" th:field="${contact.name}" />
+                <span th:errors="${contact.name}" class="error"></span>
+            <br>
 
-</table>
+
+                <label th:for="email">Email: </label>
+                <input class="form-control" th:field="${contact.email}" />
+                <span th:errors="${contact.email}" class="error"></span>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <label th:for="message">Message: </label>
+                <textarea rows="5" th:field="${contact.message}" ></textarea>
+                <span th:errors="${contact.message}" class="error"></span>
+            </div>
+        </div>
+        <br>
+            <p><input type="submit" value="Send Message" /></p>
+      <br>
+            <h3 th:text="${results}"></h3>
+    </div>
 </form>
 </article>
 <footer th:replace="~{fragments :: footer}"></footer>

@@ -17,9 +17,9 @@
     <h3 th:if="${tutorLoggedIn}" >Welcome, <span th:text="${tutor != null ? tutor.firstName : 'Tutor'}">!</span></h3>
 
     <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <div class="box box3">
+        <div class="row" style="text-align:center;">
+            <div class="col-sm-12 col-md-3">
+                <div class="box box3" >
                     <img th:if="${tutor.imagePath != null}" th:src="'/images/' + ${tutor.imagePath}" alt="Profile Picture">
                     <img th:unless="${tutor != null && tutor.imagePath != null}" src="/images/tutorimg_ic.png" alt="Default Profile Picture">
                 </div>
@@ -27,7 +27,7 @@
             </div>
 
 
-        <div class="column col-8">
+        <div class="col-sm-12 col-md-9">
             <table class="table table--striped" style="border-collapse: collapse; width: 65%;
             margin: 15px auto 25px auto; border: #CBCBCB; border-style: solid; border-width: thin;">
                 <thead>
@@ -82,12 +82,14 @@
     <div class="row">
 
         <!--        <div class="img-column"><img src="static/images/books.png"  alt="a book"/></div>-->
-        <th:block th:if="${studentLoggedIn}">
-            <div class="column">
-                <a th:href="@{'/tutorreviews/add/' + ${tutor.id}}">Add Tutor Review</a>
-            </div>
-        </th:block>
-        <div class="column">
+
+              <th:block th:if="${studentLoggedIn}">
+        <div class="col-12 col-md-4">
+            <a th:href="@{'/tutorreviews/add/' + ${tutor.id}}">Add Tutor Review</a>
+        </div>
+       </th:block>
+        <div class="col-12 col-md-4">
+
             <a th:href="@{'/tutorreviews/view/' + ${tutor.id}}">View Tutor Review</a>
         </div>
     </div>
@@ -101,10 +103,17 @@
     <div class="container-fluid">
 <!--            <div th:include="~{calendar :: showCalendar}"></div>-->
 
+
+
+
         <form th:action="@{/calendar}" method = "post">
+            <div class="form-row">
+                <div class="form-group col-md-4">
             <p>
                 <input type="hidden" th:value="${tutor.id}" th:attr="name='tutorId'"/>
             </p>
+
+                  <div class="form-group col-md-4">
             <label for="subjectSelected" th:text="${studentLoggedIn} ? 'Selected Student' : 'Select Student'"></label>
             <select id="studentSelected" name="studentSelected" th:disabled="${studentLoggedIn}">
                 <th:block th:if="${tutorLoggedIn}">
@@ -116,11 +125,15 @@
                 <input type="hidden" name="studentSelected" th:attr="value=${student.getId()}" th:if="${studentLoggedIn}" />
             </select>
 
+
             <label for="subjectSelected">Select Subject: </label>
             <select id="subjectSelected" name="subjectSelected">
                 <option th:each="subject : ${subjects}" th:value="${subject.courseName}" th:text="${subject.courseName}"></option>
             </select>
+                </div>
+                <br/>
             <input type="submit" value="Schedule" />
+            </div>
         </form>
     </div>
 </article>
