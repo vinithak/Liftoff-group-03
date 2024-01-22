@@ -17,7 +17,7 @@
     <h3 th:if="${studentLoggedIn}" >Welcome, <span th:text="${student != null ? student.firstName : 'Student'}">!</span></h3>
 
     <div class="container">
-        <div class="row">
+        <div class="row" style="text-align:center;">
             <div class="col-sm-12 col-md-3">
                 <div class="box box3">
                     <img th:if="${student.imagePath != null}" th:src="'/images/' + ${student.imagePath}" alt="Profile Picture">
@@ -79,6 +79,19 @@
 </article>
 
 <article class="infobox">
+
+    <div class="row">
+        <p>Browse through our list of tutors, or click search tutor if you know the name of the tutor you want to work with.</p>
+        <div class="col-12 col-md-4">
+            <a th:href="@{/list}">List All Tutors</a>
+        </div>
+        <div class="col-12 col-md-4">
+            <a th:href="@{/search}">Search Tutor</a>
+        </div>
+    </div>
+</article>
+
+<article class="infobox">
     <h3>View Schedule</h3>
     <p>View your scheduled appointments here.  To schedule, find your tutor on the list page, then on their profile, choose your
     name from the dropdown and click Schedule.</p>
@@ -93,20 +106,6 @@
         </form>
     </div>
 </article>
-
-<article class="infobox">
-
-    <div class="row">
-        <p>Browse through our list of tutors, or click search tutor if you know the name of the tutor you want to work with.</p>
-        <div class="column">
-            <a th:href="@{/list}">List All Tutors</a>
-        </div>
-        <div class="column">
-            <a th:href="@{/search}">Search Tutor</a>
-        </div>
-    </div>
-</article>
-
 
 <footer th:replace="~{fragments :: footer}"></footer>
 <script>
