@@ -1,5 +1,6 @@
 
 <style type="text/css">
+
 header {
     display: flex;
     flex-direction: row;
@@ -27,6 +28,14 @@ header {
   gap: 15px;
 }
 
+.navbar-brand {
+    font: Lato;
+    font-size: 20;
+    font-style: bold;
+    text-indent: 4rem;
+    color: #1F3540;
+}
+
 a.navlink:link, a.navlink:visited {
     color: blue;
     font-weight: 400;
@@ -35,31 +44,34 @@ a.navlink:hover, a.navlink:active {
     text-decoration: underline;
 }
 
+.ml-auto, .mx-auto {
+    margin-left: auto!important;
+}
 
-    label {
-        display: inline-block;
-        width: 200px;
-        margin: 5px;
-        text-align: left;
-    }
-    input[type=text], input[type=password], select {
-        display: inline-block;
-        width: 200px;
-    }
+label {
+    display: inline-block;
+    width: 200px;
+    margin: 5px;
+    text-align: left;
+}
+input[type=text], input[type=password], select {
+    display: inline-block;
+    width: 200px;
+}
 
-    input[type=checkbox] {
-        margin-right: 190px;
-    }
-    button {
-        padding: 5px;
-        margin: 10px;
-    }
+input[type=checkbox] {
+    margin-right: 15px;
+}
+button {
+    padding: 5px;
+    margin: 10px;
+}
 
 article {
     border-radius: 15px;
     margin: 25px 50px;
     font-family: Lato;
-        font-size: 16px;
+        font-size: 14px;
 }
 
 .row {
@@ -85,6 +97,7 @@ h1 {
     font-style: bold;
     text-indent: 4rem;
     color: #1F3540;
+    padding-bottom: 3rem;
 }
 
 h3 {
@@ -93,6 +106,7 @@ h3 {
     font-style: regular;
     text-indent: 4rem;
     color: #1F3540;
+    padding-bottom: 2rem;
 }
 
 img {
@@ -111,11 +125,11 @@ ul {
     border:width 5px;
     border-style: solid;
     border-color:#c3c3c3;
-
     padding: 25px;
     background-color: #efefef;
     font-family: Lato;
-        font-size: 14px;
+    font-size: 16px;
+    color: #181716
 }
 
 footer {
@@ -137,8 +151,8 @@ footer {
 
 
 .box img {
-  width: 75px;
-  height: 75px;
+  width: 150px;
+  height: 150px;
   text-align: center
 }
 
@@ -155,8 +169,45 @@ footer {
 .box3 img {
   object-fit: fill;
   border: 1px solid gray;
-  width: 75px;
-  height: 75px;
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error {
+    margin: 1.5rem;
+    text-align: center;
+    color: #D8000C;
+	background-color: #FFBABA;
+	border: 1px solid;
+	font-size: 12px;
+	padding: .3rem;
+}
+
+button[type=submit] {
+  background-color: #4E9BB9;
+  color: white;
+  padding: 16px 32px;
+  font-size: 20px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius 8px;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4E9BB9;
+  color: white;
+  padding: 16px 32px;
+  font-size: 20px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius 8px;
+  display: inline-block;
 }
 
 </style>

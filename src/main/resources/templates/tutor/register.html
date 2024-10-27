@@ -12,84 +12,59 @@
 
 <article class="infobox">
 <div class="form-group">
-    <h1>Register as a Tutor</h1>
-
+    <h1 class="pb-5">Register as a Tutor</h1>
+    <p></p>
     <form th:action="@{/tutor/register}" th:method="POST" th:object="${registrationFormDTO}">
 
         <div class="container">
             <div class="row">
-                <div class="form-item col-4">
+                <div class="form-item col-xs-12 col-md-6">
                     <label th:for="firstName">First Name</label>
                     <input th:field="${registrationFormDTO.firstName}"/>
                     <p class="error" th:errors="${registrationFormDTO.firstName}"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="form-item col-4">
+                <br>
                     <label th:for="lastName">Last Name</label>
                     <input th:field="${registrationFormDTO.lastName}"/>
                     <p class="error" th:errors="${registrationFormDTO.lastName}"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="form-item col-4">
+               <br>
                     <label th:for="email">Email</label>
                     <input th:field="${registrationFormDTO.email}"/>
                     <p class="error" th:errors="${registrationFormDTO.email}"></p>
                 </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="form-item col-4">
+                <div class="form-item col-xs-12 col-md-6">
                     <label th:for="password">Enter password</label>
                     <input th:field="${registrationFormDTO.password}" type="password"/>
                     <p class="error" th:errors="${registrationFormDTO.password}"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="form-item col-4">
+                <br>
                     <label th:for="verifyPassword">Re-enter password</label>
                     <input th:field="${registrationFormDTO.verifyPassword}" type="password"/>
                     <p class="error" th:errors="${registrationFormDTO.verifyPassword}"></p>
                 </div>
             </div>
         </div>
+
         <p></p>
 
         <div class="container">
             <div class="row">
-                <div class="form-item col-6">
+                <div class="form-item col-xs-12 col-md-6">
                     <label>Qualifications: </label>
-                        <textarea rows="5" cols="25" th:field="${registrationFormDTO.qualifications}"></textarea>
+                        <textarea rows="4" cols="25" th:field="${registrationFormDTO.qualifications}"></textarea>
+                </div>
+                <div class="form-item col-xs-12 col-md-6">
+                    <label th:for="subjects">Subjects:</label>
+                    <br>
+                    <th:block class="form-check-input" th:each="subject : ${subjects}">
+                        <div class="form-check">
+                        <input type="checkbox" name="subjects" th:value="${subject.id}">
+                        <label class="form-check-label" th:text="${subject.courseName}"></label>
+                        </div>
+                        <br>
+                    </th:block>
                 </div>
             </div>
         </div>
         <p></p>
-
-        <div class="container form-check">
-            <div class="row">
-                <div class="form-item col-6">
-            <label th:for="subjects">Subjects:</label>
-                    <br>
-            <th:block class="form-check-input" th:each="subject : ${subjects}">
-                <input type="checkbox" name="subjects" th:value="${subject.id}">
-                <label class="form-check-label" th:text="${subject.courseName}"></label>
-                <br>
-            </th:block>
-                </div>
-            </div>
-        </div>
 
 
         <button type="submit">Register</button>
